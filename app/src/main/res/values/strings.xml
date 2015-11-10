@@ -3,4 +3,8 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <string name="on_boarding_1">We are going to start sensing your surroundings</string>
+    <string name="on_boarding_2">We have found some problems around your area</string>
+
 </resources>
