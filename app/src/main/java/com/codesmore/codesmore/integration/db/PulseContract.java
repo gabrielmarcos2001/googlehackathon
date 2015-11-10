@@ -30,6 +30,16 @@ public class PulseContract {
             public static final String USERNAME = "username";
             public static final String PASSWORD = "password";
         }
+
+        public static class Builders {
+
+            public static Uri buildForAccountId(long accountId){
+                return Account.CONTENT_URI
+                    .buildUpon()
+                    .appendPath(Long.toString(accountId))
+                    .build();
+            }
+        }
     }
 
     /**
@@ -150,6 +160,13 @@ public class PulseContract {
                         add(cv4);
                     }
                 };
+            }
+
+            public static Uri buildForCategoryId(long categoryId){
+                return IssueCategory.CONTENT_URI
+                    .buildUpon()
+                    .appendPath(Long.toString(categoryId))
+                    .build();
             }
         }
     }

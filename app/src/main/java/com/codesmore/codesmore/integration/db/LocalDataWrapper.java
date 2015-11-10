@@ -100,17 +100,76 @@ public class LocalDataWrapper implements DataWrapper {
     }
 
     @Override
+    public void insertAccount(Account account) {
+        //  TODO
+    }
+
+    @Override
     public Issue getIssue(Long id) {
-        return null;
+        if (id == null){
+            return null;
+        }
+
+        Cursor cursor = contentResolver.query(
+            PulseContract.Issue.Builders.buildForIssueId(id),
+            null,
+            null,
+            null,
+            null
+        );
+
+        if (cursor == null){
+            return null;
+        }
+
+        ContentValues values = issueConverter.convert(cursor);
+        Issue issue = issueConverter.convert(values);
+        return issue;
     }
 
     @Override
     public Account getAccount(Long id) {
-        return null;
+        if (id == null){
+            return null;
+        }
+
+        Cursor cursor = contentResolver.query(
+            PulseContract.Account.Builders.buildForAccountId(id),
+            null,
+            null,
+            null,
+            null
+        );
+
+        if (cursor == null){
+            return null;
+        }
+
+        ContentValues values = accountConverter.convert(cursor);
+        Account account = accountConverter.convert(values);
+        return account;
     }
 
     @Override
     public Category getCategory(Long id) {
-        return null;
+        if (id == null){
+            return null;
+        }
+
+        Cursor cursor = contentResolver.query(
+            PulseContract.IssueCategory.Builders.buildForCategoryId(id),
+            null,
+            null,
+            null,
+            null
+        );
+
+        if (cursor == null){
+            return null;
+        }
+
+        ContentValues values = categoryConverter.convert(cursor);
+        Category category = categoryConverter.convert(values);
+        return category;
     }
 }

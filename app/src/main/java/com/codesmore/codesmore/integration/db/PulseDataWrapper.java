@@ -46,6 +46,11 @@ public class PulseDataWrapper implements DataWrapper {
     }
 
     @Override
+    public void insertAccount(Account account) {
+        localDataWrapper.insertAccount(account);
+    }
+
+    @Override
     public Issue getIssue(Long id) {
         return localDataWrapper.getIssue(id);
     }
