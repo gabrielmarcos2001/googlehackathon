@@ -1,16 +1,34 @@
 package com.codesmore.codesmore;
 
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.codesmore.codesmore.ui.MainFragment;
+
 public class MainActivity extends AppCompatActivity {
 
+    private static final String FRAGMENT_TAG = "MainFragment";
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+        setContentView(R.layout.activity_container);
+
+        Fragment fragmentMain = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
+
+        if (fragmentMain == null) {
+            fragmentMain = MainFragment.newInstance();
+        }
+
+        // Updates the main content by replacing fragments
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, fragmentMain, FRAGMENT_TAG).commit();
     }
 
     @Override
