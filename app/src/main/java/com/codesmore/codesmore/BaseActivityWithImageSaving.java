@@ -22,6 +22,8 @@ public abstract class BaseActivityWithImageSaving extends BaseActivity {
     public abstract void onImageCaptured(Bitmap captured);
 
     private static final int REQUEST_CODE_CHOOSE_IMAGE = 22100;
+    private static final String KEY_IMAGE_URI = "imageUri";
+    private static final String KEY_IMAGE_RAW_DATA = "imageRawData";
 
     private Uri mImageUri;
     private byte[] mImageByteData;
@@ -46,15 +48,15 @@ public abstract class BaseActivityWithImageSaving extends BaseActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable("imageUri", mImageUri);
-        outState.putByteArray("imageRawData", mImageByteData);
+        outState.putParcelable(KEY_IMAGE_URI, mImageUri);
+        outState.putByteArray(KEY_IMAGE_RAW_DATA, mImageByteData);
     }
 
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        mImageUri = savedInstanceState.getParcelable("imageUri");
-        mImageByteData = savedInstanceState.getByteArray("imageRawData");
+        mImageUri = savedInstanceState.getParcelable(KEY_IMAGE_URI);
+        mImageByteData = savedInstanceState.getByteArray(KEY_IMAGE_RAW_DATA);
 
         if (mImageByteData != null) {
             restoreImageFromByteData();
@@ -95,10 +97,6 @@ public abstract class BaseActivityWithImageSaving extends BaseActivity {
         if (image != null) {
             onImageCaptured(image);
         }
-    }
-
-    public byte[] getRawImageData() {
-        return mImageByteData;
     }
 
 }
