@@ -49,7 +49,7 @@ public class LocalDataWrapper implements DataWrapper {
     }
 
     @Override
-    public List<Issue> getResolvedIssues() {
+    public List<Issue> getResolvedIssues(double lat, double lon) {
         Cursor cursor = contentResolver.query(
             PulseContract.Issue.CONTENT_URI,
             null,

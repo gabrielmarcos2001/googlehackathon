@@ -36,12 +36,13 @@ public class CompletedPresenterImpl implements CompletedPresenter, DataFetchedLi
 
     @Override
     public void onLocationAvailable(Location location) {
-        //TODO: Get fixed issues by location
-        //mDataWrapper.get(lat, lon);
+        //Triggers data load when a location is available
+        mDataWrapper.getResolvedIssues(location.getLatitude(), location.getLongitude());
     }
 
     @Override
     public void onCompletedIssuesLoaded(List<Issue> issues) {
+        //Sets the main view when problems become loaded
         mView.onProblemsLoaded(issues);
     }
 }
