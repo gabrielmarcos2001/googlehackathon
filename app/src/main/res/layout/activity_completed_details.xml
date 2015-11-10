@@ -9,4 +9,7 @@
     tools:context="com.codesmore.codesmore.ui.completeddetails.CompletedDetailsActivity"
     android:orientation="vertical">
 
+    <com.google.android.gms.maps.MapView android:id="@+id/mapview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
 </LinearLayout>
