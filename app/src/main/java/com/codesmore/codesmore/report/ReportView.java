@@ -9,5 +9,7 @@ import java.util.List;
  */
 public interface ReportView {
 
-    void showCategoriesChoser(List<Category> categories);
+    void showCategoriesChooser(List<Category> categories);
+
+    void onDataSaved();
 }

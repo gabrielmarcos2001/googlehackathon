@@ -1,30 +1,31 @@
 package com.codesmore.codesmore.report;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.codesmore.codesmore.BaseActivity;
 import com.codesmore.codesmore.R;
+import com.codesmore.codesmore.mock.MockDataWrapper;
 import com.codesmore.codesmore.model.pojo.Category;
 
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnItemClick;
+import butterknife.OnItemSelected;
 
-/**
- * Created by demouser on 11/9/15.
- */
 public class ReportActivity extends BaseActivity implements ReportView {
 
     @Bind(R.id.report_category)
     Spinner mCategories;
 
-
     @Bind(R.id.report_description)
-    TextView mDescription;
+    EditText mDescription;
 
     private ReportPresenter mPresenter;
 
@@ -32,30 +33,44 @@ public class ReportActivity extends BaseActivity implements ReportView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
+        ButterKnife.bind(this);
 
-        mPresenter = new ReportPresenterImpl(this);
-        mPresenter.requestCategoriesChoser();
+//        mCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                Category category = (Category) parent.getItemAtPosition(position);
+//                mPresenter.onCategoryClicked(category);
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
 
+        mPresenter = new ReportPresenterImpl(this, new MockDataWrapper());
+        mPresenter.requestCategoriesChooser();
     }
 
-    @OnItemClick(R.id.report_category)
-    public void onCategorySelected() {
-
+    @OnItemSelected(R.id.report_category)
+    public void categorySelected(AdapterView<?> parent, View view, int position, long id) {
+        Category category = (Category) parent.getItemAtPosition(position);
+        mPresenter.onCategoryClicked(category);
     }
 
     @OnClick(R.id.report_save_btn)
     public void save() {
-        throw new RuntimeException("Implement me!!!");
-    }
-
-
-    @OnClick(R.id.report_category)
-    public void categoryClicked() {
-        mPresenter.requestCategoriesChoser();
+        mPresenter.saveData(mDescription.getText().toString());
     }
 
     @Override
-    public void showCategoriesChoser(List<Category> categories) {
+    public void showCategoriesChooser(List<Category> categories) {
+        ArrayAdapter<Category> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, categories);
+        mCategories.setAdapter(adapter);
+    }
 
+    @Override
+    public void onDataSaved() {
+        finish();
     }
 }

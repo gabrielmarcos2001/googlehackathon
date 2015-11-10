@@ -8,6 +8,10 @@ import android.database.Cursor;
  */
 public class Issue {
 
+    public Issue() {
+
+    }
+
     public static Issue from(Cursor cursor) {
         throw new RuntimeException("Implement me!!!");
     }
@@ -30,5 +34,13 @@ public class Issue {
 
     public String getDescription() {
         return description;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

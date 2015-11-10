@@ -6,9 +6,8 @@ import com.codesmore.codesmore.model.pojo.Category;
  * Created by demouser on 11/9/15.
  */
 public interface ReportPresenter {
-
-    void requestCategoriesChoser();
-    void onCategoryClicked(String currentCategory);
+    void requestCategoriesChooser();
+    void onCategoryClicked(Category category);
     void onCameraButtonClicked();
-    void saveData(Category category, String description);
+    void saveData(String description);
 }
