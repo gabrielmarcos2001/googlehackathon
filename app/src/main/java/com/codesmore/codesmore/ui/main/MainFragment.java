@@ -15,12 +15,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.codesmore.codesmore.R;
-
-import com.codesmore.codesmore.utils.UtilsUnitsConverter;
-import com.codesmore.codesmore.ui.bubbleviews.ViewBubblesAdapter;
 import com.codesmore.codesmore.ui.bubbleviews.ViewAnimatedBackground;
+import com.codesmore.codesmore.ui.bubbleviews.ViewBubblesAdapter;
 import com.codesmore.codesmore.ui.bubbleviews.ViewPulseButton;
-
 import com.codesmore.codesmore.utils.UnitsConverter;
 
 /**
@@ -118,7 +115,7 @@ public class MainFragment extends Fragment {
             public void run() {
 
                 if (isAdded()) {
-                    TranslateAnimation rePositionText = new TranslateAnimation(0, 0, 0, UtilsUnitsConverter.convertDpToPixel(-170, getContext()));
+                    TranslateAnimation rePositionText = new TranslateAnimation(0, 0, 0, UnitsConverter.convertDpToPixel(-170, getContext()));
                     rePositionText.setDuration(1000);
                     rePositionText.setFillAfter(true);
                     rePositionText.setInterpolator(new AccelerateDecelerateInterpolator());
