@@ -1,4 +1,4 @@
-package com.codesmore.codesmore.report;
+package com.codesmore.codesmore.ui.report;
 
 import com.codesmore.codesmore.model.pojo.Category;
 

@@ -1,4 +1,4 @@
-package com.codesmore.codesmore.completed;
+package com.codesmore.codesmore.ui.completed;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

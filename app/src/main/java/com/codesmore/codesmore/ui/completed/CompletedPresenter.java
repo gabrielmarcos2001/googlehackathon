@@ -1,4 +1,4 @@
-package com.codesmore.codesmore.completed;
+package com.codesmore.codesmore.ui.completed;
 
 /**
  * Created by demouser on 11/9/15.

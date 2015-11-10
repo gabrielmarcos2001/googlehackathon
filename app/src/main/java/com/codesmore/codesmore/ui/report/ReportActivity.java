@@ -1,4 +1,4 @@
-package com.codesmore.codesmore.report;
+package com.codesmore.codesmore.ui.report;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;

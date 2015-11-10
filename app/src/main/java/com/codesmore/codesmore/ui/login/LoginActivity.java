@@ -1,4 +1,4 @@
-package com.codesmore.codesmore.login;
+package com.codesmore.codesmore.ui.login;
 
 
 import android.content.Intent;
