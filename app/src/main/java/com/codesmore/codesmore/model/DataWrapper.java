@@ -11,7 +11,6 @@ import java.util.List;
 public interface DataWrapper {
 
     List<Category> getCategories();
-    void saveIssue(Issue issue);
     List<Issue> getResolvedIssues();
     void insertIssue(Issue issue);
     

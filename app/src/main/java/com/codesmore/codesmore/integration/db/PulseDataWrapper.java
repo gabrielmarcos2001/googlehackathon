@@ -45,11 +45,6 @@ public class PulseDataWrapper implements DataWrapper {
     }
 
     @Override
-    public void saveIssue(Issue issue) {
-        
-    }
-
-    @Override
     public List<Issue> getResolvedIssues() {
         return null;
     }
@@ -59,5 +54,7 @@ public class PulseDataWrapper implements DataWrapper {
         if (issue == null){
             throw new IllegalArgumentException("Issue is required.");
         }
+
+        contentResolver.insert(PulseContract.Issue.CONTENT_URI, issue.toContentValues());
     }
 }
