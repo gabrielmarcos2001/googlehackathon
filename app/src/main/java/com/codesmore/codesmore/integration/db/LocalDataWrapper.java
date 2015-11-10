@@ -4,6 +4,7 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.database.Cursor;
 
+import com.codesmore.codesmore.model.DataFetchedListener;
 import com.codesmore.codesmore.model.DataWrapper;
 import com.codesmore.codesmore.model.pojo.Category;
 import com.codesmore.codesmore.model.pojo.Issue;
@@ -49,7 +50,7 @@ public class LocalDataWrapper implements DataWrapper {
     }
 
     @Override
-    public List<Issue> getResolvedIssues(double lat, double lon) {
+    public void getResolvedIssues(double lat, double lon, DataFetchedListener listener) {
         Cursor cursor = contentResolver.query(
             PulseContract.Issue.CONTENT_URI,
             null,
@@ -66,7 +67,8 @@ public class LocalDataWrapper implements DataWrapper {
                 issues.add(issue);
             }
         }
-        return issues;
+        listener.onCompletedIssuesLoaded(issues);
+        //return issues;
     }
 
     @Override

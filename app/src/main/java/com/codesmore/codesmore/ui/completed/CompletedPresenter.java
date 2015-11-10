@@ -13,4 +13,6 @@ public interface CompletedPresenter {
     void onProblemSelected(long issueId);
 
     void onLocationAvailable(Location location);
+
+    void onNoCompleteItems();
 }

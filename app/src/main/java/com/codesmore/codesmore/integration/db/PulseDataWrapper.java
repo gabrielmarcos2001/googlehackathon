@@ -42,8 +42,8 @@ public class PulseDataWrapper implements DataWrapper {
 
 
     @Override
-    public List<Issue> getResolvedIssues(double lat, double lon) {
-        return localDataWrapper.getResolvedIssues(lat, lon);
+    public void getResolvedIssues(double lat, double lon, DataFetchedListener listener) {
+        localDataWrapper.getResolvedIssues(lat, lon, listener);
     }
 
     @Override
