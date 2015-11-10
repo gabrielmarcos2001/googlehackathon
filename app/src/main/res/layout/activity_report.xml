@@ -7,13 +7,68 @@
     <Spinner
         android:id="@+id/report_category"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:hint="@string/issue_category"/>
+
+    <EditText
+        android:id="@+id/report_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/issue_title" />
 
     <EditText
         android:id="@+id/report_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/description" />
+
+    <EditText
+        android:id="@+id/report_creator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/issue_creator" />
+
+    <EditText
+        android:id="@+id/report_fixer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/issue_fixer" />
+
+    <Spinner
+        android:id="@+id/report_priority"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/issue_priority" />
+
+    <Button
+        android:id="@+id/report_upvotes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/issue_upvotes" />
+
+    <Button
+        android:id="@+id/report_downvotes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/issue_downvotes" />
+
+    <Switch
+        android:id="@+id/report_fixedInd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/issue_fixedInd" />
+
+    <EditText
+        android:id="@+id/report_createDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/issue_createDate" />
+
+    <EditText
+        android:id="@+id/report_fixedDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/issue_fixedDate" />
 
     <ImageView
         android:id="@+id/report_image"

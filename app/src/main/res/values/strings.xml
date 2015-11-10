@@ -12,6 +12,16 @@
     <string name="choose_picture_title">Choose picture</string>
     <string name="take_picture">Take picture</string>
     <string name="cd_issue_image">Image documenting the issue</string>
+    <string name="issue_title">Issue Title</string>
+    <string name="issue_category">Issue Category</string>
+    <string name="issue_creator">Issue Creator</string>
+    <string name="issue_fixer">Issue Fixer</string>
+    <string name="issue_priority">Issue Priority</string>
+    <string name="issue_upvotes">Issue Upvotes</string>
+    <string name="issue_downvotes">Issue Downvotes</string>
+    <string name="issue_createDate">Issue Create Date</string>
+    <string name="issue_fixedDate">Issue Fixed Date</string>
+    <string name="issue_fixedInd">Issue Fixed Indicator</string>
 
     <string name="welcome_message">Welcome to</string>
     <string name="slogan">A different way to Sense your surroundings</string>

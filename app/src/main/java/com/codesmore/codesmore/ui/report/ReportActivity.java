@@ -5,6 +5,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -32,8 +33,29 @@ public class ReportActivity extends BaseActivityWithImageSaving implements Repor
     @Bind(R.id.report_category)
     Spinner mCategories;
 
+    @Bind(R.id.report_title)
+    EditText mTitle;
+
     @Bind(R.id.report_description)
     EditText mDescription;
+
+    @Bind(R.id.report_creator)
+    EditText mCreator;
+
+    @Bind(R.id.report_fixer)
+    EditText mFixer;
+
+    @Bind(R.id.report_priority)
+    Spinner mPriority;
+
+    @Bind(R.id.report_upvotes)
+    Button mUpvotes;
+
+    @Bind(R.id.report_downvotes)
+    Button mDownvotes;
+
+    @Bind(R.id.report_fixedInd)
+    Button mFixedInd;
 
     @Bind(R.id.report_image)
     ImageView mImage;

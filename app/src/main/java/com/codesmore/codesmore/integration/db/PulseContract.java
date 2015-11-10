@@ -42,6 +42,7 @@ public class PulseContract {
         public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + Issue.TABLE_NAME;
 
         public static class Columns {
+            public static final String TITLE = "title";
             public static final String DESCRIPTION = "description";
             public static final String CREATOR_ID = "creator_id";
             public static final String FIXER_ID = "fixer_id";
