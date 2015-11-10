@@ -37,7 +37,31 @@ public class WebService implements DataWrapper {
 
     @Override
     public List<Issue> getResolvedIssues(double lat, double lon) {
-        return null;
+        return getIssues(lat, lon, true);
+    }
+
+    @Override
+    public List<Issue> getUnresolvedIssues(double lat, double lon) {
+        return getIssues(lat, lon, false);
+    }
+
+    private List<Issue> getIssues(double lat, double lon, boolean resolved) {
+        List<Issue> issues = new ArrayList<>();
+        ParseQuery<ParseIssue> query = ParseQuery.getQuery("Issue");
+        query.whereEqualTo("fixed_indicator", resolved);
+        try {
+            List<ParseIssue> parseIssues = query.find();
+
+            // TODO: 11/10/2015 proper conversion between Parse -> DB models
+            issues = new ArrayList<>(parseIssues.size());
+            for (ParseIssue pi : parseIssues) {
+                issues.add(new Issue(pi));
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return issues;
     }
 
     @Override
@@ -49,6 +73,11 @@ public class WebService implements DataWrapper {
         } catch (ParseException ignored) {
             // TODO: 11/10/2015 error handling
         }
+    }
+
+    @Override
+    public void insertAccount(Account account) {
+
     }
 
     @Override
@@ -64,5 +93,25 @@ public class WebService implements DataWrapper {
     @Override
     public Category getCategory(Long id) {
         return null;
+    }
+
+    @Override
+    public void upvote(Issue issue, Account upvoter) {
+
+    }
+
+    @Override
+    public void downvote(Issue issue) {
+
+    }
+
+    @Override
+    public List<Issue> getCreatedOrUpvotedIssuesFor(Account owner) {
+        return null;
+    }
+
+    @Override
+    public void resolveIssue(Issue issue, Account resolver) {
+
     }
 }

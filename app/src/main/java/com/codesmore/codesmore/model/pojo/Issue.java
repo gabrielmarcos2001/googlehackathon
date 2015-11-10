@@ -4,12 +4,22 @@ import android.graphics.Bitmap;
 import android.location.Location;
 import android.support.annotation.NonNull;
 
+import com.codesmore.codesmore.integration.backend.pojo.ParseIssue;
+
 import java.util.Date;
 
 /**
  * Created by demouser on 11/9/15.
  */
 public class Issue {
+
+    public Issue(ParseIssue parseIssue) {
+        this.title = parseIssue.getTitle();
+        this.description = parseIssue.getDescription();
+        this.image = parseIssue.getImage();
+//        this.parseId = parseIssue.getObjectId();
+        this.latitude
+    }
 
     public Issue() {
     }
