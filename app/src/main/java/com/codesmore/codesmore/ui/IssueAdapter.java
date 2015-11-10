@@ -45,8 +45,11 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.IssueHolder>
 
         //TODO: holder.issueIcon.setImageDrawable();
         holder.issueDescription.setText(issue.getDescription());
-        //TODO: holder.issueResolvedDate.setText();
-
+        holder.issueResolvedDate.setText("Resolved: " + issue.getFixedDate().toString());
+        holder.issueTitle.setText(issue.getTitle());
+        holder.downVotes.setText(issue.getDownvotes());
+        holder.upVotes.setText(issue.getUpvotes());
+        holder.productId = issue.getId();
     }
 
     @Override
@@ -64,15 +67,20 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.IssueHolder>
 
         long productId;
         ImageView issueIcon;
+        TextView issueTitle;
         TextView issueDescription;
         TextView issueResolvedDate;
+        TextView upVotes;
+        TextView downVotes;
 
         public IssueHolder(View view) {
             super(view);
             issueIcon = (ImageView) view.findViewById(R.id.item_issue_icon);
             issueDescription = (TextView) view.findViewById(R.id.item_issue_description);
             issueResolvedDate = (TextView) view.findViewById(R.id.item_issue_resolved_date);
-
+            issueTitle = (TextView) view.findViewById(R.id.item_issue_title);
+            upVotes = (TextView) view.findViewById(R.id.item_up_votes);
+            downVotes = (TextView) view.findViewById(R.id.item_down_votes);
             view.setOnClickListener(this);
         }
 
