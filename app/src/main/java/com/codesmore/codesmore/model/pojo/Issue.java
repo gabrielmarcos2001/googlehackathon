@@ -2,11 +2,14 @@ package com.codesmore.codesmore.model.pojo;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 
 /**
  * Created by demouser on 11/9/15.
  */
 public class Issue {
+
+    private Bitmap image;
 
     public Issue() {
 
@@ -42,5 +45,9 @@ public class Issue {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setImage(Bitmap image) {
+        this.image = image;
     }
 }

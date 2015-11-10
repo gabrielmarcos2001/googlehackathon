@@ -1,5 +1,7 @@
 package com.codesmore.codesmore.report;
 
+import android.graphics.Bitmap;
+
 import com.codesmore.codesmore.model.pojo.Category;
 
 /**
@@ -8,6 +10,7 @@ import com.codesmore.codesmore.model.pojo.Category;
 public interface ReportPresenter {
     void requestCategoriesChooser();
     void onCategoryClicked(Category category);
-    void onCameraButtonClicked();
     void saveData(String description);
+
+    void onImageCaptured(Bitmap image);
 }

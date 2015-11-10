@@ -1,6 +1,6 @@
 package com.codesmore.codesmore.report;
 
-import android.util.Log;
+import android.graphics.Bitmap;
 
 import com.codesmore.codesmore.model.DataWrapper;
 import com.codesmore.codesmore.model.pojo.Category;
@@ -27,7 +27,6 @@ public class ReportPresenterImpl implements ReportPresenter {
     @Override
     public void requestCategoriesChooser() {
         List<Category> categories = mDataWrapper.getCategories();
-        Log.d("vesko", "requestCategoriesChooser() called with: " + categories.size());
         mView.showCategoriesChooser(categories);
     }
 
@@ -37,15 +36,15 @@ public class ReportPresenterImpl implements ReportPresenter {
     }
 
     @Override
-    public void onCameraButtonClicked() {
-
-    }
-
-    @Override
     public void saveData(String description) {
         mCurrentIssue.setDescription(description);
         mDataWrapper.saveReport(mCurrentIssue);
         mView.onDataSaved();
+    }
+
+    @Override
+    public void onImageCaptured(Bitmap image) {
+        mCurrentIssue.setImage(image);
     }
 
 

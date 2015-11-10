@@ -1,7 +1,5 @@
 package com.codesmore.codesmore.mock;
 
-import android.util.Log;
-
 import com.codesmore.codesmore.model.DataWrapper;
 import com.codesmore.codesmore.model.pojo.Category;
 import com.codesmore.codesmore.model.pojo.Issue;
@@ -23,7 +21,6 @@ public class MockDataWrapper implements DataWrapper {
         result.add(c2);
         result.add(c3);
 
-        Log.d("vesko", "getCategories() called with: " + "");
         return result;
     }
 
