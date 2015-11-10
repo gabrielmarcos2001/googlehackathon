@@ -10,7 +10,6 @@ import java.util.List;
 
 public interface CompletedView {
 
-    //Loads
     void onProblemsLoaded(List<Issue> issues);
 
 }
