@@ -1,6 +1,7 @@
 package com.codesmore.codesmore.ui.report;
 
 import android.graphics.Bitmap;
+import android.location.Location;
 import android.os.Bundle;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,6 +13,9 @@ import com.codesmore.codesmore.BaseActivityWithImageSaving;
 import com.codesmore.codesmore.R;
 import com.codesmore.codesmore.integration.db.PulseDataWrapper;
 import com.codesmore.codesmore.model.pojo.Category;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 
 import java.util.List;
 
@@ -20,8 +24,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnItemSelected;
 
-public class ReportActivity extends BaseActivityWithImageSaving implements ReportView {
+public class ReportActivity extends BaseActivityWithImageSaving implements ReportView,
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
+    private static final String TAG = "codes";
+    
     @Bind(R.id.report_category)
     Spinner mCategories;
 
@@ -31,6 +38,7 @@ public class ReportActivity extends BaseActivityWithImageSaving implements Repor
     @Bind(R.id.report_image)
     ImageView mImage;
 
+    private GoogleApiClient mGoogleApiClient;
     private ReportPresenter mPresenter;
 
     @Override
@@ -39,8 +47,19 @@ public class ReportActivity extends BaseActivityWithImageSaving implements Repor
         setContentView(R.layout.activity_report);
         ButterKnife.bind(this);
 
+        connectGoogleApiClient();
+
         mPresenter = new ReportPresenterImpl(this, new PulseDataWrapper(getContentResolver()));
         mPresenter.requestCategoriesChooser();
+    }
+
+    private synchronized void connectGoogleApiClient() {
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+        mGoogleApiClient.connect();
     }
 
     @SuppressWarnings("unused")
@@ -77,5 +96,26 @@ public class ReportActivity extends BaseActivityWithImageSaving implements Repor
     public void onImageCaptured(Bitmap image) {
         mImage.setImageBitmap(image);
         mPresenter.onImageCaptured(image);
+    }
+
+    @Override
+    public void onConnected(Bundle connectionHint) {
+        Location location =
+                LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+
+        if (location != null) {
+            mPresenter.onLocationAvailable(location);
+        }
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        // We don't really care about it the moment.
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        // Oh well, bad things happen ...
+        // Won't block a user from creating a report just because there's no location yet.
     }
 }

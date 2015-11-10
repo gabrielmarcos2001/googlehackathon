@@ -1,6 +1,8 @@
 package com.codesmore.codesmore.ui.report;
 
 import android.graphics.Bitmap;
+import android.location.Location;
+import android.support.annotation.NonNull;
 
 import com.codesmore.codesmore.model.DataWrapper;
 import com.codesmore.codesmore.model.pojo.Category;
@@ -42,6 +44,11 @@ public class ReportPresenterImpl implements ReportPresenter {
     @Override
     public void onImageCaptured(Bitmap image) {
         mCurrentIssue.setImage(image);
+    }
+
+    @Override
+    public void onLocationAvailable(@NonNull Location location) {
+        mCurrentIssue.setLocation(location);
     }
 
 
