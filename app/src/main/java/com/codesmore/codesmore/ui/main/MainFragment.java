@@ -1,5 +1,6 @@
 package com.codesmore.codesmore.ui.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -20,6 +21,7 @@ import com.codesmore.codesmore.ui.bubbleviews.ViewAnimatedBackground;
 import com.codesmore.codesmore.ui.bubbleviews.ViewBubble;
 import com.codesmore.codesmore.ui.bubbleviews.ViewBubblesAdapter;
 import com.codesmore.codesmore.ui.bubbleviews.ViewPulseButton;
+import com.codesmore.codesmore.ui.report.ReportActivity;
 import com.codesmore.codesmore.utils.UnitsConverter;
 
 import java.util.List;
@@ -57,7 +59,7 @@ public class MainFragment extends Fragment implements MainView {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mPresenter = new MainPresenterImpl(this);
+        mPresenter = new MainPresenterImpl(this,null);
     }
 
     @Nullable
@@ -83,6 +85,19 @@ public class MainFragment extends Fragment implements MainView {
 
         mPulseButton.setVisibility(View.GONE);
         mViewsAdapter.setVisibility(View.GONE);
+
+        mPulseButton.setmInterface(new ViewPulseButton.PulseButtonActions() {
+            @Override
+            public void onReportClicked() {
+                Intent i = new Intent(getActivity(), ReportActivity.class);
+                startActivity(i);
+            }
+
+            @Override
+            public void onContextualIssueClicked() {
+
+            }
+        });
 
         mViewsAdapter.setmInterface(new ViewBubblesAdapter.BubblesInterface() {
             @Override
