@@ -1,6 +1,6 @@
 package com.codesmore.codesmore.completed;
 
-import com.codesmore.codesmore.model.pojo.Report;
+import com.codesmore.codesmore.model.pojo.Issue;
 import java.util.List;
 
 /**
