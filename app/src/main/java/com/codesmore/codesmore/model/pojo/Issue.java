@@ -22,7 +22,27 @@ public class Issue {
     }
 
     public static Issue from(ContentValues values) {
-        throw new RuntimeException("Implement me!!!");
+        if (values == null){
+            return null;
+        }
+
+        Issue issue = new Issue();
+        issue.setId(values.getAsLong(_ID));
+        //image
+        issue.setLatitude(values.getAsDouble(Columns.LATITUDE));
+        issue.setLongtitude(values.getAsDouble(Columns.LONGITUDE));
+        issue.setTitle(values.getAsString(Columns.TITLE));
+        //category
+        issue.setDescription(values.getAsString(Columns.DESCRIPTION));
+        // creator
+        // fixer
+        issue.setPriority(values.getAsInteger(Columns.PRIORITY));
+        issue.setUpvotes(values.getAsInteger(Columns.UPVOTES));
+        issue.setDownvotes(values.getAsInteger(Columns.DOWNVOTES));
+        issue.setFixedInd(values.getAsBoolean(Columns.FIXED_IND));
+//        issue.setCreateDate(values.getAsLong(Columns.CREATE_DATE));
+//        issue.setFixedDate(values.getAsLong(Columns.FIX_DATE));
+        return issue;
     }
 
     private Long id;

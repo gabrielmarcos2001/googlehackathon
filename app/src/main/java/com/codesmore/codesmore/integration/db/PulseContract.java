@@ -62,6 +62,9 @@ public class PulseContract {
 
             public static String BY_ISSUE_ID_CONSTRAINT =
                 Issue.TABLE_NAME + "." + Issue._ID + " = ?";
+
+            public static String BY_RESOLVED_STATUS =
+                Issue.TABLE_NAME + "." + Columns.FIXED_IND + " = ?";
         }
 
         public static class Builders {

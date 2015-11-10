@@ -29,7 +29,13 @@ public class LocalDataWrapper implements DataWrapper {
 
     @Override
     public List<Category> getCategories() {
-        Cursor cursor = contentResolver.query(PulseContract.IssueCategory.CONTENT_URI, null, null, null, null);
+        Cursor cursor = contentResolver.query(
+            PulseContract.IssueCategory.CONTENT_URI,
+            null,
+            null,
+            null,
+            null
+        );
 
         List<Category> categories = new ArrayList<>();
         if (cursor != null){
@@ -44,7 +50,23 @@ public class LocalDataWrapper implements DataWrapper {
 
     @Override
     public List<Issue> getResolvedIssues() {
-        return null;
+        Cursor cursor = contentResolver.query(
+            PulseContract.Issue.CONTENT_URI,
+            null,
+            PulseContract.Issue.Constraints.BY_RESOLVED_STATUS,
+            new String[] { Integer.toString(1) },
+            PulseContract.Issue.TABLE_NAME + "." + PulseContract.Issue.Columns.UPVOTES + " DESC"
+        );
+
+        List<Issue> issues = new ArrayList<>();
+        if (cursor != null){
+            while(cursor.moveToNext()){
+                ContentValues values = getContentValuesFrom(cursor);
+                Issue issue = Issue.from(values);
+                issues.add(issue);
+            }
+        }
+        return issues;
     }
 
     @Override
