@@ -3,6 +3,7 @@ package com.codesmore.codesmore.ui.completed;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
@@ -45,6 +46,16 @@ public class CompletedActivity extends BaseActivity implements CompletedView, Is
 
     }
 
+
+    private void initViews(){
+        mCompletedItems = (RecyclerView) findViewById(R.id.completed_items_recycler);
+        mAdapter = new IssueAdapter(this);
+        mCompletedItems.setAdapter(mAdapter);
+        mCompletedItems.setLayoutManager(new LinearLayoutManager(this));
+
+    }
+
+
     private synchronized void connectGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -52,14 +63,6 @@ public class CompletedActivity extends BaseActivity implements CompletedView, Is
                 .addApi(LocationServices.API)
                 .build();
         mGoogleApiClient.connect();
-    }
-
-
-    private void initViews(){
-        mCompletedItems = (RecyclerView) findViewById(R.id.completed_items_recycler);
-        mAdapter = new IssueAdapter(this);
-        mCompletedItems.setAdapter(mAdapter);
-
     }
 
     @Override

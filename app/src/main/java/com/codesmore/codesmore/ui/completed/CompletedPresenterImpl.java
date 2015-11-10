@@ -4,7 +4,6 @@ import android.location.Location;
 import android.util.Log;
 
 import com.codesmore.codesmore.integration.db.PulseDataWrapper;
-import com.codesmore.codesmore.model.DataFetchedListener;
 import com.codesmore.codesmore.model.DataWrapper;
 import com.codesmore.codesmore.model.pojo.Issue;
 import com.codesmore.codesmore.ui.completeddetails.CompletedDetailsPresenter;
@@ -14,7 +13,7 @@ import java.util.List;
 /**
  * Created by demouser on 11/9/15.
  */
-public class CompletedPresenterImpl implements CompletedPresenter, DataFetchedListener{
+public class CompletedPresenterImpl implements CompletedPresenter{
 
     private CompletedView mView;
     private DataWrapper mDataWrapper;
@@ -38,10 +37,10 @@ public class CompletedPresenterImpl implements CompletedPresenter, DataFetchedLi
     @Override
     public void onLocationAvailable(Location location) {
         //Triggers data load when a location is available
-        mDataWrapper.getResolvedIssues(location.getLatitude(), location.getLongitude(), this);
+        List<Issue> issues = mDataWrapper.getResolvedIssues(location.getLatitude(), location.getLongitude());
+        onCompletedIssuesLoaded(issues);
     }
 
-    @Override
     public void onCompletedIssuesLoaded(List<Issue> issues) {
         //Sets the main view when problems become loaded
         if (issues.size() == 0){
