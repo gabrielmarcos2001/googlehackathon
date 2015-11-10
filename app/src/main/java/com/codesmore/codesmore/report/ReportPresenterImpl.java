@@ -35,7 +35,7 @@ public class ReportPresenterImpl implements ReportPresenter {
     @Override
     public void saveData(String description) {
         mCurrentIssue.setDescription(description);
-        mDataWrapper.saveIssue(mCurrentIssue);
+        mDataWrapper.insertIssue(mCurrentIssue);
         mView.onDataSaved();
     }
 
