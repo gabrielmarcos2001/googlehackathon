@@ -1,16 +1,16 @@
 package com.codesmore.codesmore.ui.main;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.codesmore.codesmore.BaseActivity;
 import com.codesmore.codesmore.R;
 import com.codesmore.codesmore.ui.main.MainFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private static final String FRAGMENT_TAG = "MainFragment";
 

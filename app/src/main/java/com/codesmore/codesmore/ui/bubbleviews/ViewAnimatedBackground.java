@@ -7,7 +7,8 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.codesmore.codesmore.R;
-import com.codesmore.codesmore.utils.UtilsUnitsConverter;
+
+import com.codesmore.codesmore.utils.UnitsConverter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +34,9 @@ public class ViewAnimatedBackground extends View {
             Circle circle = new Circle();
             Random random = new Random();
 
-            circle.posX = random.nextInt((int)UtilsUnitsConverter.convertDpToPixel(600,getContext()));
-            circle.posY = random.nextInt((int)UtilsUnitsConverter.convertDpToPixel(600,getContext())) + (int)UtilsUnitsConverter.convertDpToPixel(600,getContext());
-            circle.radious = random.nextInt((int)UtilsUnitsConverter.convertDpToPixel(10,getContext()));
+            circle.posX = random.nextInt((int) UnitsConverter.convertDpToPixel(600, getContext()));
+            circle.posY = random.nextInt((int) UnitsConverter.convertDpToPixel(600, getContext())) + (int) UnitsConverter.convertDpToPixel(600, getContext());
+            circle.radious = random.nextInt((int) UnitsConverter.convertDpToPixel(10, getContext()));
             circle.alpha = random.nextInt(75);
             circle.speed = random.nextInt(2) + 1;
 
@@ -65,7 +66,7 @@ public class ViewAnimatedBackground extends View {
 
             if (circle.posY < 0) {
                 Random random = new Random();
-                circle.posY = random.nextInt((int)UtilsUnitsConverter.convertDpToPixel(600,getContext())) + (int)UtilsUnitsConverter.convertDpToPixel(600,getContext());
+                circle.posY = random.nextInt((int) UnitsConverter.convertDpToPixel(600, getContext())) + (int) UnitsConverter.convertDpToPixel(600, getContext());
             }
 
             if (mReduceAlpha) {

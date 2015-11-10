@@ -16,6 +16,13 @@ import java.util.Date;
 
 public class CameraUtils {
 
+    private CameraUtils() {
+        // No instances allowed.
+    }
+
+    /**
+     * @return empty file that will eventually hold a newly taken picture.
+     */
     public static File createImageFile() {
         String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "IMG_" + timestamp + "_";
@@ -33,7 +40,16 @@ public class CameraUtils {
         return null;
     }
 
-    public static Bitmap validatePictureOrientation(Context context, Bitmap input, Uri imageUri) {
+    /**
+     * Reading an image from different sources might result in wrong orientation.
+     *
+     * Try to get the original orientation info by all means possible and ensure we stick to it.
+     *
+     * @param bitmap to correct orientation for
+     * @param imageUri where we expect the image to be located
+     * @return the
+     */
+    public static Bitmap ensureGenuinePictureOrientation(Context context, Bitmap bitmap, Uri imageUri) {
         int orientation = getExifOrientation(imageUri);
 
         if (orientation == ExifInterface.ORIENTATION_UNDEFINED) {
@@ -42,19 +58,23 @@ public class CameraUtils {
 
         switch (orientation) {
             case ExifInterface.ORIENTATION_ROTATE_90:
-                input = rotateImage(input, 90);
+                bitmap = rotateImage(bitmap, 90);
                 break;
             case ExifInterface.ORIENTATION_ROTATE_180:
-                input = rotateImage(input, 180);
+                bitmap = rotateImage(bitmap, 180);
                 break;
             case ExifInterface.ORIENTATION_ROTATE_270:
-                input = rotateImage(input, 270);
+                bitmap = rotateImage(bitmap, 270);
                 break;
         }
 
-        return input;
+        return bitmap;
     }
 
+    /**
+     * @param imageUri to extract EXIF information for
+     * @return the stored EXIF orientation or ORIENTATION_UNDEFINED if it's not existing
+     */
     private static int getExifOrientation(Uri imageUri) {
         try {
             ExifInterface ei = new ExifInterface(imageUri.getPath());
@@ -66,6 +86,13 @@ public class CameraUtils {
         return ExifInterface.ORIENTATION_UNDEFINED;
     }
 
+    /**
+     * Attempt to extract orientation info by directly querying the MediaStore on the device.
+     * This method will work for images picked from a Gallery chooser.
+     *
+     * @param imageUri to get orientation for
+     * @return the stored EXIF orientation or ORIENTATION_UNDEFINED if not possible to extract
+     */
     private static int getMediaStoreOrientation(Context context, Uri imageUri) {
         String[] orientationColumn = {MediaStore.Images.Media.ORIENTATION};
         Cursor cursor = null;
