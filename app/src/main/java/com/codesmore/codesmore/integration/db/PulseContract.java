@@ -3,6 +3,7 @@ package com.codesmore.codesmore.integration.db;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
@@ -135,6 +136,49 @@ public class PulseContract {
                 };
             }
         }
+    }
+
+
+    /**
+     * Given a {@link Cursor} already moved to a certain position, returns a
+     * {@link ContentValues} object containing the column names and column values found in the
+     * {@link Cursor} instance.
+     *
+     * <p>This method uses the cursors {@link Cursor#getColumnNames()},
+     * {@link Cursor#getColumnIndex(String)}, and {@link Cursor#getType(int)} methods
+     * to populate the {@link ContentValues} object dynamically.</p>
+     *
+     * <p>Values of type {@link Cursor#FIELD_TYPE_NULL} are not populated, since we don't have
+     * enough information to determine the corresponding column's type.</p>
+     *
+     * @param cursor to get {@link ContentValues} for
+     * @return {@link ContentValues} object.
+     */
+    public static ContentValues getContentValuesFrom(Cursor cursor){
+        ContentValues values = new ContentValues();
+        for(String columnName : cursor.getColumnNames()){
+            int columnIndex = cursor.getColumnIndex(columnName);
+            switch(cursor.getType(columnIndex)){
+                case Cursor.FIELD_TYPE_BLOB:
+                    values.put(columnName, cursor.getBlob(columnIndex));
+                    break;
+                case Cursor.FIELD_TYPE_FLOAT:
+                    values.put(columnName, cursor.getFloat(columnIndex));
+                    break;
+                case Cursor.FIELD_TYPE_INTEGER:
+                    values.put(columnName, cursor.getLong(columnIndex));
+                    break;
+                case Cursor.FIELD_TYPE_NULL:
+                    //  We won't populate null values because we don't know their type.
+                    break;
+                case Cursor.FIELD_TYPE_STRING:
+                    values.put(columnName, cursor.getString(columnIndex));
+                    break;
+                default:
+                    throw new UnsupportedOperationException("Unsupported Value Type:  " + cursor.getType(columnIndex));
+            }
+        }
+        return values;
     }
 }
 

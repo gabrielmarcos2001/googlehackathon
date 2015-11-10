@@ -1,7 +1,10 @@
 package com.codesmore.codesmore.integration.db;
 
 import android.content.ContentResolver;
+import android.content.ContentValues;
+import android.database.Cursor;
 
+import com.codesmore.codesmore.integration.db.PulseContract.IssueCategory;
 import com.codesmore.codesmore.model.DataWrapper;
 import com.codesmore.codesmore.model.pojo.Category;
 import com.codesmore.codesmore.model.pojo.Issue;
@@ -9,9 +12,8 @@ import com.codesmore.codesmore.model.pojo.Issue;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Darryl Staflund on 11/9/2015.
- */
+import static com.codesmore.codesmore.integration.db.PulseContract.getContentValuesFrom;
+
 public class PulseDataWrapper implements DataWrapper {
     private ContentResolver contentResolver;
 
@@ -29,18 +31,23 @@ public class PulseDataWrapper implements DataWrapper {
      */
     @Override
     public List<Category> getCategories() {
-        return new ArrayList<Category> (){
-            {
-                add(new Category("Cleanliness", null));
-                add(new Category("Improvement", null));
-                add(new Category("Infrastructure", null));
-                add(new Category("Safety", null));
+        Cursor cursor = contentResolver.query(IssueCategory.CONTENT_URI, null, null, null, null);
+
+        List<Category> categories = new ArrayList<>();
+        if (cursor != null){
+            while(cursor.moveToNext()){
+                ContentValues values = getContentValuesFrom(cursor);
+                Category category = Category.from(values);
+                categories.add(category);
             }
-        };
+        }
+        return categories;
     }
 
     @Override
     public void insertIssue(Issue issue) {
-
+        if (issue == null){
+            throw new IllegalArgumentException("Issue is required.");
+        }
     }
 }
