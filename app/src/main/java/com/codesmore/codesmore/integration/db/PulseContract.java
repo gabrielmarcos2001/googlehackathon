@@ -29,6 +29,17 @@ public class PulseContract {
         public static class Columns {
             public static final String USERNAME = "username";
             public static final String PASSWORD = "password";
+            public static final String PARSE_ID = "parse_id";
+        }
+
+        public static class Builders {
+
+            public static Uri buildForAccountId(long accountId){
+                return Account.CONTENT_URI
+                    .buildUpon()
+                    .appendPath(Long.toString(accountId))
+                    .build();
+            }
         }
     }
 
@@ -117,6 +128,7 @@ public class PulseContract {
         public static class Columns {
             public static final String ISSUE_CATEGORY = "issue_category";
             public static final String ISSUE_CATEGORY_IMAGE = "issue_category_image";
+            public static final String PARSE_ID = "parse_id";
         }
 
         public static class Constraints {
@@ -150,6 +162,13 @@ public class PulseContract {
                         add(cv4);
                     }
                 };
+            }
+
+            public static Uri buildForCategoryId(long categoryId){
+                return IssueCategory.CONTENT_URI
+                    .buildUpon()
+                    .appendPath(Long.toString(categoryId))
+                    .build();
             }
         }
     }

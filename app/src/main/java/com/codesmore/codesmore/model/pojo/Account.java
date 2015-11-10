@@ -7,6 +7,7 @@ public class Account {
     private Long id;
     private String username;
     private String password;
+    private String parseId;
 
     public Long getId(){
         return id;
@@ -30,5 +31,13 @@ public class Account {
 
     public void setPassword(String value){
         password = value;
+    }
+
+    public String getParseId() {
+        return parseId;
+    }
+
+    public void setParseId(String parseId) {
+        this.parseId = parseId;
     }
 }

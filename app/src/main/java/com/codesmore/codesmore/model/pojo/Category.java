@@ -1,7 +1,5 @@
 package com.codesmore.codesmore.model.pojo;
 
-import android.os.Parcelable;
-
 import android.content.ContentValues;
 import android.graphics.Bitmap;
 import android.os.Parcel;
@@ -26,6 +24,7 @@ public class Category implements Parcelable {
     }
 
     private Long id;
+    private String parseId;
     private String name;
     private String imageUrl;
     private Bitmap image;
@@ -65,6 +64,14 @@ public class Category implements Parcelable {
 
     public void setImageUrl(String value){
         imageUrl = value;
+    }
+
+    public String getParseId() {
+        return parseId;
+    }
+
+    public void setParseId(String parseId) {
+        this.parseId = parseId;
     }
 
     @Override

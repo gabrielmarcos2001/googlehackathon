@@ -41,8 +41,18 @@ public class PulseDataWrapper implements DataWrapper {
     }
 
     @Override
+    public List<Issue> getUnresolvedIssues(double lat, double lon) {
+        return localDataWrapper.getUnresolvedIssues(lat, lon);
+    }
+
+    @Override
     public void insertIssue(Issue issue) {
         localDataWrapper.insertIssue(issue);
+    }
+
+    @Override
+    public void insertAccount(Account account) {
+        localDataWrapper.insertAccount(account);
     }
 
     @Override

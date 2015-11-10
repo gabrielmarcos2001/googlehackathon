@@ -60,6 +60,7 @@ public class PulseHelper extends SQLiteOpenHelper {
             .append("    " + IssueCategory._ID + " INTEGER PRIMARY KEY")
             .append("  , " + IssueCategory.Columns.ISSUE_CATEGORY + " TEXT NOT NULL")
             .append("  , " + IssueCategory.Columns.ISSUE_CATEGORY_IMAGE + " BLOB NULL")
+            .append("  , " + IssueCategory.Columns.PARSE_ID + " TEXT NOT NULL")
             .append("  , UNIQUE (" + IssueCategory.Columns.ISSUE_CATEGORY + ")")
             .append(");")
             .toString();
@@ -79,7 +80,9 @@ public class PulseHelper extends SQLiteOpenHelper {
             .append("    " + Account._ID + " INTEGER PRIMARY KEY")
             .append("  , " + Account.Columns.USERNAME + " TEXT NOT NULL")
             .append("  , " + Account.Columns.PASSWORD + " TEXT NOT NULL")
+            .append("  , " + Account.Columns.PARSE_ID + " TEXT NOT NULL")
             .append("  , UNIQUE (" + Account.TABLE_NAME + ")")
+            .append("  , UNIQUE (" + Account.Columns.PARSE_ID + ")")
             .append(");")
             .toString();
         db.execSQL(accountSql);
