@@ -1,5 +1,6 @@
 package com.codesmore.codesmore.model;
 
+import com.codesmore.codesmore.model.pojo.Account;
 import com.codesmore.codesmore.model.pojo.Category;
 import com.codesmore.codesmore.model.pojo.Issue;
 
@@ -10,6 +11,17 @@ import java.util.List;
  */
 public interface DataWrapper {
     List<Category> getCategories();
+
     void getResolvedIssues(double lat, double lon, DataFetchedListener listener);
+    List<Issue> getUnresolvedIssues(double lat, double lon);
+
     void insertIssue(Issue issue);
+    void insertAccount(Account account);
+    Issue getIssue(Long id);
+    Account getAccount(Long id);
+    Category getCategory(Long id);
+    void upvote(Issue issue, Account upvoter);
+    void downvote(Issue issue);
+    List<Issue> getCreatedOrUpvotedIssuesFor(Account owner);            // created or upvoted
+    void resolveIssue(Issue issue, Account resolver);
 }

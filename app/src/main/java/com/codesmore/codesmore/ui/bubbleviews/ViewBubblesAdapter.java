@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.codesmore.codesmore.R;
+import com.codesmore.codesmore.model.pojo.Issue;
 import com.codesmore.codesmore.utils.UnitsConverter;
 
 import java.util.ArrayList;
@@ -19,10 +20,19 @@ import java.util.Random;
  */
 public class ViewBubblesAdapter extends RelativeLayout{
 
+    public interface BubblesInterface {
+        void onBubbleSelected(ViewBubble bubble);
+        void onBubbleUnselected();
+        void upVoteIssue(ViewBubble bubble);
+        void downVoteIssue(ViewBubble bubble);
+    }
+
     private List<Point> mBubblesPositions;
-    private List<String> mItems;
+    private List<Issue> mItems;
     private List<ViewBubble> mBubbles;
     private ViewGroup mContainer;
+
+    private BubblesInterface mInterface;
 
     public ViewBubblesAdapter(Context context) {
         super(context);
@@ -45,11 +55,7 @@ public class ViewBubblesAdapter extends RelativeLayout{
         mItems = new ArrayList<>();
         mBubblesPositions = new ArrayList<>();
 
-        mockData();
-
         initBubblesPoint();
-
-        generateBubbles();
 
     }
 
@@ -66,6 +72,9 @@ public class ViewBubblesAdapter extends RelativeLayout{
         }
     }
 
+    /**
+     * We Initialize the Points were we are going to be displaying Bubbles
+     */
     private void initBubblesPoint() {
 
         // We support 6 items at a time
@@ -84,19 +93,18 @@ public class ViewBubblesAdapter extends RelativeLayout{
         mBubblesPositions.add(point5);
     }
 
-    private void mockData() {
-        mItems.add("23");
-        mItems.add("10");
-        mItems.add("45");
-        mItems.add("30");
-        mItems.add("123");
-        mItems.add("20");
-    }
-
-    public void setItems(List<String> items) {
+    public void setItems(List<Issue> items) {
         this.mItems = items;
+
+        generateBubbles();
+
+        showBubbles();
     }
 
+
+    public void setmInterface(BubblesInterface mInterface) {
+        this.mInterface = mInterface;
+    }
 
     private void generateBubbles() {
 
@@ -105,7 +113,7 @@ public class ViewBubblesAdapter extends RelativeLayout{
 
         mBubbles = new ArrayList<>();
 
-        for (String string : mItems) {
+        for (Issue issue : mItems) {
 
             ViewBubble bubble = new ViewBubble(getContext());
             mContainer.addView(bubble);
@@ -113,14 +121,36 @@ public class ViewBubblesAdapter extends RelativeLayout{
             Point point = mBubblesPositions.get(bubbleIndex);
 
             bubble.setPosition(point.x,point.y);
-            bubble.setNumber(Integer.valueOf(string));
+            bubble.setmIssueData(issue);
 
             mBubbles.add(bubble);
+
+            bubble.setmInterface(new ViewBubble.BubbleInterface() {
+                @Override
+                public void onReleased(ViewBubble bubble) {
+                    mInterface.onBubbleUnselected();
+                }
+
+                @Override
+                public void onSelected(ViewBubble bubble) {
+                    mInterface.onBubbleSelected(bubble);
+                }
+
+                @Override
+                public void onDownVoted(ViewBubble bubble) {
+                    mInterface.downVoteIssue(bubble);
+                }
+
+                @Override
+                public void onUpVoted(ViewBubble bubble) {
+                    mInterface.upVoteIssue(bubble);
+                }
+            });
 
             bubbleIndex ++;
 
         }
-    }
 
+    }
 
 }

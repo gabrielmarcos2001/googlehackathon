@@ -1,31 +1,13 @@
 package com.codesmore.codesmore.model.pojo;
 
-import android.content.ContentValues;
-
-import com.codesmore.codesmore.integration.db.PulseContract.Account.Columns;
-
-import static android.provider.BaseColumns._ID;
-
 /**
  * Created by Darryl Staflund on 11/10/2015.
  */
 public class Account {
-
-    public static Account from(ContentValues values) {
-        if (values == null){
-            return new Account();
-        }
-
-        Account account = new Account();
-        account.setId(values.getAsLong(_ID));
-        account.setUser(values.getAsString(Columns.USERNAME));
-        account.setPassword(values.getAsString(Columns.PASSWORD));
-        return account;
-    }
-
     private Long id;
     private String username;
     private String password;
+    private String parseId;
 
     public Long getId(){
         return id;
@@ -51,11 +33,11 @@ public class Account {
         password = value;
     }
 
-    public ContentValues toContentValues() {
-        ContentValues values = new ContentValues();
-        values.put(_ID, id);
-        values.put(Columns.USERNAME, username);
-        values.put(Columns.PASSWORD, password);
-        return values;
+    public String getParseId() {
+        return parseId;
+    }
+
+    public void setParseId(String parseId) {
+        this.parseId = parseId;
     }
 }

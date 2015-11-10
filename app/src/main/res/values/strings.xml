@@ -36,4 +36,6 @@
     <string name="menu_completed_issues">Completed Issues</string>
     <string name="menu_sign_out">Sign Out</string>
     <string name="message_no_resolved_items">Uh Oh!\nIt doesn\'t appear any issues have been resolved in your area. Please submit any issues you see and check back later!</string>
+    <string name="upvote">UPVOTE</string>
+    <string name="downvote">DOWNVOTE</string>
 </resources>

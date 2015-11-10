@@ -1,0 +1,53 @@
+package com.codesmore.codesmore.integration.converter;
+
+import android.content.ContentValues;
+import android.database.Cursor;
+
+import com.codesmore.codesmore.integration.db.PulseContract.IssueCategory;
+import com.codesmore.codesmore.model.pojo.Category;
+
+import static com.codesmore.codesmore.integration.db.PulseContract.getContentValuesFrom;
+
+/**
+ * Created by Darryl Staflund on 11/10/2015.
+ */
+public class CategoryConverter implements Converter<Category> {
+
+    @Override
+    public ContentValues convert(Cursor cursor) {
+        return getContentValuesFrom(cursor);
+    }
+
+    @Override
+    public ContentValues convert(Category category) {
+        if (category == null){
+            return null;
+        }
+
+        ContentValues values = new ContentValues();
+        values.put(IssueCategory._ID, category.getId());
+        values.put(IssueCategory.Columns.ISSUE_CATEGORY_IMAGE, category.getImageUrl());
+        values.put(IssueCategory.Columns.ISSUE_CATEGORY, category.getName());
+        values.put(IssueCategory.Columns.PARSE_ID, category.getParseId());
+        return null;
+    }
+
+    @Override
+    public Category convert(ContentValues values) {
+        if (values == null) {
+            return  new Category(null, null);
+        }
+
+        Long id = values.getAsLong(IssueCategory._ID);
+        String name = values.getAsString(IssueCategory.Columns.ISSUE_CATEGORY);
+        String imageUrl = values.getAsString(IssueCategory.Columns.ISSUE_CATEGORY_IMAGE);
+        String parseId = values.getAsString(IssueCategory.Columns.PARSE_ID);
+
+        Category category = new Category();
+        category.setId(id);
+        category.setName(name);
+        category.setImageUrl(imageUrl);
+        category.setParseId(parseId);
+        return category;
+    }
+}

@@ -20,6 +20,8 @@ public class PulseContentProvider extends ContentProvider {
         public static final int ISSUE_CATEGORIES = 0;
         public static final int ISSUE_CATEGORY = 1;
         public static final int ISSUE = 2;
+        public static final int ISSUES = 3;
+        public static final int ACCOUNT = 4;
     }
 
     /**
@@ -29,6 +31,8 @@ public class PulseContentProvider extends ContentProvider {
         public static final String ISSUE_CATEGORIES = PulseContract.IssueCategory.TABLE_NAME;
         public static final String ISSUE_CATEGORY = PulseContract.IssueCategory.TABLE_NAME + "/#";
         public static final String ISSUE = PulseContract.Issue.TABLE_NAME;
+        public static final String ISSUES = PulseContract.Issue.TABLE_NAME;
+        public static final String ACCOUNT = PulseContract.Account.TABLE_NAME + "/#";
     }
 
     /**
@@ -39,6 +43,8 @@ public class PulseContentProvider extends ContentProvider {
             addURI(PulseContract.CONTENT_AUTHORITY, MatchPaths.ISSUE_CATEGORIES, MatchCodes.ISSUE_CATEGORIES);
             addURI(PulseContract.CONTENT_AUTHORITY, MatchPaths.ISSUE_CATEGORY, MatchCodes.ISSUE_CATEGORY);
             addURI(PulseContract.CONTENT_AUTHORITY, MatchPaths.ISSUE, MatchCodes.ISSUE);
+            addURI(PulseContract.CONTENT_AUTHORITY, MatchPaths.ISSUES, MatchCodes.ISSUES);
+            addURI(PulseContract.CONTENT_AUTHORITY, MatchPaths.ACCOUNT, MatchCodes.ACCOUNT);
         }
     };
 
@@ -50,6 +56,8 @@ public class PulseContentProvider extends ContentProvider {
             put(MatchCodes.ISSUE_CATEGORIES, PulseContract.IssueCategory.CONTENT_TYPE);
             put(MatchCodes.ISSUE_CATEGORY, PulseContract.IssueCategory.CONTENT_ITEM_TYPE);
             put(MatchCodes.ISSUE, PulseContract.Issue.CONTENT_ITEM_TYPE);
+            put(MatchCodes.ISSUES, PulseContract.Issue.CONTENT_TYPE);
+            put(MatchCodes.ACCOUNT, PulseContract.Account.CONTENT_ITEM_TYPE);
         }
     };
 
@@ -133,6 +141,14 @@ public class PulseContentProvider extends ContentProvider {
                     null
                 );
 
+            case MatchCodes.ISSUES:
+                return null;
+            //  TODO
+
+            case MatchCodes.ACCOUNT:
+                return null;
+            //  TODO
+
             default:
                 db.close();
                 throw new UnsupportedOperationException("Unknown uri:  " + uri);
@@ -155,6 +171,9 @@ public class PulseContentProvider extends ContentProvider {
                 if (id > 0) {
                     return PulseContract.Issue.Builders.buildForIssueId(id);
                 }
+
+            case MatchCodes.ACCOUNT:
+                //  TODO
 
             default:
                 db.close();
