@@ -16,15 +16,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".details.DetailsActivity" />
-
         <activity android:name=".login.LoginActivity" />
-
         <activity android:name=".report.ReportActivity" />
-
         <activity android:name=".tutorial.TutorialActivity" />
-
+        <activity
+            android:name=".completed.CompletedActivity"
+            android:label="@string/title_activity_completed"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".completeddetails.CompletedDetailsActivity"
+            android:label="@string/title_activity_completed_details"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
     </application>
 
 </manifest>
