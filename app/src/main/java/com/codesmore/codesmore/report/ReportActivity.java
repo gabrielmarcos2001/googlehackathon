@@ -9,7 +9,7 @@ import android.widget.Spinner;
 
 import com.codesmore.codesmore.BaseActivity;
 import com.codesmore.codesmore.R;
-import com.codesmore.codesmore.mock.MockDataWrapper;
+import com.codesmore.codesmore.integration.db.PulseDataWrapper;
 import com.codesmore.codesmore.model.pojo.Category;
 
 import java.util.List;
@@ -48,7 +48,7 @@ public class ReportActivity extends BaseActivity implements ReportView {
 //            }
 //        });
 
-        mPresenter = new ReportPresenterImpl(this, new MockDataWrapper());
+        mPresenter = new ReportPresenterImpl(this, new PulseDataWrapper());
         mPresenter.requestCategoriesChooser();
     }
 
