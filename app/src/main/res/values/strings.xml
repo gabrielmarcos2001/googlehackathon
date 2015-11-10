@@ -35,4 +35,7 @@
     <string name="menu_upvoted_issues">My UpVoted Issues</string>
     <string name="menu_completed_issues">Completed Issues</string>
     <string name="menu_sign_out">Sign Out</string>
+
+    <string name="parse_application_id" translatable="false">lX4BdYdc3BBclPisuzcCdtDxpFr2K5d0Z5y9O2FM</string>
+    <string name="parse_client_id" translatable="false">WadGfNQSXAKqV8GbZ0LNYNxejHIgqC40r5XxeLoh</string>
 </resources>

@@ -1,8 +1,10 @@
 package com.codesmore.codesmore.model.pojo;
 
 import android.content.ContentValues;
+import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import com.codesmore.codesmore.integration.db.PulseContract.IssueCategory;
 
@@ -11,11 +13,7 @@ import com.codesmore.codesmore.integration.db.PulseContract.IssueCategory;
  */
 public class Category implements Parcelable{
 
-    public static Category from(ContentValues values) {
-        if (values == null) {
-            return  new Category(null, null);
-        }
-
+    public static Category from(@NonNull ContentValues values) {
         Long id = values.getAsLong(IssueCategory._ID);
         String name = values.getAsString(IssueCategory.Columns.ISSUE_CATEGORY);
         String imageUrl = values.getAsString(IssueCategory.Columns.ISSUE_CATEGORY_IMAGE);
@@ -28,6 +26,12 @@ public class Category implements Parcelable{
     private Long id;
     private String name;
     private String imageUrl;
+    private Bitmap image;
+
+    public Category(String name, Bitmap image) {
+        this.name = name;
+        this.image = image;
+    }
 
     public Category(String name, String imageUrl) {
         this.name = name;

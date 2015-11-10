@@ -45,7 +45,7 @@ public class PulseDataWrapper implements DataWrapper {
     }
 
     @Override
-    public void saveIssue(Issue issue) {
+    public void updateIssue(Issue issue) {
         
     }
 
