@@ -5,9 +5,9 @@ package com.codesmore.codesmore.ui.main;
  */
 public class MainActivityPresenterImpl implements MainActivityPresenter{
 
-    private MainView mView;
+    private MainActivityView mView;
 
-    public MainActivityPresenterImpl(MainView mainView) {
+    public MainActivityPresenterImpl(MainActivityView mainView) {
         mView = mainView;
     }
 

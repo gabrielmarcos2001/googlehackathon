@@ -16,8 +16,6 @@ public interface MainView {
     void hideVotingAreas();
     void showContextualIssue(Issue issue);
 
-    void openCompletedIssues();
-    void openUpvotedIssues();
-    void openUserAccount();
+
 
 }

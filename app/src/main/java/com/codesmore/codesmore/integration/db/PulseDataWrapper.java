@@ -2,6 +2,7 @@ package com.codesmore.codesmore.integration.db;
 
 import android.content.ContentResolver;
 
+import com.codesmore.codesmore.model.DataFetchedListener;
 import com.codesmore.codesmore.model.DataWrapper;
 import com.codesmore.codesmore.model.pojo.Account;
 import com.codesmore.codesmore.model.pojo.Category;

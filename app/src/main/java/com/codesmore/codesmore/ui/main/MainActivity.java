@@ -15,7 +15,7 @@ import com.codesmore.codesmore.R;
 import com.codesmore.codesmore.ui.completed.CompletedActivity;
 import com.codesmore.codesmore.ui.navdrawer.FragmentNavigationDrawer;
 
-public class MainActivity extends BaseActivity implements FragmentNavigationDrawer.NavigationDrawerCallbacks, MainView{
+public class MainActivity extends BaseActivity implements FragmentNavigationDrawer.NavigationDrawerCallbacks, MainActivityView{
 
     private static final String FRAGMENT_TAG = "MainFragment";
 
@@ -113,4 +113,7 @@ public class MainActivity extends BaseActivity implements FragmentNavigationDraw
         Toast toast = Toast.makeText(this, "Open User Account (not implemented)", Toast.LENGTH_SHORT);
         toast.show();
     }
+
+
+
 }
