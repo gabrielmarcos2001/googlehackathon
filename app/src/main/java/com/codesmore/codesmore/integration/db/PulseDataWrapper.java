@@ -2,14 +2,8 @@ package com.codesmore.codesmore.integration.db;
 
 import android.content.ContentResolver;
 
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.location.Location;
-
-import com.codesmore.codesmore.integration.db.PulseContract.IssueCategory;
-import com.codesmore.codesmore.model.DataFetchedListener;
-
 import com.codesmore.codesmore.model.DataWrapper;
+import com.codesmore.codesmore.model.pojo.Account;
 import com.codesmore.codesmore.model.pojo.Category;
 import com.codesmore.codesmore.model.pojo.Issue;
 
@@ -49,5 +43,20 @@ public class PulseDataWrapper implements DataWrapper {
     @Override
     public void insertIssue(Issue issue) {
         localDataWrapper.insertIssue(issue);
+    }
+
+    @Override
+    public Issue getIssue(Long id) {
+        return localDataWrapper.getIssue(id);
+    }
+
+    @Override
+    public Account getAccount(Long id) {
+        return localDataWrapper.getAccount(id);
+    }
+
+    @Override
+    public Category getCategory(Long id) {
+        return localDataWrapper.getCategory(id);
     }
 }

@@ -4,20 +4,25 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.database.Cursor;
 
+import com.codesmore.codesmore.integration.converter.Converter;
 import com.codesmore.codesmore.model.DataWrapper;
+import com.codesmore.codesmore.model.pojo.Account;
 import com.codesmore.codesmore.model.pojo.Category;
 import com.codesmore.codesmore.model.pojo.Issue;
+import com.codesmore.codesmore.model.pojo.Upvote;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.codesmore.codesmore.integration.db.PulseContract.getContentValuesFrom;
 
 /**
  * Created by Darryl Staflund on 11/10/2015.
  */
 public class LocalDataWrapper implements DataWrapper {
     private ContentResolver contentResolver;
+    private Converter<Account> accountConverter;
+    private Converter<Category> categoryConverter;
+    private Converter<Issue> issueConverter;
+    private Converter<Upvote> upvoteConverter;
 
     /**
      * Default constructor.
@@ -25,6 +30,21 @@ public class LocalDataWrapper implements DataWrapper {
      */
     public LocalDataWrapper(ContentResolver contentResolver){
         this.contentResolver = contentResolver;
+    }
+
+    public LocalDataWrapper(
+        ContentResolver contentResolver,
+        Converter<Account> accountConverter,
+        Converter<Category> categoryConverter,
+        Converter<Issue> issueConverter,
+        Converter<Upvote> upvoteConverter
+    ){
+        super();
+        this.contentResolver = contentResolver;
+        this.accountConverter = accountConverter;
+        this.categoryConverter = categoryConverter;
+        this.issueConverter = issueConverter;
+        this.upvoteConverter = upvoteConverter;
     }
 
     @Override
@@ -40,8 +60,8 @@ public class LocalDataWrapper implements DataWrapper {
         List<Category> categories = new ArrayList<>();
         if (cursor != null){
             while(cursor.moveToNext()){
-                ContentValues values = getContentValuesFrom(cursor);
-                Category category = Category.from(values);
+                ContentValues values = categoryConverter.convert(cursor);
+                Category category = categoryConverter.convert(values);
                 categories.add(category);
             }
         }
@@ -61,8 +81,8 @@ public class LocalDataWrapper implements DataWrapper {
         List<Issue> issues = new ArrayList<>();
         if (cursor != null){
             while(cursor.moveToNext()){
-                ContentValues values = getContentValuesFrom(cursor);
-                Issue issue = Issue.from(values);
+                ContentValues values = issueConverter.convert(cursor);
+                Issue issue = issueConverter.convert(values);
                 issues.add(issue);
             }
         }
@@ -75,6 +95,22 @@ public class LocalDataWrapper implements DataWrapper {
             throw new IllegalArgumentException("Issue is required.");
         }
 
-        contentResolver.insert(PulseContract.Issue.CONTENT_URI, issue.toContentValues());
+        ContentValues values = issueConverter.convert(issue);
+        contentResolver.insert(PulseContract.Issue.CONTENT_URI, values);
+    }
+
+    @Override
+    public Issue getIssue(Long id) {
+        return null;
+    }
+
+    @Override
+    public Account getAccount(Long id) {
+        return null;
+    }
+
+    @Override
+    public Category getCategory(Long id) {
+        return null;
     }
 }
