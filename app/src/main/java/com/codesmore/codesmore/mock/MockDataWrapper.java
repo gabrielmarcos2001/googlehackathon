@@ -31,4 +31,18 @@ public class MockDataWrapper implements DataWrapper {
     public void saveIssue(Issue issue) {
 
     }
+
+    @Override
+    public List<Issue> getResolvedIssues() {
+        Category c  = new Category("Test", "www.test.com");
+        Issue i1 = new Issue(c, "Test Issue 1");
+        Issue i2 = new Issue(c, "Test Issue 2");
+        Issue i3  = new Issue(c, "Test Issue 3");
+
+        List<Issue> testList = new ArrayList<Issue>();
+        testList.add(i1);
+        testList.add(i2);
+        testList.add(i3);
+        return testList;
+    }
 }
