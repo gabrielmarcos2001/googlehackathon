@@ -35,4 +35,6 @@
     <string name="menu_upvoted_issues">My UpVoted Issues</string>
     <string name="menu_completed_issues">Completed Issues</string>
     <string name="menu_sign_out">Sign Out</string>
+    <string name="upvote">UPVOTE</string>
+    <string name="downvote">DOWNVOTE</string>
 </resources>

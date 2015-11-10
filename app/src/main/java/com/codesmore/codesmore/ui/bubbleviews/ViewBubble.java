@@ -26,6 +26,7 @@ import android.widget.TextView;
 
 import com.codesmore.codesmore.R;
 import com.codesmore.codesmore.utils.EasingEquations;
+import com.codesmore.codesmore.utils.UnitsConverter;
 
 import java.util.Random;
 import java.util.Timer;
@@ -36,11 +37,19 @@ import java.util.TimerTask;
  */
 public class ViewBubble extends RelativeLayout {
 
+    public interface BubbleInterface {
+        void onReleased(ViewBubble bubble);
+        void onSelected(ViewBubble bubble);
+        void onDownVoted(ViewBubble bubble);
+        void onUpVoted(ViewBubble bubble);
+    }
+
     private static final int RIPPLE_DURATION_MS = 4000;
     private static final int ALPHA_DURATION_MS = 3000;
     private static final int RIPPLE_INTERVAL_MS = 5500;
     private static final int RIPPLE_INTERVAL_1_MS = 700;
 
+    private BubbleInterface mInterface;
     private long startTime;
     private Double mScrollX = 0.0d;
     private Double mScrollY = 0.0d;
@@ -114,14 +123,14 @@ public class ViewBubble extends RelativeLayout {
 
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
 
-                    mScrollX  = 0.d;
+                    mScrollX = 0.d;
                     mScrollY = 0.d;
 
-                    mScrollX = (double)(event.getX(0) - mButtonView.getWidth());
-                    mScrollY =  (double)(event.getY(0) - mButtonView.getWidth());
+                    mScrollX = (double) (event.getX(0) - mButtonView.getWidth());
+                    mScrollY = (double) (event.getY(0) - mButtonView.getWidth());
 
-                    mDestPosX = 0 ;
-                    mDestPosY = 0 ;
+                    mDestPosX = 0;
+                    mDestPosY = 0;
 
                     mReadyToBeSelected = false;
 
@@ -138,11 +147,8 @@ public class ViewBubble extends RelativeLayout {
                 } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
 
                     // This looks to be a good hacky number for centering the touch
-                    mScrollX = ((double)event.getX(0) - 50  );//(double) event.getX(0) - 50;
-                    mScrollY = ((double) event.getY(0) - 50 );//(double) event.getY(0) - 50;
-
-                    Log.d("TAG","SCROLL X" + mScrollX);
-                    Log.d("TAG","SCROLL Y" + mScrollY);
+                    mScrollX = ((double) event.getX(0) - 50);//(double) event.getX(0) - 50;
+                    mScrollY = ((double) event.getY(0) - 50);//(double) event.getY(0) - 50;
 
                     invalidate();
 
@@ -337,6 +343,10 @@ public class ViewBubble extends RelativeLayout {
 
         if (mExpanded) return;
 
+        if (mInterface != null) {
+            mInterface.onSelected(this);
+        }
+
         mGoBack = false;
         mExpanded = true;
 
@@ -389,7 +399,23 @@ public class ViewBubble extends RelativeLayout {
         mInitialPosX = mScrollX;
         mInitialPosY = mScrollY;
 
+        int[] location = new int[2];
+        mButtonView.getLocationOnScreen(location);
+
+        int y = location[1] + mScrollY.intValue();
+        Log.d("BUBBLE","SCROLL Y: " + mScrollY);
+
         elapsedTime = 0;
+
+        if (y < 200 || mScrollY < -500) {
+            triggerUpVote();
+        }else if (y > 1700 || mScrollY > 500) {
+            triggerDownVote();
+        }else {
+            if (mInterface != null) {
+                mInterface.onReleased(this);
+            }
+        }
 
         invalidate();
 
@@ -430,6 +456,18 @@ public class ViewBubble extends RelativeLayout {
         mButtonView.startAnimation(scaleButtonAnim);
 
         activatePulse();
+    }
+
+    private void triggerUpVote() {
+        mDestPosY = UnitsConverter.convertDpToPixel(-600,getContext());
+
+        mInterface.onUpVoted(this);
+    }
+
+    private void triggerDownVote() {
+        mDestPosY = UnitsConverter.convertDpToPixel(600,getContext());
+
+        mInterface.onDownVoted(this);
     }
 
     public void setNumber(int number) {
@@ -495,7 +533,6 @@ public class ViewBubble extends RelativeLayout {
 
         if( mGoBack ){
 
-            Log.d("BUBBLE","GOING BACK TO: " + mDestPosX + "," + mDestPosY + " current Pos:" + mScrollX + "," + mScrollY);
             long endTime = System.currentTimeMillis();
             long dt = endTime - startTime;
 
@@ -516,13 +553,13 @@ public class ViewBubble extends RelativeLayout {
             if (Math.abs(mScrollX - mDestPosX) < 0.5f &&
                     Math.abs(mScrollY - mDestPosY) < 0.5f) {
 
-                canvas.translate((float)mDestPosX, (float)mDestPosY);
+                //canvas.translate((float)mDestPosX, (float)mDestPosY);
 
                 mGoBack = false;
                 mReadyToBeSelected = true;
 
-                mScrollX = 0.d;
-                mScrollY = 0.d;
+                //mScrollX = 0.d;
+                //mScrollY = 0.d;
 
             }
 
@@ -531,5 +568,9 @@ public class ViewBubble extends RelativeLayout {
         }
 
         super.onDraw(canvas);
+    }
+
+    public void setmInterface(BubbleInterface mInterface) {
+        this.mInterface = mInterface;
     }
 }
