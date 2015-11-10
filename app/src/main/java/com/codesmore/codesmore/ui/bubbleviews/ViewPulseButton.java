@@ -27,7 +27,7 @@ public class ViewPulseButton extends RelativeLayout {
 
     protected static final int RIPPLE_DURATION_MS = 3000;
     protected static final int RIPPLE_INTERVAL_MS = 5000;
-    protected static final int CONTEXTUAL_STATUS_MS = 2000;
+    protected static final int CONTEXTUAL_STATUS_MS = 5000;
     protected static final int RIPPLE_INTERVAL_1_MS = 1000;
     protected static final int RIPPLE_INTERVAL_2_MS = 2000;
 

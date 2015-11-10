@@ -15,19 +15,25 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.codesmore.codesmore.R;
+import com.codesmore.codesmore.model.pojo.Issue;
 import com.codesmore.codesmore.ui.bubbleviews.ViewAnimatedBackground;
 import com.codesmore.codesmore.ui.bubbleviews.ViewBubble;
 import com.codesmore.codesmore.ui.bubbleviews.ViewBubblesAdapter;
 import com.codesmore.codesmore.ui.bubbleviews.ViewPulseButton;
 import com.codesmore.codesmore.utils.UnitsConverter;
 
+import java.util.List;
+
 /**
  * Created by gabrielmarcos on 11/9/15.
  */
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment implements MainView {
+
+    private MainPresenter mPresenter;
 
     private View mUpVoteLoader;
     private View mDownVoteLoader;
+    private boolean mDataVisible = false;
 
     private View mTextArea;
     private TextView mTitle;
@@ -50,6 +56,8 @@ public class MainFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mPresenter = new MainPresenterImpl(this);
     }
 
     @Nullable
@@ -88,37 +96,15 @@ public class MainFragment extends Fragment {
             }
 
             @Override
-            public void upVoteBubble(ViewBubble bubble) {
+            public void upVoteIssue(ViewBubble bubble) {
                 mUpVoteLoader.setVisibility(View.VISIBLE);
-
-                final Handler fakeContextualEvent = new Handler();
-                fakeContextualEvent.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        if (isAdded()) {
-                            onBubbleUpVoted();
-                        }
-
-                    }
-                }, 2000);
+                mPresenter.onIssueUpVoted(bubble.getmIssueData());
             }
 
             @Override
-            public void downVoteBubble(ViewBubble bubble) {
+            public void downVoteIssue(ViewBubble bubble) {
                 mDownVoteLoader.setVisibility(View.VISIBLE);
-
-                final Handler fakeContextualEvent = new Handler();
-                fakeContextualEvent.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        if (isAdded()) {
-                            onBubbleDownVoted();
-                        }
-
-                    }
-                }, 2000);
+                mPresenter.onIssueDownVoted(bubble.getmIssueData());
             }
         });
 
@@ -129,38 +115,29 @@ public class MainFragment extends Fragment {
 
         ((ViewGroup)rootView).addView(view);
 
-        /*
-        final Handler fakeContextualEvent = new Handler();
-        fakeContextualEvent.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                showContextualEvent();
-            }
-        }, 5000);
-        */
-
         return rootView;
     }
-
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
     }
 
-    void onBubbleUpVoted() {
-
-        mUpVoteLoader.setVisibility(View.INVISIBLE);
-        hideVotingAreas();
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.setView(this);
     }
 
-    void onBubbleDownVoted() {
-
-        mDownVoteLoader.setVisibility(View.INVISIBLE);
-        hideVotingAreas();
+    @Override
+    public void onPause() {
+        super.onPause();
+        mPresenter.setView(null);
     }
 
+    /**
+     * Starts the Initial Fake OnBoarding Flow
+     */
     private void startOnBoardingFlow() {
 
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)mTextArea.getLayoutParams();
@@ -182,41 +159,10 @@ public class MainFragment extends Fragment {
             }
         }, 2000);
 
-        final Handler offset0 = new Handler();
-        offset0.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-                if (isAdded()) {
-                    TranslateAnimation rePositionText = new TranslateAnimation(0, 0, 0, UnitsConverter.convertDpToPixel(-150, getContext()));
-                    rePositionText.setDuration(1000);
-                    rePositionText.setFillAfter(true);
-                    rePositionText.setInterpolator(new AccelerateDecelerateInterpolator());
-
-                    mViewsAdapter.setVisibility(View.VISIBLE);
-                    mTextArea.startAnimation(rePositionText);
-                    mStatusMessage.setText(getString(R.string.on_boarding_2));
-
-                    showData();
-
-                    final Handler fakeContextualEvent = new Handler();
-                    fakeContextualEvent.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-
-                            if (isAdded()) {
-                                showContextualEvent();
-                            }
-                        }
-                    }, 5000);
-
-                }
-            }
-        }, 4000);
-
     }
 
-    private void showVotingAreas() {
+    @Override
+    public void showVotingAreas() {
 
         mUpVoteArea.setVisibility(View.VISIBLE);
         mDownVoteArea.setVisibility(View.VISIBLE);
@@ -228,7 +174,8 @@ public class MainFragment extends Fragment {
         mUpVoteArea.startAnimation(showUpVote);
     }
 
-    private void hideVotingAreas() {
+    @Override
+    public void hideVotingAreas() {
         Animation showDownVote = AnimationUtils.loadAnimation(getContext(), R.anim.hide_to_bottom);
         mDownVoteArea.startAnimation(showDownVote);
 
@@ -254,11 +201,44 @@ public class MainFragment extends Fragment {
         });
     }
 
-    private void showData() {
-        mViewsAdapter.showBubbles();
+    @Override
+    public void showIssues(List<Issue> issueList) {
+        if (isAdded() && mViewsAdapter != null) {
+            mViewsAdapter.setItems(issueList);
+
+            if (!mDataVisible) {
+                TranslateAnimation rePositionText = new TranslateAnimation(0, 0, 0, UnitsConverter.convertDpToPixel(-150, getContext()));
+                rePositionText.setDuration(1000);
+                rePositionText.setFillAfter(true);
+                rePositionText.setInterpolator(new AccelerateDecelerateInterpolator());
+
+                mViewsAdapter.setVisibility(View.VISIBLE);
+                mTextArea.startAnimation(rePositionText);
+                mStatusMessage.setText(getString(R.string.on_boarding_2));
+                mDataVisible = true;
+            }
+        }
     }
 
-    private void showContextualEvent() {
+    @Override
+    public void showNewIssue(Issue issue) {
+
+    }
+
+    @Override
+    public void onIssueUpVoted(Issue issue) {
+        mUpVoteLoader.setVisibility(View.INVISIBLE);
+        hideVotingAreas();
+    }
+
+    @Override
+    public void onIssueDownVoted(Issue issue) {
+        mDownVoteLoader.setVisibility(View.INVISIBLE);
+        hideVotingAreas();
+    }
+
+    @Override
+    public void showContextualIssue(Issue issue) {
         mPulseButton.showContextualEvent();
     }
 }
