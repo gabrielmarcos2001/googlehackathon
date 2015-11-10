@@ -7,4 +7,10 @@
     <string name="on_boarding_1">We are going to start sensing your surroundings</string>
     <string name="on_boarding_2">We have found some problems around your area</string>
 
+    <string name="save">Save</string>
+    <string name="description">Description</string>
+    <string name="choose_picture_title">Choose picture</string>
+    <string name="take_picture">Take picture</string>
+    <string name="cd_issue_image">Image documenting the issue</string>
+
 </resources>
