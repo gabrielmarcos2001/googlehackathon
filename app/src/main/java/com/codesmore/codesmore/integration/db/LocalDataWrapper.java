@@ -178,4 +178,25 @@ public class LocalDataWrapper implements DataWrapper {
         Category category = categoryConverter.convert(values);
         return category;
     }
+
+    @Override
+    public void upvote(Issue issue, Account upvoter) {
+        //  TODO
+    }
+
+    @Override
+    public void downvote(Issue issue) {
+        //  TODO
+    }
+
+    @Override
+    public List<Issue> getCreatedOrUpvotedIssuesFor(Account owner) {
+        return null;
+        //  TODO
+    }
+
+    @Override
+    public void resolveIssue(Issue issue, Account resolver) {
+        //  TODO
+    }
 }
