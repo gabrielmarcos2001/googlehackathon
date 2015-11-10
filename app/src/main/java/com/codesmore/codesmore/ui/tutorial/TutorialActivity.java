@@ -1,4 +1,4 @@
-package com.codesmore.codesmore.tutorial;
+package com.codesmore.codesmore.ui.tutorial;
 
 import com.codesmore.codesmore.BaseActivity;
 

@@ -15,6 +15,13 @@
         android:layout_height="wrap_content"
         android:hint="@string/description" />
 
+    <ImageView
+        android:id="@+id/report_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/cd_issue_image"
+        android:src="@mipmap/ic_launcher" />
+
     <Button
         android:id="@+id/report_save_btn"
         android:layout_width="match_parent"

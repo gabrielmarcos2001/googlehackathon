@@ -2,13 +2,19 @@ package com.codesmore.codesmore.model.pojo;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+<<<<<<< HEAD
 import android.os.Parcel;
 import android.os.Parcelable;
+=======
+import android.graphics.Bitmap;
+>>>>>>> master
 
 /**
  * Created by demouser on 11/9/15.
  */
 public class Issue implements Parcelable{
+
+    private Bitmap image;
 
     public Issue() {
 
@@ -158,4 +164,9 @@ public class Issue implements Parcelable{
             return new Issue[size];
         }
     };
+
+    public void setImage(Bitmap image) {
+        this.image = image;
+    }
+
 }

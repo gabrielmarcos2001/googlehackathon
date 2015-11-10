@@ -1,4 +1,4 @@
-package com.codesmore.codesmore.details;
+package com.codesmore.codesmore.ui.details;
 
 import com.codesmore.codesmore.BaseActivity;
 

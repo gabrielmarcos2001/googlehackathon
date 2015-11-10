@@ -1,4 +1,4 @@
-package com.codesmore.codesmore.completed;
+package com.codesmore.codesmore.ui.completed;
 
 import com.codesmore.codesmore.model.pojo.Issue;
 import java.util.List;

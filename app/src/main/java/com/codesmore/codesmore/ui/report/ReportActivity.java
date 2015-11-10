@@ -1,15 +1,16 @@
-package com.codesmore.codesmore.report;
+package com.codesmore.codesmore.ui.report;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
-import com.codesmore.codesmore.BaseActivity;
+import com.codesmore.codesmore.BaseActivityWithImageSaving;
 import com.codesmore.codesmore.R;
-import com.codesmore.codesmore.mock.MockDataWrapper;
+import com.codesmore.codesmore.integration.db.PulseDataWrapper;
 import com.codesmore.codesmore.model.pojo.Category;
 
 import java.util.List;
@@ -19,13 +20,16 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnItemSelected;
 
-public class ReportActivity extends BaseActivity implements ReportView {
+public class ReportActivity extends BaseActivityWithImageSaving implements ReportView {
 
     @Bind(R.id.report_category)
     Spinner mCategories;
 
     @Bind(R.id.report_description)
     EditText mDescription;
+
+    @Bind(R.id.report_image)
+    ImageView mImage;
 
     private ReportPresenter mPresenter;
 
@@ -35,29 +39,24 @@ public class ReportActivity extends BaseActivity implements ReportView {
         setContentView(R.layout.activity_report);
         ButterKnife.bind(this);
 
-//        mCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                Category category = (Category) parent.getItemAtPosition(position);
-//                mPresenter.onCategoryClicked(category);
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
-
-        mPresenter = new ReportPresenterImpl(this, new MockDataWrapper());
+        mPresenter = new ReportPresenterImpl(this, new PulseDataWrapper(getContentResolver()));
         mPresenter.requestCategoriesChooser();
     }
 
+    @SuppressWarnings("unused")
     @OnItemSelected(R.id.report_category)
-    public void categorySelected(AdapterView<?> parent, View view, int position, long id) {
+    public void categorySelected(AdapterView<?> parent, int position) {
         Category category = (Category) parent.getItemAtPosition(position);
         mPresenter.onCategoryClicked(category);
     }
 
+    @SuppressWarnings("unused")
+    @OnClick(R.id.report_image)
+    public void onImageClicked() {
+        startImageChooser();
+    }
+
+    @SuppressWarnings("unused")
     @OnClick(R.id.report_save_btn)
     public void save() {
         mPresenter.saveData(mDescription.getText().toString());
@@ -72,5 +71,11 @@ public class ReportActivity extends BaseActivity implements ReportView {
     @Override
     public void onDataSaved() {
         finish();
+    }
+
+    @Override
+    public void onImageCaptured(Bitmap image) {
+        mImage.setImageBitmap(image);
+        mPresenter.onImageCaptured(image);
     }
 }

@@ -1,4 +1,4 @@
-package com.codesmore.codesmore.login;
+package com.codesmore.codesmore.ui.login;
 
 /**
  * Created by demouser on 11/9/15.
