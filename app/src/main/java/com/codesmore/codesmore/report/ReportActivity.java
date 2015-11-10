@@ -10,7 +10,7 @@ import android.widget.Spinner;
 
 import com.codesmore.codesmore.BaseActivityWithImageSaving;
 import com.codesmore.codesmore.R;
-import com.codesmore.codesmore.mock.MockDataWrapper;
+import com.codesmore.codesmore.integration.db.PulseDataWrapper;
 import com.codesmore.codesmore.model.pojo.Category;
 
 import java.util.List;
@@ -39,7 +39,7 @@ public class ReportActivity extends BaseActivityWithImageSaving implements Repor
         setContentView(R.layout.activity_report);
         ButterKnife.bind(this);
 
-        mPresenter = new ReportPresenterImpl(this, new MockDataWrapper());
+        mPresenter = new ReportPresenterImpl(this, new PulseDataWrapper());
         mPresenter.requestCategoriesChooser();
     }
 
