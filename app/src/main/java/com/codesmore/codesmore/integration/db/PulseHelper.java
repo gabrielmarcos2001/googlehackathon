@@ -11,6 +11,7 @@ import com.codesmore.codesmore.integration.db.PulseContract.Account;
 import com.codesmore.codesmore.integration.db.PulseContract.Comment;
 import com.codesmore.codesmore.integration.db.PulseContract.Issue;
 import com.codesmore.codesmore.integration.db.PulseContract.IssueCategory;
+import com.codesmore.codesmore.integration.db.PulseContract.Upvote;
 
 /**
  * Created by Darryl Staflund on 11/9/2015.
@@ -125,12 +126,28 @@ public class PulseHelper extends SQLiteOpenHelper {
             .append(");")
             .toString();
         db.execSQL(commentSql);
+
+        // Upvoter
+        String upvoterSql = new StringBuilder()
+            .append("CREATE TABLE " + Upvote.TABLE_NAME)
+            .append("(")
+            .append("    " + Upvote._ID + " INTEGER PRIMARY KEY")
+            .append("  , " + Upvote.Columns.UPVOTED_ISSUE_ID + " INTEGER NOT NULL")
+            .append("  , " + Upvote.Columns.UPVOTER_ID + " INTEGER NOT NULL")
+            .append("  , FOREIGN KEY (" + Upvote.Columns.UPVOTED_ISSUE_ID + ")")
+            .append("     REFERENCES " + Issue.TABLE_NAME + " (" + Issue._ID + ")")
+            .append("  , FOREIGN KEY (" + Upvote.Columns.UPVOTER_ID + ")")
+            .append("     REFERENCES " + Account.TABLE_NAME + " (" + Account._ID + ")")
+            .append(");")
+            .toString();
+        db.execSQL(upvoterSql);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
         Log.d("Helper", "onUpgrade called.");
         if (oldVersion < newVersion){
+            db.execSQL("DROP TABLE " + Upvote.TABLE_NAME);
             db.execSQL("DROP TABLE " + Comment.TABLE_NAME);
             db.execSQL("DROP TABLE " + Issue.TABLE_NAME);
             db.execSQL("DROP TABLE " + Account.TABLE_NAME);

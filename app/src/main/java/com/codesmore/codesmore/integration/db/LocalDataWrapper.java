@@ -1,0 +1,116 @@
+package com.codesmore.codesmore.integration.db;
+
+import android.content.ContentResolver;
+import android.content.ContentValues;
+import android.database.Cursor;
+
+import com.codesmore.codesmore.integration.converter.Converter;
+import com.codesmore.codesmore.model.DataWrapper;
+import com.codesmore.codesmore.model.pojo.Account;
+import com.codesmore.codesmore.model.pojo.Category;
+import com.codesmore.codesmore.model.pojo.Issue;
+import com.codesmore.codesmore.model.pojo.Upvote;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by Darryl Staflund on 11/10/2015.
+ */
+public class LocalDataWrapper implements DataWrapper {
+    private ContentResolver contentResolver;
+    private Converter<Account> accountConverter;
+    private Converter<Category> categoryConverter;
+    private Converter<Issue> issueConverter;
+    private Converter<Upvote> upvoteConverter;
+
+    /**
+     * Default constructor.
+     * @param contentResolver to place calls to.
+     */
+    public LocalDataWrapper(ContentResolver contentResolver){
+        this.contentResolver = contentResolver;
+    }
+
+    public LocalDataWrapper(
+        ContentResolver contentResolver,
+        Converter<Account> accountConverter,
+        Converter<Category> categoryConverter,
+        Converter<Issue> issueConverter,
+        Converter<Upvote> upvoteConverter
+    ){
+        super();
+        this.contentResolver = contentResolver;
+        this.accountConverter = accountConverter;
+        this.categoryConverter = categoryConverter;
+        this.issueConverter = issueConverter;
+        this.upvoteConverter = upvoteConverter;
+    }
+
+    @Override
+    public List<Category> getCategories() {
+        Cursor cursor = contentResolver.query(
+            PulseContract.IssueCategory.CONTENT_URI,
+            null,
+            null,
+            null,
+            null
+        );
+
+        List<Category> categories = new ArrayList<>();
+        if (cursor != null){
+            while(cursor.moveToNext()){
+                ContentValues values = categoryConverter.convert(cursor);
+                Category category = categoryConverter.convert(values);
+                categories.add(category);
+            }
+        }
+        return categories;
+    }
+
+    @Override
+    public List<Issue> getResolvedIssues(double lat, double lon) {
+        Cursor cursor = contentResolver.query(
+            PulseContract.Issue.CONTENT_URI,
+            null,
+            PulseContract.Issue.Constraints.BY_RESOLVED_STATUS,
+            new String[] { Integer.toString(1) },
+            PulseContract.Issue.TABLE_NAME + "." + PulseContract.Issue.Columns.UPVOTES + " DESC"
+        );
+
+        List<Issue> issues = new ArrayList<>();
+        if (cursor != null){
+            while(cursor.moveToNext()){
+                ContentValues values = issueConverter.convert(cursor);
+                Issue issue = issueConverter.convert(values);
+                issues.add(issue);
+            }
+        }
+        return issues;
+    }
+
+    @Override
+    public void insertIssue(Issue issue) {
+        if (issue == null){
+            throw new IllegalArgumentException("Issue is required.");
+        }
+
+        ContentValues values = issueConverter.convert(issue);
+        contentResolver.insert(PulseContract.Issue.CONTENT_URI, values);
+    }
+
+    @Override
+    public Issue getIssue(Long id) {
+        return null;
+    }
+
+    @Override
+    public Account getAccount(Long id) {
+        return null;
+    }
+
+    @Override
+    public Category getCategory(Long id) {
+        return null;
+    }
+}

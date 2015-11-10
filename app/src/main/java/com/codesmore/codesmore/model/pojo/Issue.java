@@ -1,16 +1,10 @@
 package com.codesmore.codesmore.model.pojo;
 
-import android.content.ContentValues;
 import android.graphics.Bitmap;
 import android.location.Location;
 import android.support.annotation.NonNull;
 
-import com.codesmore.codesmore.integration.db.PulseContract.Issue.Columns;
-import com.codesmore.codesmore.utils.CameraUtils;
-
 import java.util.Date;
-
-import static android.provider.BaseColumns._ID;
 
 /**
  * Created by demouser on 11/9/15.
@@ -18,11 +12,6 @@ import static android.provider.BaseColumns._ID;
 public class Issue {
 
     public Issue() {
-
-    }
-
-    public static Issue from(ContentValues values) {
-        throw new RuntimeException("Implement me!!!");
     }
 
     private Long id;
@@ -49,30 +38,9 @@ public class Issue {
         id = value;
     }
 
-
     public Issue(Category category, String description) {
         this.category = category;
         this.description = description;
-    }
-
-    public ContentValues toContentValues() {
-        ContentValues values = new ContentValues();
-        values.put(_ID, id);
-        values.put(Columns.LATITUDE, latitude);
-        values.put(Columns.LONGITUDE, longtitude);
-        values.put(Columns.IMAGE, CameraUtils.toByteArray(image));
-        values.put(Columns.TITLE, title);
-        values.put(Columns.ISSUE_CATEGORY_ID, category.getId());
-        values.put(Columns.DESCRIPTION, description);
-        values.put(Columns.CREATOR_ID, creator.getId());
-        values.put(Columns.FIXER_ID, fixer.getId());
-        values.put(Columns.PRIORITY, priority);
-        values.put(Columns.UPVOTES, upvotes);
-        values.put(Columns.DOWNVOTES, downvotes);
-        values.put(Columns.FIXED_IND, fixedInd);
-        values.put(Columns.CREATE_DATE, createDate.getTime());
-        values.put(Columns.FIX_DATE, fixedDate.getTime());
-        return values;
     }
 
     public Category getCategory() {

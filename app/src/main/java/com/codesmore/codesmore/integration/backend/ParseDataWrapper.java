@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import com.codesmore.codesmore.integration.backend.pojo.ParseCategory;
 import com.codesmore.codesmore.integration.backend.pojo.ParseIssue;
 import com.codesmore.codesmore.model.DataWrapper;
+import com.codesmore.codesmore.model.pojo.Account;
 import com.codesmore.codesmore.model.pojo.Category;
 import com.codesmore.codesmore.model.pojo.Issue;
 import com.parse.ParseException;
@@ -35,12 +36,7 @@ public class ParseDataWrapper implements DataWrapper {
     }
 
     @Override
-    public void updateIssue(Issue issue) {
-
-    }
-
-    @Override
-    public List<Issue> getResolvedIssues() {
+    public List<Issue> getResolvedIssues(double lat, double lon) {
         return null;
     }
 
@@ -53,5 +49,20 @@ public class ParseDataWrapper implements DataWrapper {
         } catch (ParseException ignored) {
             // TODO: 11/10/2015 error handling
         }
+    }
+
+    @Override
+    public Issue getIssue(Long id) {
+        return null;
+    }
+
+    @Override
+    public Account getAccount(Long id) {
+        return null;
+    }
+
+    @Override
+    public Category getCategory(Long id) {
+        return null;
     }
 }

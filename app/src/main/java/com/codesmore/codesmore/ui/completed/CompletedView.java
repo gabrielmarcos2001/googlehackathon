@@ -12,6 +12,6 @@ public interface CompletedView {
 
     void onProblemsLoaded(List<Issue> issues);
 
-    void openCompletedIssueDetail(Issue productId);
+    void openCompletedIssueDetail(long issueId);
 
 }

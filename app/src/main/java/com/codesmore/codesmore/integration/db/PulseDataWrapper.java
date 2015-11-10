@@ -1,63 +1,62 @@
 package com.codesmore.codesmore.integration.db;
 
 import android.content.ContentResolver;
-import android.content.ContentValues;
-import android.database.Cursor;
 
-import com.codesmore.codesmore.integration.db.PulseContract.IssueCategory;
 import com.codesmore.codesmore.model.DataWrapper;
+import com.codesmore.codesmore.model.pojo.Account;
 import com.codesmore.codesmore.model.pojo.Category;
 import com.codesmore.codesmore.model.pojo.Issue;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import static com.codesmore.codesmore.integration.db.PulseContract.getContentValuesFrom;
-
 public class PulseDataWrapper implements DataWrapper {
-    private ContentResolver contentResolver;
+    private DataWrapper localDataWrapper;
 
     /**
-     * Default constructor.
+     * One-argument constructor.
      * @param contentResolver to place calls to.
      */
     public PulseDataWrapper(ContentResolver contentResolver){
-        this.contentResolver = contentResolver;
+        this(new LocalDataWrapper(contentResolver));
     }
 
     /**
-     * Returning mock data until I can insert values in database.
-     * @return
+     * Two-argument constructor.
+     * @param localDataWrapper to place calls to local
      */
+    public PulseDataWrapper(DataWrapper localDataWrapper){
+        super();
+        this.localDataWrapper = localDataWrapper;
+    }
+
     @Override
     public List<Category> getCategories() {
-        Cursor cursor = contentResolver.query(IssueCategory.CONTENT_URI, null, null, null, null);
-
-        List<Category> categories = new ArrayList<>();
-        if (cursor != null){
-            while(cursor.moveToNext()){
-                ContentValues values = getContentValuesFrom(cursor);
-                Category category = Category.from(values);
-                categories.add(category);
-            }
-        }
-        return categories;
+        return localDataWrapper.getCategories();
     }
 
-    @Override
-    public void updateIssue(Issue issue) {
-        
-    }
 
     @Override
-    public List<Issue> getResolvedIssues() {
-        return null;
+    public List<Issue> getResolvedIssues(double lat, double lon) {
+        return localDataWrapper.getResolvedIssues(lat, lon);
     }
 
     @Override
     public void insertIssue(Issue issue) {
-        if (issue == null){
-            throw new IllegalArgumentException("Issue is required.");
-        }
+        localDataWrapper.insertIssue(issue);
+    }
+
+    @Override
+    public Issue getIssue(Long id) {
+        return localDataWrapper.getIssue(id);
+    }
+
+    @Override
+    public Account getAccount(Long id) {
+        return localDataWrapper.getAccount(id);
+    }
+
+    @Override
+    public Category getCategory(Long id) {
+        return localDataWrapper.getCategory(id);
     }
 }
