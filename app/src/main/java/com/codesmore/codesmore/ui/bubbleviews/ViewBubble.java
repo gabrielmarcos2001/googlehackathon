@@ -25,6 +25,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.codesmore.codesmore.R;
+import com.codesmore.codesmore.model.pojo.Issue;
 import com.codesmore.codesmore.utils.EasingEquations;
 import com.codesmore.codesmore.utils.UnitsConverter;
 
@@ -43,6 +44,8 @@ public class ViewBubble extends RelativeLayout {
         void onDownVoted(ViewBubble bubble);
         void onUpVoted(ViewBubble bubble);
     }
+
+    private Issue mIssueData;
 
     private static final int RIPPLE_DURATION_MS = 4000;
     private static final int ALPHA_DURATION_MS = 3000;
@@ -66,12 +69,11 @@ public class ViewBubble extends RelativeLayout {
     private View mCircle2;
     private View mContainer;
     private View mButtonView;
-    private View mDownVote;
-    private View mUpVote;
     private View mButtonConatiner;
     private View mRippleContainer;
     private int mRandomOffset;
     private TextView mTitle;
+    private TextView mPriority;
 
     private boolean mExpanded = false;
     private boolean mReleased = false;
@@ -105,16 +107,16 @@ public class ViewBubble extends RelativeLayout {
         mImageIcon = (ImageView)findViewById(R.id.icon);
         mContainer = findViewById(R.id.container);
         mButtonView = findViewById(R.id.button_view);
-        mDownVote = findViewById(R.id.downvote);
-        mUpVote = findViewById(R.id.upvote);
         mButtonConatiner = findViewById(R.id.button_container);
         mRippleContainer = findViewById(R.id.ripple_container);
         mTitle = (TextView)findViewById(R.id.bubble_title);
+        mPriority = (TextView)findViewById(R.id.priority_text);
+
+        if (mIssueData != null) {
+            mPriority.setText(String.valueOf(mIssueData.getPriority()));
+        }
 
         mTitle.setVisibility(GONE);
-        mDownVote.setVisibility(GONE);
-        mUpVote.setVisibility(GONE);
-
         setVisibility(INVISIBLE);
 
         mButtonView.setOnTouchListener(new OnTouchListener() {
@@ -147,8 +149,8 @@ public class ViewBubble extends RelativeLayout {
                 } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
 
                     // This looks to be a good hacky number for centering the touch
-                    mScrollX = ((double) event.getX(0) - 50);//(double) event.getX(0) - 50;
-                    mScrollY = ((double) event.getY(0) - 50);//(double) event.getY(0) - 50;
+                    mScrollX = ((double) event.getX(0) - 50);
+                    mScrollY = ((double) event.getY(0) - 50);
 
                     invalidate();
 
@@ -339,6 +341,9 @@ public class ViewBubble extends RelativeLayout {
         startAnimation(animation);
     }
 
+    /**
+     * Triggers the Expand animation when you touch on the view
+     */
     public void expand() {
 
         if (mExpanded) return;
@@ -387,6 +392,9 @@ public class ViewBubble extends RelativeLayout {
         mButtonView.startAnimation(scaleButtonAnim);
     }
 
+    /**
+     * Triggers the Compress animation for going back to normal
+     */
     public void compress() {
 
         if (!mExpanded) return;
@@ -403,7 +411,6 @@ public class ViewBubble extends RelativeLayout {
         mButtonView.getLocationOnScreen(location);
 
         int y = location[1] + mScrollY.intValue();
-        Log.d("BUBBLE","SCROLL Y: " + mScrollY);
 
         elapsedTime = 0;
 
@@ -458,50 +465,30 @@ public class ViewBubble extends RelativeLayout {
         activatePulse();
     }
 
+    /**
+     * Triggers the UpVote Event
+     */
     private void triggerUpVote() {
         mDestPosY = UnitsConverter.convertDpToPixel(-600,getContext());
 
         mInterface.onUpVoted(this);
     }
 
+    /**
+     * Triggers the DownVote Event
+     */
     private void triggerDownVote() {
         mDestPosY = UnitsConverter.convertDpToPixel(600,getContext());
-
         mInterface.onDownVoted(this);
     }
 
-    public void setNumber(int number) {
-
-        float maxScale = 2f;
-        float minScale = 0.5f;
-
-        float scale = (number / 150f) + 1;
-
-        if (scale > maxScale) scale = maxScale;
-        if (scale < minScale) scale = minScale;
-
-        ObjectAnimator buttonScaleX = ObjectAnimator.ofFloat(mButtonConatiner, "scaleX", scale);
-        ObjectAnimator buttonScaleY = ObjectAnimator.ofFloat(mButtonConatiner, "scaleY", scale);
-        buttonScaleX.setDuration(0);
-        buttonScaleY.setDuration(0);
-
-        buttonScaleX.start();
-        buttonScaleY.start();
-
-        ObjectAnimator pulseScaleX = ObjectAnimator.ofFloat(mRippleContainer, "scaleX", scale);
-        ObjectAnimator pulseScaleY = ObjectAnimator.ofFloat(mRippleContainer, "scaleY", scale);
-        pulseScaleX.setDuration(0);
-        pulseScaleY.setDuration(0);
-
-        pulseScaleX.start();
-        pulseScaleY.start();
-    }
 
     public void showTitle() {
 
         mTitle.setVisibility(VISIBLE);
         Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.show_title_from_bottom);
         mTitle.startAnimation(animation);
+        mTitle.setText(mIssueData.getTitle());
     }
 
     public void hideTitle() {
@@ -553,13 +540,8 @@ public class ViewBubble extends RelativeLayout {
             if (Math.abs(mScrollX - mDestPosX) < 0.5f &&
                     Math.abs(mScrollY - mDestPosY) < 0.5f) {
 
-                //canvas.translate((float)mDestPosX, (float)mDestPosY);
-
                 mGoBack = false;
                 mReadyToBeSelected = true;
-
-                //mScrollX = 0.d;
-                //mScrollY = 0.d;
 
             }
 
@@ -568,6 +550,42 @@ public class ViewBubble extends RelativeLayout {
         }
 
         super.onDraw(canvas);
+    }
+
+    public void setmIssueData(Issue mIssueData) {
+        this.mIssueData = mIssueData;
+
+        float maxScale = 2f;
+        float minScale = 0.5f;
+
+        float scale = (mIssueData.getPriority() / 150f) + 1;
+
+        if (scale > maxScale) scale = maxScale;
+        if (scale < minScale) scale = minScale;
+
+        ObjectAnimator buttonScaleX = ObjectAnimator.ofFloat(mButtonConatiner, "scaleX", scale);
+        ObjectAnimator buttonScaleY = ObjectAnimator.ofFloat(mButtonConatiner, "scaleY", scale);
+        buttonScaleX.setDuration(0);
+        buttonScaleY.setDuration(0);
+
+        buttonScaleX.start();
+        buttonScaleY.start();
+
+        ObjectAnimator pulseScaleX = ObjectAnimator.ofFloat(mRippleContainer, "scaleX", scale);
+        ObjectAnimator pulseScaleY = ObjectAnimator.ofFloat(mRippleContainer, "scaleY", scale);
+        pulseScaleX.setDuration(0);
+        pulseScaleY.setDuration(0);
+
+        pulseScaleX.start();
+        pulseScaleY.start();
+
+        if (mPriority != null) {
+            mPriority.setText(String.valueOf(mIssueData.getPriority()));
+        }
+    }
+
+    public Issue getmIssueData() {
+        return mIssueData;
     }
 
     public void setmInterface(BubbleInterface mInterface) {
