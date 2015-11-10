@@ -1,41 +1,22 @@
 package com.codesmore.codesmore.model.pojo;
 
-import android.content.ContentValues;
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import com.codesmore.codesmore.integration.db.PulseContract.IssueCategory;
 
 /**
  * Created by demouser on 11/9/15.
  */
 public class Category implements Parcelable{
-
-    public static Category from(ContentValues values) {
-        if (values == null) {
-            return  new Category(null, null);
-        }
-
-        Long id = values.getAsLong(IssueCategory._ID);
-        String name = values.getAsString(IssueCategory.Columns.ISSUE_CATEGORY);
-        String imageUrl = values.getAsString(IssueCategory.Columns.ISSUE_CATEGORY_IMAGE);
-
-        Category category = new Category(name, imageUrl);
-        category.setId(id);
-        return category;
-    }
-
     private Long id;
     private String name;
     private String imageUrl;
 
+    public Category(){
+    }
+
     public Category(String name, String imageUrl) {
         this.name = name;
         this.imageUrl = imageUrl;
-    }
-
-    public ContentValues toContentValues() {
-        throw new RuntimeException("Implement me!!!");
     }
 
     public Long getId(){
@@ -50,8 +31,16 @@ public class Category implements Parcelable{
         return name;
     }
 
+    public void setName(String value){
+        name = value;
+    }
+
     public String getImageUrl() {
         return imageUrl;
+    }
+
+    public void setImageUrl(String value){
+        imageUrl = value;
     }
 
     @Override

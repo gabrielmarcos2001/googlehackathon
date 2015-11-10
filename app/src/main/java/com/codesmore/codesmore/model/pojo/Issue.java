@@ -1,16 +1,10 @@
 package com.codesmore.codesmore.model.pojo;
 
-import android.content.ContentValues;
 import android.graphics.Bitmap;
 import android.location.Location;
 import android.support.annotation.NonNull;
 
-import com.codesmore.codesmore.integration.db.PulseContract.Issue.Columns;
-import com.codesmore.codesmore.utils.CameraUtils;
-
 import java.util.Date;
-
-import static android.provider.BaseColumns._ID;
 
 /**
  * Created by demouser on 11/9/15.
@@ -18,31 +12,6 @@ import static android.provider.BaseColumns._ID;
 public class Issue {
 
     public Issue() {
-
-    }
-
-    public static Issue from(ContentValues values) {
-        if (values == null){
-            return null;
-        }
-
-        Issue issue = new Issue();
-        issue.setId(values.getAsLong(_ID));
-        //image
-        issue.setLatitude(values.getAsDouble(Columns.LATITUDE));
-        issue.setLongtitude(values.getAsDouble(Columns.LONGITUDE));
-        issue.setTitle(values.getAsString(Columns.TITLE));
-        //category
-        issue.setDescription(values.getAsString(Columns.DESCRIPTION));
-        // creator
-        // fixer
-        issue.setPriority(values.getAsInteger(Columns.PRIORITY));
-        issue.setUpvotes(values.getAsInteger(Columns.UPVOTES));
-        issue.setDownvotes(values.getAsInteger(Columns.DOWNVOTES));
-        issue.setFixedInd(values.getAsBoolean(Columns.FIXED_IND));
-//        issue.setCreateDate(values.getAsLong(Columns.CREATE_DATE));
-//        issue.setFixedDate(values.getAsLong(Columns.FIX_DATE));
-        return issue;
     }
 
     private Long id;
@@ -69,30 +38,9 @@ public class Issue {
         id = value;
     }
 
-
     public Issue(Category category, String description) {
         this.category = category;
         this.description = description;
-    }
-
-    public ContentValues toContentValues() {
-        ContentValues values = new ContentValues();
-        values.put(_ID, id);
-        values.put(Columns.LATITUDE, latitude);
-        values.put(Columns.LONGITUDE, longtitude);
-        values.put(Columns.IMAGE, CameraUtils.toByteArray(image));
-        values.put(Columns.TITLE, title);
-        values.put(Columns.ISSUE_CATEGORY_ID, category.getId());
-        values.put(Columns.DESCRIPTION, description);
-        values.put(Columns.CREATOR_ID, creator.getId());
-        values.put(Columns.FIXER_ID, fixer.getId());
-        values.put(Columns.PRIORITY, priority);
-        values.put(Columns.UPVOTES, upvotes);
-        values.put(Columns.DOWNVOTES, downvotes);
-        values.put(Columns.FIXED_IND, fixedInd);
-        values.put(Columns.CREATE_DATE, createDate.getTime());
-        values.put(Columns.FIX_DATE, fixedDate.getTime());
-        return values;
     }
 
     public Category getCategory() {
