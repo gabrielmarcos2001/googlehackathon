@@ -39,7 +39,7 @@ public class ReportActivity extends BaseActivityWithImageSaving implements Repor
         setContentView(R.layout.activity_report);
         ButterKnife.bind(this);
 
-        mPresenter = new ReportPresenterImpl(this, new PulseDataWrapper());
+        mPresenter = new ReportPresenterImpl(this, new PulseDataWrapper(getContentResolver()));
         mPresenter.requestCategoriesChooser();
     }
 

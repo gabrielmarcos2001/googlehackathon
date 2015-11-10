@@ -25,7 +25,7 @@ public class MockDataWrapper implements DataWrapper {
     }
 
     @Override
-    public void saveIssue(Issue issue) {
+    public void insertIssue(Issue issue) {
 
     }
 }
