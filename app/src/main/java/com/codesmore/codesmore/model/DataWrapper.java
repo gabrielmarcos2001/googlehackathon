@@ -9,10 +9,7 @@ import java.util.List;
  * Created by demouser on 11/9/15.
  */
 public interface DataWrapper {
-
     List<Category> getCategories();
-    void saveIssue(Issue issue);
     List<Issue> getResolvedIssues();
     void insertIssue(Issue issue);
-    
 }

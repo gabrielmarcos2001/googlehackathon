@@ -62,6 +62,9 @@ public class PulseContract {
 
             public static String BY_ISSUE_ID_CONSTRAINT =
                 Issue.TABLE_NAME + "." + Issue._ID + " = ?";
+
+            public static String BY_RESOLVED_STATUS =
+                Issue.TABLE_NAME + "." + Columns.FIXED_IND + " = ?";
         }
 
         public static class Builders {
@@ -90,6 +93,18 @@ public class PulseContract {
             public static final String COMMENT_DATE = "comment_date";
             public static final String UPVOTES = "upvotes";
             public static final String DOWNVOTES = "downvotes";
+        }
+    }
+
+    public static final class Upvote implements BaseColumns {
+        public static final String TABLE_NAME = "upvote";
+        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(TABLE_NAME).build();
+        public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + Upvote.TABLE_NAME;
+        public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + Upvote.TABLE_NAME;
+
+        public static class Columns {
+            public static final String UPVOTED_ISSUE_ID = "upvoted_issue_id";
+            public static final String UPVOTER_ID = "upvoter_id";
         }
     }
 
