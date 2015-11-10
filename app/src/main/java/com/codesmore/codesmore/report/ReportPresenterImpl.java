@@ -8,9 +8,6 @@ import com.codesmore.codesmore.model.pojo.Issue;
 
 import java.util.List;
 
-/**
- * Created by demouser on 11/9/15.
- */
 public class ReportPresenterImpl implements ReportPresenter {
 
     private Issue mCurrentIssue;
@@ -38,7 +35,7 @@ public class ReportPresenterImpl implements ReportPresenter {
     @Override
     public void saveData(String description) {
         mCurrentIssue.setDescription(description);
-        mDataWrapper.saveReport(mCurrentIssue);
+        mDataWrapper.saveIssue(mCurrentIssue);
         mView.onDataSaved();
     }
 
