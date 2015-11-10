@@ -45,6 +45,16 @@ public class PulseDataWrapper implements DataWrapper {
     }
 
     @Override
+    public void saveIssue(Issue issue) {
+        
+    }
+
+    @Override
+    public List<Issue> getResolvedIssues() {
+        return null;
+    }
+
+    @Override
     public void insertIssue(Issue issue) {
         if (issue == null){
             throw new IllegalArgumentException("Issue is required.");
