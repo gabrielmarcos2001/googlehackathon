@@ -115,7 +115,7 @@ public class MainFragment extends Fragment {
             public void run() {
 
                 if (isAdded()) {
-                    TranslateAnimation rePositionText = new TranslateAnimation(0, 0, 0, UnitsConverter.convertDpToPixel(-170, getContext()));
+                    TranslateAnimation rePositionText = new TranslateAnimation(0, 0, 0, UnitsConverter.convertDpToPixel(-150, getContext()));
                     rePositionText.setDuration(1000);
                     rePositionText.setFillAfter(true);
                     rePositionText.setInterpolator(new AccelerateDecelerateInterpolator());

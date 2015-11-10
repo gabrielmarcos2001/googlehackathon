@@ -12,23 +12,40 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
+        <!--  Initial Login Activity -->
         <activity
             android:name=".ui.login.LoginActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:theme="@style/Theme.pulse.NoActionBar">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Issues Details Activity -->
         <activity android:name=".ui.details.DetailsActivity" />
-        <activity android:name=".ui.main.MainActivity" />
+
+        <!-- Main Activity -->
+        <activity android:name=".ui.main.MainActivity"
+            android:theme="@style/Theme.pulse.NoActionBar"/>
+
+        <!-- Report an issue Activity -->
         <activity android:name=".ui.report.ReportActivity" />
+
+        <!-- I don't think we will be using this baby -->
         <activity android:name=".ui.tutorial.TutorialActivity" />
+
+        <!-- Completed Issues Activity -->
         <activity
             android:name=".ui.completed.CompletedActivity"
           >
         </activity>
+
+        <!-- Completed issues detail activity - How is this different from the Details Activity???? -->
         <activity
             android:name=".ui.completeddetails.CompletedDetailsActivity"
           >
