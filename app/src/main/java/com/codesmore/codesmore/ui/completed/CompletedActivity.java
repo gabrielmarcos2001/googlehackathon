@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.codesmore.codesmore.BaseActivity;
 import com.codesmore.codesmore.R;
@@ -42,7 +45,6 @@ public class CompletedActivity extends BaseActivity implements CompletedView, Is
 
     }
 
-
     private synchronized void connectGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -54,7 +56,7 @@ public class CompletedActivity extends BaseActivity implements CompletedView, Is
 
 
     private void initViews(){
-        mCompletedItems = (RecyclerView) findViewById(R.id.completed_items);
+        mCompletedItems = (RecyclerView) findViewById(R.id.completed_items_recycler);
         mAdapter = new IssueAdapter(this);
         mCompletedItems.setAdapter(mAdapter);
 
@@ -99,4 +101,12 @@ public class CompletedActivity extends BaseActivity implements CompletedView, Is
 
     }
 
+    @Override
+    public void showNoItemsAvailableMessage() {
+        TextView errorMessage = (TextView) findViewById(R.id.message_no_resolved_items);
+        errorMessage.setVisibility(View.VISIBLE);
+        Toast toast = Toast.makeText(this, "Showing error message", Toast.LENGTH_SHORT);
+        toast.show();
+
+    }
 }

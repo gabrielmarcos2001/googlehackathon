@@ -4,7 +4,11 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.database.Cursor;
 
+
+import com.codesmore.codesmore.model.DataFetchedListener;
+
 import com.codesmore.codesmore.integration.converter.Converter;
+
 import com.codesmore.codesmore.model.DataWrapper;
 import com.codesmore.codesmore.model.pojo.Account;
 import com.codesmore.codesmore.model.pojo.Category;
@@ -70,7 +74,7 @@ public class LocalDataWrapper implements DataWrapper {
     }
 
     @Override
-    public List<Issue> getResolvedIssues(double lat, double lon) {
+    public void getResolvedIssues(double lat, double lon, DataFetchedListener listener) {
         Cursor cursor = contentResolver.query(
             PulseContract.Issue.CONTENT_URI,
             null,
@@ -87,7 +91,8 @@ public class LocalDataWrapper implements DataWrapper {
                 issues.add(issue);
             }
         }
-        return issues;
+        listener.onCompletedIssuesLoaded(issues);
+        //return issues;
     }
 
     @Override
@@ -181,7 +186,6 @@ public class LocalDataWrapper implements DataWrapper {
 
     @Override
     public void upvote(Issue issue, Account upvoter) {
-        //  TODO
     }
 
     @Override
@@ -190,13 +194,25 @@ public class LocalDataWrapper implements DataWrapper {
     }
 
     @Override
-    public List<Issue> getCreatedOrUpvotedIssuesFor(Account owner) {
-        return null;
-        //  TODO
+    public void resolveIssue(Issue issue, Account resolver) {
+        if (issue == null || resolver == null) {
+            return;
+        }
+
+        issue.setFixer(resolver);
+        ContentValues values = issueConverter.convert(issue);
+
+        contentResolver.update(
+            PulseContract.Issue.Builders.buildForIssueId(issue.getId()),
+            values,
+            null,
+            null
+        );
     }
 
     @Override
-    public void resolveIssue(Issue issue, Account resolver) {
+    public List<Issue> getCreatedOrUpvotedIssuesFor(Account owner) {
+        return null;
         //  TODO
     }
 }

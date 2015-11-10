@@ -2,6 +2,7 @@ package com.codesmore.codesmore.integration.db;
 
 import android.content.ContentResolver;
 
+import com.codesmore.codesmore.model.DataFetchedListener;
 import com.codesmore.codesmore.model.DataWrapper;
 import com.codesmore.codesmore.model.pojo.Account;
 import com.codesmore.codesmore.model.pojo.Category;
@@ -36,8 +37,8 @@ public class PulseDataWrapper implements DataWrapper {
 
 
     @Override
-    public List<Issue> getResolvedIssues(double lat, double lon) {
-        return localDataWrapper.getResolvedIssues(lat, lon);
+    public void getResolvedIssues(double lat, double lon, DataFetchedListener listener) {
+        localDataWrapper.getResolvedIssues(lat, lon, listener);
     }
 
     @Override

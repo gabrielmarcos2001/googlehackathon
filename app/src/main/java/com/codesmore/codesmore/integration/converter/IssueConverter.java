@@ -52,6 +52,7 @@ public class IssueConverter implements Converter<Issue> {
         values.put(PulseContract.Issue.Columns.FIXED_IND, object.getFixedInd());
         values.put(PulseContract.Issue.Columns.CREATE_DATE, object.getCreateDate().getTime());
         values.put(PulseContract.Issue.Columns.FIX_DATE, object.getFixedDate().getTime());
+        values.put(PulseContract.Issue.Columns.PARSE_ID, object.getParseId());
         return values;
     }
 
@@ -88,6 +89,7 @@ public class IssueConverter implements Converter<Issue> {
         issue.setFixedInd(values.getAsBoolean(PulseContract.Issue.Columns.FIXED_IND));
         issue.setCreateDate(new Date(values.getAsLong(PulseContract.Issue.Columns.CREATE_DATE)));
         issue.setFixedDate(new Date(values.getAsLong(PulseContract.Issue.Columns.FIX_DATE)));
+        issue.setParseId(values.getAsString(PulseContract.Issue.Columns.PARSE_ID));
         return issue;
     }
 }

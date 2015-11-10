@@ -1,7 +1,6 @@
 package com.codesmore.codesmore.ui.main;
 
 import com.codesmore.codesmore.model.pojo.Issue;
-
 import java.util.List;
 
 /**
@@ -16,4 +15,7 @@ public interface MainView {
     void showVotingAreas();
     void hideVotingAreas();
     void showContextualIssue(Issue issue);
+
+
+
 }

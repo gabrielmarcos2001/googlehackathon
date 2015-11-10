@@ -59,7 +59,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_alignParentBottom="true"
-        android:text="@string/google"
+        android:text="@string/google_singin"
         android:textColor="@color/clouds"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="10dp"/>

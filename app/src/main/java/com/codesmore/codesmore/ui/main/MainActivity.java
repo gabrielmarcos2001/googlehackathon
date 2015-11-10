@@ -1,5 +1,6 @@
 package com.codesmore.codesmore.ui.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -7,16 +8,19 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.codesmore.codesmore.BaseActivity;
 import com.codesmore.codesmore.R;
+import com.codesmore.codesmore.ui.completed.CompletedActivity;
 import com.codesmore.codesmore.ui.navdrawer.FragmentNavigationDrawer;
 
-public class MainActivity extends BaseActivity implements FragmentNavigationDrawer.NavigationDrawerCallbacks{
+public class MainActivity extends BaseActivity implements FragmentNavigationDrawer.NavigationDrawerCallbacks, MainActivityView{
 
     private static final String FRAGMENT_TAG = "MainFragment";
 
     private Toolbar mToolbar;
+    private MainActivityPresenter mPresenter;
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -28,6 +32,7 @@ public class MainActivity extends BaseActivity implements FragmentNavigationDraw
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+        mPresenter = new MainActivityPresenterImpl(this);
 
         mToolbar = (Toolbar)findViewById(R.id.toolbar);
 
@@ -81,6 +86,34 @@ public class MainActivity extends BaseActivity implements FragmentNavigationDraw
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
+        //Toast toast = Toast.makeText(this, "Clicked: " + position, Toast.LENGTH_SHORT);
+        //toast.show();
+        mPresenter.onDrawerMenuItemSelected(position);
 
     }
+
+
+    @Override
+    public void openCompletedIssues() {
+        //Toast toast = Toast.makeText(this, "Open Completed Issues", Toast.LENGTH_SHORT);
+        //toast.show();
+        Intent intent = new Intent(this, CompletedActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void openUpvotedIssues() {
+        Toast toast = Toast.makeText(this, "Open UpVoted Issues", Toast.LENGTH_SHORT);
+        toast.show();
+        //Intent intent = new Intent(this, )
+    }
+
+    @Override
+    public void openUserAccount() {
+        Toast toast = Toast.makeText(this, "Open User Account (not implemented)", Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+
+
 }

@@ -67,6 +67,7 @@ public class PulseContract {
             public static final String LATITUDE = "latitude";
             public static final String LONGITUDE = "logitude";
             public static final String IMAGE = "image";
+            public static final String PARSE_ID = "parse_id";
         }
 
         public static class Constraints {
