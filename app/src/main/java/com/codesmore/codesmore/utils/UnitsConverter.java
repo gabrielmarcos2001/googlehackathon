@@ -1,10 +1,14 @@
-package com.codesmore.codesmore;
+package com.codesmore.codesmore.utils;
 
 import android.content.Context;
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
 
-public class UtilsUnitsConverter {
+public class UnitsConverter {
+
+    private UnitsConverter() {
+        // No instances allowed.
+    }
 
     /**
      * This method converts dp unit to equivalent pixels, depending on device

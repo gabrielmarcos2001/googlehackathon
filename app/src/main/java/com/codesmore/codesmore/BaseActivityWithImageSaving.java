@@ -15,6 +15,9 @@ import java.io.IOException;
 
 public abstract class BaseActivityWithImageSaving extends BaseActivity {
 
+    public static final int IMG_WIDTH = 300;
+    public static final int IMG_HEIGHT = 300;
+
     /**
      * Overwrite if the Activity is interested in image capturing.
      * @param captured The image that was just captured.
@@ -25,9 +28,16 @@ public abstract class BaseActivityWithImageSaving extends BaseActivity {
     private static final String KEY_IMAGE_URI = "imageUri";
     private static final String KEY_IMAGE_RAW_DATA = "imageRawData";
 
+    /** User-chosen image location */
     private Uri mImageUri;
     private byte[] mImageByteData;
 
+    /**
+     * Create an Image choosing prompt that includes:
+     *
+     * - choose from Gallery
+     * - take picture (only if the device has a camera)
+     */
     public void startImageChooser() {
         final Intent galleryIntent = new Intent();
         galleryIntent.setType("image/*");
@@ -48,6 +58,8 @@ public abstract class BaseActivityWithImageSaving extends BaseActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+
+        // Be sure to keep the selected image.
         outState.putParcelable(KEY_IMAGE_URI, mImageUri);
         outState.putByteArray(KEY_IMAGE_RAW_DATA, mImageByteData);
     }
@@ -55,6 +67,8 @@ public abstract class BaseActivityWithImageSaving extends BaseActivity {
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
+
+        // Restore chosen image if any.
         mImageUri = savedInstanceState.getParcelable(KEY_IMAGE_URI);
         mImageByteData = savedInstanceState.getByteArray(KEY_IMAGE_RAW_DATA);
 
@@ -67,12 +81,12 @@ public abstract class BaseActivityWithImageSaving extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_CHOOSE_IMAGE && resultCode == RESULT_OK) {
-            final boolean isCamera =
+            final boolean isCameraImage =
                     (data == null) || MediaStore.ACTION_IMAGE_CAPTURE.equals(data.getAction());
 
             Bitmap bitmap = null;
 
-            Uri imageUri = isCamera ? mImageUri : data.getData();
+            Uri imageUri = isCameraImage ? mImageUri : data.getData();
 
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
@@ -80,9 +94,9 @@ public abstract class BaseActivityWithImageSaving extends BaseActivity {
                 // Bitmap not found, will be found later.
             }
 
-            Bitmap scaled = Bitmap.createScaledBitmap(bitmap, 300, 300, false);
+            Bitmap scaled = Bitmap.createScaledBitmap(bitmap, IMG_WIDTH, IMG_HEIGHT, false);
             if (scaled != null) {
-                scaled = CameraUtils.validatePictureOrientation(this, scaled, imageUri);
+                scaled = CameraUtils.ensureGenuinePictureOrientation(this, scaled, imageUri);
                 onImageCaptured(scaled);
 
                 ByteArrayOutputStream bytes = new ByteArrayOutputStream();

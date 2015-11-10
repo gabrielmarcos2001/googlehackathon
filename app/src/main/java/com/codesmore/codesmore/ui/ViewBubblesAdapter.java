@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.codesmore.codesmore.R;
-import com.codesmore.codesmore.UtilsUnitsConverter;
+import com.codesmore.codesmore.utils.UnitsConverter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,12 +69,12 @@ public class ViewBubblesAdapter extends RelativeLayout{
     private void initBubblesPoint() {
 
         // We support 6 items at a time
-        Point point = new Point((int)UtilsUnitsConverter.convertDpToPixel(-200,getContext()),(int)UtilsUnitsConverter.convertDpToPixel(-350,getContext()));
-        Point point2 = new Point((int)UtilsUnitsConverter.convertDpToPixel(300,getContext()),(int)UtilsUnitsConverter.convertDpToPixel(0,getContext()));
-        Point point3 = new Point((int)UtilsUnitsConverter.convertDpToPixel(-250,getContext()),(int)UtilsUnitsConverter.convertDpToPixel(300,getContext()));
-        Point point4 = new Point((int)UtilsUnitsConverter.convertDpToPixel(0,getContext()),(int)UtilsUnitsConverter.convertDpToPixel(-50,getContext()));
-        Point point5 = new Point((int)UtilsUnitsConverter.convertDpToPixel(270,getContext()),(int)UtilsUnitsConverter.convertDpToPixel(250,getContext()));
-        Point point6 = new Point((int)UtilsUnitsConverter.convertDpToPixel(220,getContext()),(int)UtilsUnitsConverter.convertDpToPixel(-310,getContext()));
+        Point point = new Point((int) UnitsConverter.convertDpToPixel(-200, getContext()),(int) UnitsConverter.convertDpToPixel(-350, getContext()));
+        Point point2 = new Point((int) UnitsConverter.convertDpToPixel(300, getContext()),(int) UnitsConverter.convertDpToPixel(0, getContext()));
+        Point point3 = new Point((int) UnitsConverter.convertDpToPixel(-250, getContext()),(int) UnitsConverter.convertDpToPixel(300, getContext()));
+        Point point4 = new Point((int) UnitsConverter.convertDpToPixel(0, getContext()),(int) UnitsConverter.convertDpToPixel(-50, getContext()));
+        Point point5 = new Point((int) UnitsConverter.convertDpToPixel(270, getContext()),(int) UnitsConverter.convertDpToPixel(250, getContext()));
+        Point point6 = new Point((int) UnitsConverter.convertDpToPixel(220, getContext()),(int) UnitsConverter.convertDpToPixel(-310, getContext()));
 
         mBubblesPositions.add(point);
         mBubblesPositions.add(point2);

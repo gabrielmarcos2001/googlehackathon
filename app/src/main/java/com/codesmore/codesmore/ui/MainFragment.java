@@ -15,7 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.codesmore.codesmore.R;
-import com.codesmore.codesmore.UtilsUnitsConverter;
+import com.codesmore.codesmore.utils.UnitsConverter;
 
 /**
  * Created by gabrielmarcos on 11/9/15.
@@ -88,7 +88,7 @@ public class MainFragment extends Fragment {
     private void startOnBoardingFlow() {
 
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)mTextArea.getLayoutParams();
-        params.setMargins(0, (int)UtilsUnitsConverter.convertDpToPixel(200,getActivity()),0,0);
+        params.setMargins(0, (int) UnitsConverter.convertDpToPixel(200, getActivity()),0,0);
 
         mStatusMessage.setText(getString(R.string.on_boarding_1));
 
@@ -109,7 +109,7 @@ public class MainFragment extends Fragment {
             @Override
             public void run() {
 
-                TranslateAnimation rePositionText = new TranslateAnimation(0,0,0,UtilsUnitsConverter.convertDpToPixel(-170,getContext()));
+                TranslateAnimation rePositionText = new TranslateAnimation(0, 0, 0, UnitsConverter.convertDpToPixel(-170, getContext()));
                 rePositionText.setDuration(1000);
                 rePositionText.setFillAfter(true);
                 rePositionText.setInterpolator(new AccelerateDecelerateInterpolator());
