@@ -1,7 +1,5 @@
 package com.codesmore.codesmore.report;
 
-import android.util.Log;
-
 import com.codesmore.codesmore.model.DataWrapper;
 import com.codesmore.codesmore.model.pojo.Category;
 import com.codesmore.codesmore.model.pojo.Issue;
@@ -13,27 +11,23 @@ import java.util.List;
  */
 public class ReportPresenterImpl implements ReportPresenter {
 
-    private Issue mCurrentIssue;
     private ReportView mView;
     private DataWrapper mDataWrapper;
 
-    public ReportPresenterImpl(ReportView reportView, DataWrapper dataWrapper) {
+    public ReportPresenterImpl(ReportView reportView) {
         mView = reportView;
-        mDataWrapper = dataWrapper;
 
-        mCurrentIssue = new Issue();
     }
 
     @Override
-    public void requestCategoriesChooser() {
+    public void requestCategoriesChoser() {
         List<Category> categories = mDataWrapper.getCategories();
-        Log.d("vesko", "requestCategoriesChooser() called with: " + categories.size());
-        mView.showCategoriesChooser(categories);
+        mView.showCategoriesChoser(categories);
     }
 
     @Override
-    public void onCategoryClicked(Category category) {
-        mCurrentIssue.setCategory(category);
+    public void onCategoryClicked(String currentCategory) {
+
     }
 
     @Override
@@ -42,10 +36,9 @@ public class ReportPresenterImpl implements ReportPresenter {
     }
 
     @Override
-    public void saveData(String description) {
-        mCurrentIssue.setDescription(description);
-        mDataWrapper.saveReport(mCurrentIssue);
-        mView.onDataSaved();
+    public void saveData(Category category, String description) {
+        Issue issue = new Issue(category, description);
+        mDataWrapper.saveIssue(issue);
     }
 
 

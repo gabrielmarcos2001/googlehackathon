@@ -11,5 +11,5 @@ import java.util.List;
 public interface DataWrapper {
 
     List<Category> getCategories();
-    void saveReport(Issue issue);
+    void saveIssue(Issue issue);
 }
