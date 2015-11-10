@@ -3,6 +3,8 @@ package com.codesmore.codesmore.model.pojo;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.location.Location;
+import android.support.annotation.NonNull;
 
 /**
  * Created by demouser on 11/9/15.
@@ -10,6 +12,8 @@ import android.graphics.Bitmap;
 public class Issue {
 
     private Bitmap image;
+    private double latitude;
+    private double longtitude;
 
     public Issue() {
 
@@ -49,5 +53,10 @@ public class Issue {
 
     public void setImage(Bitmap image) {
         this.image = image;
+    }
+
+    public void setLocation(@NonNull Location location) {
+        latitude = location.getLatitude();
+        longtitude = location.getLongitude();
     }
 }
