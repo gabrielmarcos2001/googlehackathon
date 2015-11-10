@@ -19,16 +19,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".details.DetailsActivity" />
-        <activity android:name=".login.LoginActivity" />
-        <activity android:name=".report.ReportActivity" />
-        <activity android:name=".tutorial.TutorialActivity" />
+        <activity android:name=".ui.details.DetailsActivity" />
+        <activity android:name=".ui.login.LoginActivity" />
+        <activity android:name=".ui.report.ReportActivity" />
+        <activity android:name=".ui.tutorial.TutorialActivity" />
         <activity
-            android:name=".completed.CompletedActivity"
+            android:name=".ui.completed.CompletedActivity"
           >
         </activity>
         <activity
-            android:name=".completeddetails.CompletedDetailsActivity"
+            android:name=".ui.completeddetails.CompletedDetailsActivity"
           >
         </activity>
     </application>
