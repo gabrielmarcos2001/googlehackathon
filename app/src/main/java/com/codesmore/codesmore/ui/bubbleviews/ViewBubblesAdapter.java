@@ -19,10 +19,19 @@ import java.util.Random;
  */
 public class ViewBubblesAdapter extends RelativeLayout{
 
+    public interface BubblesInterface {
+        void onBubbleSelected(ViewBubble bubble);
+        void onBubbleUnselected();
+        void upVoteBubble(ViewBubble bubble);
+        void downVoteBubble(ViewBubble bubble);
+    }
+
     private List<Point> mBubblesPositions;
     private List<String> mItems;
     private List<ViewBubble> mBubbles;
     private ViewGroup mContainer;
+
+    private BubblesInterface mInterface;
 
     public ViewBubblesAdapter(Context context) {
         super(context);
@@ -98,6 +107,10 @@ public class ViewBubblesAdapter extends RelativeLayout{
     }
 
 
+    public void setmInterface(BubblesInterface mInterface) {
+        this.mInterface = mInterface;
+    }
+
     private void generateBubbles() {
 
         //int delayOffset= 0;
@@ -117,10 +130,32 @@ public class ViewBubblesAdapter extends RelativeLayout{
 
             mBubbles.add(bubble);
 
+            bubble.setmInterface(new ViewBubble.BubbleInterface() {
+                @Override
+                public void onReleased(ViewBubble bubble) {
+                    mInterface.onBubbleUnselected();
+                }
+
+                @Override
+                public void onSelected(ViewBubble bubble) {
+                    mInterface.onBubbleSelected(bubble);
+                }
+
+                @Override
+                public void onDownVoted(ViewBubble bubble) {
+                    mInterface.downVoteBubble(bubble);
+                }
+
+                @Override
+                public void onUpVoted(ViewBubble bubble) {
+                    mInterface.upVoteBubble(bubble);
+                }
+            });
+
             bubbleIndex ++;
 
         }
-    }
 
+    }
 
 }
