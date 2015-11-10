@@ -14,7 +14,7 @@ import com.parse.ParseQuery;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ParseDataWrapper implements DataWrapper {
+public class WebService implements DataWrapper {
 
     @Override
     public List<Category> getCategories() {
