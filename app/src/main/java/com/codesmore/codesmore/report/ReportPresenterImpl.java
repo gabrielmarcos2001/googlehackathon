@@ -2,7 +2,7 @@ package com.codesmore.codesmore.report;
 
 import com.codesmore.codesmore.model.DataWrapper;
 import com.codesmore.codesmore.model.pojo.Category;
-import com.codesmore.codesmore.model.pojo.Report;
+import com.codesmore.codesmore.model.pojo.Issue;
 
 import java.util.List;
 
@@ -37,8 +37,8 @@ public class ReportPresenterImpl implements ReportPresenter {
 
     @Override
     public void saveData(Category category, String description) {
-        Report report = new Report(category, description);
-        mDataWrapper.saveReport(report);
+        Issue issue = new Issue(category, description);
+        mDataWrapper.saveReport(issue);
     }
 
 

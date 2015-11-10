@@ -6,16 +6,16 @@ import android.database.Cursor;
 /**
  * Created by demouser on 11/9/15.
  */
-public class Report {
+public class Issue {
 
-    public static Report from(Cursor cursor) {
+    public static Issue from(Cursor cursor) {
         throw new RuntimeException("Implement me!!!");
     }
 
     private Category category;
     private String description;
 
-    public Report(Category category, String description) {
+    public Issue(Category category, String description) {
         this.category = category;
         this.description = description;
     }
@@ -23,7 +23,7 @@ public class Report {
     public ContentValues toContentValues() {
         throw new RuntimeException("Implement me!!!");
     }
-    
+
     public Category getCategory() {
         return category;
     }

@@ -1,7 +1,7 @@
 package com.codesmore.codesmore.model;
 
 import com.codesmore.codesmore.model.pojo.Category;
-import com.codesmore.codesmore.model.pojo.Report;
+import com.codesmore.codesmore.model.pojo.Issue;
 
 import java.util.List;
 
@@ -11,5 +11,5 @@ import java.util.List;
 public interface DataWrapper {
 
     List<Category> getCategories();
-    void saveReport(Report report);
+    void saveReport(Issue issue);
 }
