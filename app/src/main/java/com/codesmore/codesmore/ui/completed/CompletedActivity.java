@@ -2,11 +2,12 @@ package com.codesmore.codesmore.ui.completed;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import com.codesmore.codesmore.BaseActivity;
 import com.codesmore.codesmore.R;
-import com.codesmore.codesmore.completeddetails.CompletedDetailsActivity;
 import com.codesmore.codesmore.model.pojo.Issue;
 import com.codesmore.codesmore.ui.IssueAdapter;
+import com.codesmore.codesmore.ui.completeddetails.CompletedDetailsActivity;
 
 import java.util.List;
 
