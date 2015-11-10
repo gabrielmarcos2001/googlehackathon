@@ -13,4 +13,8 @@
     <string name="take_picture">Take picture</string>
     <string name="cd_issue_image">Image documenting the issue</string>
 
+    <string name="welcome_message">Welcome to</string>
+    <string name="slogan">A different way to Sense your surroundings</string>
+    <string name="login_with">Login with</string>
+    <string name="google">Google</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.codesmore.codesmore;
+package com.codesmore.codesmore.utils;
 
 import android.content.Context;
 import android.content.res.Resources;

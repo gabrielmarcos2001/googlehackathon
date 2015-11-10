@@ -1,4 +1,4 @@
-package com.codesmore.codesmore.ui;
+package com.codesmore.codesmore.ui.bubbleviews;
 
 import android.content.Context;
 import android.graphics.Point;
@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.codesmore.codesmore.R;
-import com.codesmore.codesmore.UtilsUnitsConverter;
+import com.codesmore.codesmore.utils.UtilsUnitsConverter;
 
 import java.util.ArrayList;
 import java.util.List;

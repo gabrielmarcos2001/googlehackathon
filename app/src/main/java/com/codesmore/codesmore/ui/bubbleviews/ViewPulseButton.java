@@ -1,4 +1,4 @@
-package com.codesmore.codesmore.ui;
+package com.codesmore.codesmore.ui.bubbleviews;
 
 import android.content.Context;
 import android.os.Handler;
@@ -23,7 +23,7 @@ import java.util.TimerTask;
 /**
  * Created by gabrielmarcos on 11/9/15.
  */
-public class ViewPulse extends RelativeLayout {
+public class ViewPulseButton extends RelativeLayout {
 
     protected static final int RIPPLE_DURATION_MS = 3000;
     protected static final int RIPPLE_INTERVAL_MS = 5000;
@@ -42,12 +42,12 @@ public class ViewPulse extends RelativeLayout {
     private boolean mAnimationsInitialized = false;
     private ImageView mImageIcon;
 
-    public ViewPulse(Context context) {
+    public ViewPulseButton(Context context) {
         super(context);
         inflateLayout(context, null);
     }
 
-    public ViewPulse(Context context, AttributeSet attrs) {
+    public ViewPulseButton(Context context, AttributeSet attrs) {
         super(context, attrs);
         inflateLayout(context, null);
 

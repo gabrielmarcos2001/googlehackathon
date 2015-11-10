@@ -1,4 +1,4 @@
-package com.codesmore.codesmore;
+package com.codesmore.codesmore.ui.main;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -7,7 +7,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.codesmore.codesmore.ui.MainFragment;
+import com.codesmore.codesmore.R;
+import com.codesmore.codesmore.ui.main.MainFragment;
 
 public class MainActivity extends AppCompatActivity {
 

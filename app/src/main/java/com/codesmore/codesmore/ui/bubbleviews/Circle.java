@@ -1,4 +1,4 @@
-package com.codesmore.codesmore.ui;
+package com.codesmore.codesmore.ui.bubbleviews;
 
 /**
  * Created by gabrielmarcos on 11/10/15.
@@ -9,5 +9,5 @@ public class Circle {
     public int posY;
     public int radious;
     public float alpha;
-    public int speed = 0;
+    public float speed = 0;
 }

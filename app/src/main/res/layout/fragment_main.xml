@@ -39,12 +39,12 @@
 
     </RelativeLayout>
 
-    <com.codesmore.codesmore.ui.ViewPulse
+    <com.codesmore.codesmore.ui.bubbleviews.ViewPulseButton
         android:id="@+id/ripple_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <com.codesmore.codesmore.ui.ViewBubblesAdapter
+    <com.codesmore.codesmore.ui.bubbleviews.ViewBubblesAdapter
         android:id="@+id/bubbles_adapter"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

@@ -6,5 +6,6 @@ package com.codesmore.codesmore.ui.login;
 public interface LoginView {
     void onAuthenticationComplete();
     void onAuthenticationFailed();
+    void showLoader();
 
 }

@@ -1,4 +1,4 @@
-package com.codesmore.codesmore.ui;
+package com.codesmore.codesmore.ui.main;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,7 +15,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.codesmore.codesmore.R;
-import com.codesmore.codesmore.UtilsUnitsConverter;
+import com.codesmore.codesmore.utils.UtilsUnitsConverter;
+import com.codesmore.codesmore.ui.bubbleviews.ViewBubblesAdapter;
+import com.codesmore.codesmore.ui.bubbleviews.ViewAnimatedBackground;
+import com.codesmore.codesmore.ui.bubbleviews.ViewPulseButton;
 
 /**
  * Created by gabrielmarcos on 11/9/15.
@@ -26,7 +29,7 @@ public class MainFragment extends Fragment {
     private TextView mTitle;
     private TextView mStatusMessage;
 
-    private ViewPulse mPulseButton;
+    private ViewPulseButton mPulseButton;
     private ViewBubblesAdapter mViewsAdapter;
 
     /**
@@ -49,7 +52,7 @@ public class MainFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        mPulseButton = (ViewPulse)rootView.findViewById(R.id.ripple_view);
+        mPulseButton = (ViewPulseButton)rootView.findViewById(R.id.ripple_view);
         mViewsAdapter = (ViewBubblesAdapter)rootView.findViewById(R.id.bubbles_adapter);
         mTextArea = rootView.findViewById(R.id.text_area);
         mTitle = (TextView)rootView.findViewById(R.id.title);
@@ -60,7 +63,7 @@ public class MainFragment extends Fragment {
 
         startOnBoardingFlow();
 
-        ViewOverlay view = new ViewOverlay(getActivity());
+        ViewAnimatedBackground view = new ViewAnimatedBackground(getActivity());
         view.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT));
 
         ((ViewGroup)rootView).addView(view);
@@ -97,9 +100,11 @@ public class MainFragment extends Fragment {
             @Override
             public void run() {
 
-                mPulseButton.setVisibility(View.VISIBLE);
-                Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.show_from_bottom);
-                mPulseButton.startAnimation(animation);
+                if (isAdded()) {
+                    mPulseButton.setVisibility(View.VISIBLE);
+                    Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.show_from_bottom);
+                    mPulseButton.startAnimation(animation);
+                }
 
             }
         }, 2000);
@@ -109,24 +114,30 @@ public class MainFragment extends Fragment {
             @Override
             public void run() {
 
-                TranslateAnimation rePositionText = new TranslateAnimation(0,0,0,UtilsUnitsConverter.convertDpToPixel(-170,getContext()));
-                rePositionText.setDuration(1000);
-                rePositionText.setFillAfter(true);
-                rePositionText.setInterpolator(new AccelerateDecelerateInterpolator());
+                if (isAdded()) {
+                    TranslateAnimation rePositionText = new TranslateAnimation(0, 0, 0, UtilsUnitsConverter.convertDpToPixel(-170, getContext()));
+                    rePositionText.setDuration(1000);
+                    rePositionText.setFillAfter(true);
+                    rePositionText.setInterpolator(new AccelerateDecelerateInterpolator());
 
-                mViewsAdapter.setVisibility(View.VISIBLE);
-                mTextArea.startAnimation(rePositionText);
-                mStatusMessage.setText(getString(R.string.on_boarding_2));
+                    mViewsAdapter.setVisibility(View.VISIBLE);
+                    mTextArea.startAnimation(rePositionText);
+                    mStatusMessage.setText(getString(R.string.on_boarding_2));
 
-                showData();
+                    showData();
 
-                final Handler fakeContextualEvent = new Handler();
-                fakeContextualEvent.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        showContextualEvent();
-                    }
-                }, 5000);
+                    final Handler fakeContextualEvent = new Handler();
+                    fakeContextualEvent.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            if (isAdded()) {
+                                showContextualEvent();
+                            }
+                        }
+                    }, 5000);
+
+                }
             }
         }, 4000);
 

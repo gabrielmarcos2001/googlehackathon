@@ -1,15 +1,13 @@
-package com.codesmore.codesmore.ui;
+package com.codesmore.codesmore.ui.bubbleviews;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.util.AttributeSet;
-import android.view.Display;
 import android.view.View;
 
 import com.codesmore.codesmore.R;
-import com.codesmore.codesmore.UtilsUnitsConverter;
+import com.codesmore.codesmore.utils.UtilsUnitsConverter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,12 +16,14 @@ import java.util.Random;
 /**
  * Created by gabrielmarcos on 11/10/15.
  */
-public class ViewOverlay extends View {
+public class ViewAnimatedBackground extends View {
 
     private Paint mPaint;
     private List<Circle> mCircles;
+    private boolean mReduceAlpha = false;
+    private boolean mIncreaseSpeed = false;
 
-    public ViewOverlay(Context context) {
+    public ViewAnimatedBackground(Context context) {
         super(context);
 
         mCircles = new ArrayList<>();
@@ -48,7 +48,7 @@ public class ViewOverlay extends View {
         mPaint.setColor(getResources().getColor(R.color.background_red));
     }
 
-    public ViewOverlay(Context context, AttributeSet attrs) {
+    public ViewAnimatedBackground(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
@@ -68,9 +68,27 @@ public class ViewOverlay extends View {
                 circle.posY = random.nextInt((int)UtilsUnitsConverter.convertDpToPixel(600,getContext())) + (int)UtilsUnitsConverter.convertDpToPixel(600,getContext());
             }
 
+            if (mReduceAlpha) {
+                if (circle.alpha > 0) circle.alpha -= 0.025f;
+            }
+
+            if (mIncreaseSpeed) {
+                if (circle.speed < 50) {
+                    circle.speed += 0.25f;
+                }
+            }
+
         }
 
         invalidate();
 
+    }
+
+    public void setReduceAlpha(boolean value) {
+        this.mReduceAlpha = value;
+    }
+
+    public void increaseSpeed(boolean value) {
+        this.mIncreaseSpeed = value;
     }
 }
