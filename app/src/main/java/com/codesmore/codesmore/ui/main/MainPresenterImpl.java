@@ -33,7 +33,7 @@ public class MainPresenterImpl implements MainPresenter {
             @Override
             public void run() {
 
-                mWrapper.downVote(issue);
+                mWrapper.upVote(issue, null);
 
                 Handler mainHandler = new Handler(Looper.getMainLooper());
 
@@ -51,6 +51,8 @@ public class MainPresenterImpl implements MainPresenter {
 
             }
         });
+
+        t.start();
     }
 
     @Override
@@ -80,21 +82,6 @@ public class MainPresenterImpl implements MainPresenter {
         });
 
         t.start();
-        /*
-        mWrapper.downVote(issue);
-
-        final Handler fakeData = new Handler();
-        fakeData.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (mView != null) {
-                    mView.onIssueDownVoted(issue);
-                }
-
-            }
-        }, 500);
-        */
-
 
     }
 
@@ -110,6 +97,7 @@ public class MainPresenterImpl implements MainPresenter {
 
     @Override
     public void refreshIssues() {
+
         mWrapper.getUnresolvedIssues(0, 0)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

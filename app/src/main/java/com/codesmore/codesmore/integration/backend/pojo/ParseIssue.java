@@ -34,7 +34,7 @@ public class ParseIssue extends BaseParseObject {
             parseIssue.setImageFile(new ParseFile("image.png", bytes.toByteArray()));
         }
 
-        ParseGeoPoint geoPoint = new ParseGeoPoint(issue.getLatitude(), issue.getLongtitude());
+        ParseGeoPoint geoPoint = new ParseGeoPoint(issue.getLatitude(), issue.getLongitude());
         parseIssue.setLocation(geoPoint);
         return parseIssue;
     }
@@ -73,5 +73,23 @@ public class ParseIssue extends BaseParseObject {
 
     public void setFixedIndicator(boolean fixedIndicator) {
         put("fixed_indicator", fixedIndicator);
+    }
+
+    public double getLatitude() {
+        ParseGeoPoint location = (ParseGeoPoint) get("location");
+        if (location != null) {
+            return location.getLatitude();
+        }
+
+        return 0;
+    }
+
+    public double getLongitude() {
+        ParseGeoPoint location = (ParseGeoPoint) get("location");
+        if (location != null) {
+            return location.getLongitude();
+        }
+
+        return 0;
     }
 }

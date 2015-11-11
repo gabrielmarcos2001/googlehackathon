@@ -13,6 +13,10 @@ import java.util.Date;
  */
 public class Issue {
 
+    /**
+     * Construct a DB Pojo from a Backend POJO
+     * @param parseIssue
+     */
     public Issue(ParseIssue parseIssue) {
         this.title = parseIssue.getTitle();
         this.description = parseIssue.getDescription();
@@ -20,6 +24,9 @@ public class Issue {
         this.parseId = parseIssue.getObjectId();
         this.downvotes = parseIssue.getDownvotes();
         this.upvotes = parseIssue.getUpvoteEs();
+        this.latitude = parseIssue.getLatitude();
+        this.longitude = parseIssue.getLongitude();
+        
         // TODO: 11/11/2015 vesko - proper object construction
     }
 
@@ -29,7 +36,7 @@ public class Issue {
     private Long id;
     private Bitmap image;
     private double latitude;
-    private double longtitude;
+    private double longitude;
     private String title;
     private Category category;
     private String description;
@@ -81,7 +88,7 @@ public class Issue {
 
     public void setLocation(@NonNull Location location) {
         latitude = location.getLatitude();
-        longtitude = location.getLongitude();
+        longitude = location.getLongitude();
     }
 
     public Bitmap getImage() {
@@ -96,12 +103,12 @@ public class Issue {
         this.latitude = latitude;
     }
 
-    public double getLongtitude() {
-        return longtitude;
+    public double getLongitude() {
+        return longitude;
     }
 
-    public void setLongtitude(double longtitude) {
-        this.longtitude = longtitude;
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
     public String getTitle() {

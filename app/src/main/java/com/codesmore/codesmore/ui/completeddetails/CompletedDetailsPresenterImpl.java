@@ -3,6 +3,10 @@ package com.codesmore.codesmore.ui.completeddetails;
 import com.codesmore.codesmore.model.DataWrapper;
 import com.codesmore.codesmore.model.pojo.Issue;
 
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+
 /**
  * Created by demouser on 11/9/15.
  */
@@ -17,12 +21,29 @@ public class CompletedDetailsPresenterImpl implements CompletedDetailsPresenter 
     }
 
     @Override
-    public void loadIssueById(String issueParseId) {
-        Issue resolvedIssue = mDataWrapper.getIssue(issueParseId);
-        onIssueLoaded(resolvedIssue);
+    public void loadIssueByParseId(String issueParseId) {
+        mDataWrapper.getIssue(issueParseId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Issue>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(Issue issue) {
+                        onIssueLoaded(issue);
+                    }
+                });
     }
 
-    public void onIssueLoaded(Issue resolvedIssue) {
+    private void onIssueLoaded(Issue resolvedIssue) {
         mView.onIssueLoaded(resolvedIssue);
     }
 }

@@ -63,7 +63,7 @@ public class DetailsActivity extends BaseActivity implements DetailsView, OnMapR
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_completed_details);
+        setContentView(R.layout.activity_details);
         ButterKnife.bind(this);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -129,7 +129,7 @@ public class DetailsActivity extends BaseActivity implements DetailsView, OnMapR
             mIssueTitle.setText(resolvedIssue.getTitle());
             mIssueDescription.setText(resolvedIssue.getDescription());
             mIssueLatitude.setText(Double.toString(resolvedIssue.getLatitude()));
-            mIssueLongitude.setText(Double.toString(resolvedIssue.getLongtitude()));
+            mIssueLongitude.setText(Double.toString(resolvedIssue.getLongitude()));
 
             String createDate = "";
             if (resolvedIssue.getCreateDate() != null) {

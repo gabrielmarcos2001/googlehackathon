@@ -71,7 +71,7 @@ public class PulseDataWrapper implements DataWrapper {
 
     @Override
     public void insertIssue(Issue issue) {
-        localDataWrapper.insertIssue(issue);
+        mWebService.insertIssue(issue);
     }
 
     @Override
@@ -80,8 +80,13 @@ public class PulseDataWrapper implements DataWrapper {
     }
 
     @Override
-    public Issue getIssue(String parseId) {
-        return localDataWrapper.getIssue(parseId);
+    public Observable<Issue> getIssue(final String parseId) {
+        return Observable.create(new Observable.OnSubscribe<Issue>() {
+            @Override
+            public void call(Subscriber<? super Issue> subscriber) {
+                subscriber.onNext(mWebService.getIssue(parseId));
+            }
+        });
     }
 
     @Override
@@ -105,13 +110,18 @@ public class PulseDataWrapper implements DataWrapper {
     }
 
     @Override
-    public List<Issue> getCreatedOrUpvotedIssuesFor(Account owner) {
-        return localDataWrapper.getCreatedOrUpvotedIssuesFor(owner);
+    public Observable<List<Issue>> getCreatedOrUpvotedIssuesFor(final Account owner) {
+        return Observable.create(new Observable.OnSubscribe<List<Issue>>() {
+            @Override
+            public void call(Subscriber<? super List<Issue>> subscriber) {
+                subscriber.onNext(mWebService.getCreatedOrUpvotedIssuesFor(owner));
+            }
+        });
     }
 
     @Override
     public void resolveIssue(Issue issue, Account resolver) {
-        localDataWrapper.resolveIssue(issue, resolver);
+        mWebService.resolveIssue(issue, resolver);
     }
 
     @Override
