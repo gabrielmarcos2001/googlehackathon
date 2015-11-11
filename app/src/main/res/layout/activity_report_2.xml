@@ -87,7 +87,7 @@
                            android:id="@+id/icon_category1"
                            android:layout_width="fill_parent"
                            android:layout_height="wrap_content"
-                           android:src="@drawable/bus"
+                           android:src="@drawable/water"
                            android:scaleType="fitCenter"/>
 
                        <TextView
@@ -108,7 +108,7 @@
                            android:id="@+id/icon_category2"
                            android:layout_width="fill_parent"
                            android:layout_height="wrap_content"
-                           android:src="@drawable/bus"
+                           android:src="@drawable/format_paint"
                            android:scaleType="fitCenter"/>
 
                        <TextView
@@ -148,7 +148,7 @@
                            android:id="@+id/icon_category4"
                            android:layout_width="fill_parent"
                            android:layout_height="wrap_content"
-                           android:src="@drawable/bus"
+                           android:src="@drawable/ambulance"
                            android:scaleType="fitCenter"/>
 
                        <TextView
