@@ -9,4 +9,6 @@ public interface ReportView {
     void showCategoriesChooser(List<Category> categories);
 
     void onDataSaved();
+
+    void onNoCategorySelected();
 }

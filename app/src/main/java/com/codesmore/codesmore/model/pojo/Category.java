@@ -37,6 +37,28 @@ public class Category implements Parcelable {
     public Category(){
     }
 
+    public Category(int categoryId){
+        this.imageUrl = "wwww.test.com";
+        this.setId((long)categoryId);
+        switch (categoryId){
+            case 1:
+                this.name = "Cleanliness";
+                break;
+
+            case 2:
+                this.name = "Improvement";
+                break;
+
+            case 3:
+                this.name = "Infrastructure";
+                break;
+
+            case 4:
+                this.name = "Safety";
+                break;
+        }
+    }
+
     public Category(String name, String imageUrl) {
         this.name = name;
         this.imageUrl = imageUrl;

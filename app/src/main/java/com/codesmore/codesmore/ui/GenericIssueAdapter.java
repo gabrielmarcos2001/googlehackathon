@@ -146,34 +146,34 @@ public class GenericIssueAdapter extends RecyclerView.Adapter<GenericIssueAdapte
 
         @Override
         public void onClick(View v) {
+
+            /*
             int finalVal;
             switch (v.getId()){
                 case R.id.item_icon_down_votes:
-
                     if (!voteUsed) {
                         finalVal = downVoteCount + 1;
                         downVotes.setText(finalVal + "");
-
                         mListener.onIssueDownVoted(issue);
                         voteUsed = true;
-                        break;
+                       break;
                     }
 
                 case R.id.item_icon_up_votes:
                     if (!voteUsed){
                         finalVal = downVoteCount + 1;
                         upVotes.setText(finalVal + "");
-
                         mListener.onIssueUpVoted(issue);
                         voteUsed = true;
                         break;
                     }
-
-
                 default:
                     mListener.onIssueSelected(issueParseId);
                     break;
             }
+
+            */
+            mListener.onIssueSelected(issueParseId);
             Log.v("RVA", "Clicked:" + v.toString());
 
         }

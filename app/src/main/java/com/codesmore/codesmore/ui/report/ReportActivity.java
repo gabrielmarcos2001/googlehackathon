@@ -1,9 +1,12 @@
 package com.codesmore.codesmore.ui.report;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.codesmore.codesmore.BaseActivityWithImageSaving;
 import com.codesmore.codesmore.R;
@@ -34,6 +37,18 @@ public class ReportActivity extends BaseActivityWithImageSaving implements Repor
     @Bind(R.id.report_description)
     MaterialEditText mDescription;
 
+    @Bind(R.id.icon_category1)
+    ImageView mCategory1;
+
+    @Bind(R.id.icon_category2)
+    ImageView mCategory2;
+
+    @Bind(R.id.icon_category3)
+    ImageView mCategory3;
+
+    @Bind(R.id.icon_category4)
+    ImageView mCategory4;
+
     //@Bind(R.id.report_creator)
     //EditText mCreator;
 
@@ -57,11 +72,12 @@ public class ReportActivity extends BaseActivityWithImageSaving implements Repor
 
     private GoogleApiClient mGoogleApiClient;
     private ReportPresenter mPresenter;
+    private int mCategorySelected = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_report);
+        setContentView(R.layout.activity_report_2);
         ButterKnife.bind(this);
 
         connectGoogleApiClient();
@@ -114,6 +130,18 @@ public class ReportActivity extends BaseActivityWithImageSaving implements Repor
         onBackPressed();
     }
 
+    @OnClick(R.id.icon_category1)
+    void onSelect1(){ selectCategory(1);}
+
+    @OnClick(R.id.icon_category2)
+    void onSelect2(){ selectCategory(2);}
+
+    @OnClick(R.id.icon_category3)
+    void onSelect3(){ selectCategory(3);}
+
+    @OnClick(R.id.icon_category4)
+    void onSelect4(){ selectCategory(4);}
+
     void performSave() {
 
         boolean valid = true;
@@ -130,6 +158,38 @@ public class ReportActivity extends BaseActivityWithImageSaving implements Repor
         if (valid) {
             mPresenter.saveData(mDescription.getText().toString(), mTitle.getText().toString());
         }
+    }
+
+    void selectCategory(int i){
+        mCategorySelected = i;
+        mPresenter.onCategoryClicked(i);
+        resetCategoryBackgrounds();
+        switch (i){
+            case 1:
+                mCategory1.setBackgroundColor(Color.RED);
+                break;
+
+            case 2:
+                mCategory2.setBackgroundColor(Color.RED);
+                break;
+
+            case 3:
+                mCategory3.setBackgroundColor(Color.RED);
+                break;
+
+            case 4:
+                mCategory4.setBackgroundColor(Color.RED);
+                break;
+
+        }
+    }
+
+    void resetCategoryBackgrounds(){
+        mCategory1.setBackgroundResource(R.color.trans);
+        mCategory2.setBackgroundResource(R.color.trans);
+        mCategory3.setBackgroundResource(R.color.trans);
+        mCategory4.setBackgroundResource(R.color.trans);
+
     }
 
     @Override
@@ -175,5 +235,11 @@ public class ReportActivity extends BaseActivityWithImageSaving implements Repor
         super.onBackPressed();
         overridePendingTransition(R.anim.still_anim, R.anim.hide_to_bottom);
 
+    }
+
+    @Override
+    public void onNoCategorySelected() {
+        Toast toast = Toast.makeText(this, "Please select a category", Toast.LENGTH_SHORT);
+        toast.show();
     }
 }
