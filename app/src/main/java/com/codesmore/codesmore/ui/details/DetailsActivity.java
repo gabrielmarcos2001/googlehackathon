@@ -105,6 +105,7 @@ public class DetailsActivity extends BaseActivity implements DetailsView, OnMapR
         if (resolvedIssue != null) {
             mIssueTitle.setText(resolvedIssue.getTitle());
             mIssueDescription.setText(resolvedIssue.getDescription());
+
             //mIssueLatitude.setText(Double.toString(resolvedIssue.getLatitude()));
             //mIssueLongitude.setText(Double.toString(resolvedIssue.getLongtitude()));
 

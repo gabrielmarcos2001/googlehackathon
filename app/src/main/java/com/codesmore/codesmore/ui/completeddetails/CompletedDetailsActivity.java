@@ -1,8 +1,8 @@
 package com.codesmore.codesmore.ui.completeddetails;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -67,6 +67,9 @@ public class CompletedDetailsActivity extends BaseActivity implements CompletedD
     @Bind(R.id.item_issue_image)
     ImageView mIssuePicture;
 
+
+    private String mIssueParseId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,10 +81,11 @@ public class CompletedDetailsActivity extends BaseActivity implements CompletedD
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        Intent intent = getIntent();
-        String issueParseId = null;
+        mIssueParseId = getIntent().getStringExtra("PASSEDISSUE");
+        if (TextUtils.isEmpty(mIssueParseId)) {
+            throw new IllegalStateException("We didn't receive an issue id!");
+        }
 
-        issueParseId = intent.getStringExtra("PASSEDISSUE");
         mPresenter = new CompletedDetailsPresenterImpl(this, new PulseDataWrapper());
 
         if (mToolbar != null) {
@@ -90,14 +94,15 @@ public class CompletedDetailsActivity extends BaseActivity implements CompletedD
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        if (issueParseId != null) {
-            loadIssue(issueParseId);
+        if (mIssueParseId != null) {
+            loadIssue(mIssueParseId);
         }
 
         mDataContainer.setVisibility(View.INVISIBLE);
+
     }
 
-    public void loadIssue(String issueParseId) {
+    private void loadIssue(String issueParseId) {
         mPresenter.loadIssueByParseId(issueParseId);
     }
 
@@ -114,18 +119,26 @@ public class CompletedDetailsActivity extends BaseActivity implements CompletedD
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Mountain View and move the camera
-        LatLng mtnView = new LatLng(37.3861111, -122.0827778);
-        mMap.addMarker(new MarkerOptions().position(mtnView).title("Marker in Mountain View"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(mtnView));
-        mMap.moveCamera(CameraUpdateFactory.zoomTo(14));
+        // request issue
+        loadIssue(mIssueParseId);
     }
 
     @Override
     public void onIssueLoaded(Issue resolvedIssue) {
         if (resolvedIssue != null) {
+
+            // Add a marker in Mountain View and move the camera
+            LatLng mtnView = new LatLng(resolvedIssue.getLatitude(), resolvedIssue.getLongitude());
+            mMap.addMarker(new MarkerOptions().position(mtnView).title("Marker in Mountain View"));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(mtnView));
+            // TODO: Marker is not centered until screen is rotated
+            mMap.moveCamera(CameraUpdateFactory.zoomTo(10));
+
             mIssueTitle.setText(resolvedIssue.getTitle());
             mIssueDescription.setText(resolvedIssue.getDescription());
+
+            //mIssueLatitude.setText(Double.toString(resolvedIssue.getLatitude()));
+            //mIssueLongitude.setText(Double.toString(resolvedIssue.getLongitude()));
 
             String createDate = "";
             if (resolvedIssue.getCreateDate() != null) {
