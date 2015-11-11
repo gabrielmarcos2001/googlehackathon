@@ -32,7 +32,7 @@ import java.util.List;
  * Created by gabrielmarcos on 11/9/15.
  */
 public class MainFragment extends Fragment implements MainView {
-
+    private static final String PASSEDISSUED = "PASSEDISSUE";
     private MainPresenter mPresenter;
 
     private View mUpVoteLoader;
@@ -92,6 +92,7 @@ public class MainFragment extends Fragment implements MainView {
             @Override
             public void onReportClicked() {
                 Intent i = new Intent(getActivity(), ReportActivity.class);
+
                 startActivity(i);
                 getActivity().overridePendingTransition(R.anim.show_from_bottom, R.anim.still_anim);
             }
@@ -131,6 +132,7 @@ public class MainFragment extends Fragment implements MainView {
                 Issue issue = bubble.getmIssueData();
 
                 Intent i = new Intent(getActivity(), DetailsActivity.class);
+                i.putExtra(PASSEDISSUED, bubble.getmIssueData().getParseId());
                 startActivity(i);
             }
         });
