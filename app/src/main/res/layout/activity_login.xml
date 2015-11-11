@@ -30,12 +30,13 @@
             android:text="@string/welcome_message"/>
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/background_red"
-            android:textSize="36sp"
+            android:textSize="64sp"
             android:textStyle="bold"
             android:gravity="center"
+            android:layout_gravity="center_horizontal"
             android:text="@string/app_name"/>
 
         <TextView

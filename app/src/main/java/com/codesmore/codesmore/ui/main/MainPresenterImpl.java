@@ -2,6 +2,7 @@ package com.codesmore.codesmore.ui.main;
 
 import android.content.ContentResolver;
 import android.os.Handler;
+import android.os.Looper;
 
 import com.codesmore.codesmore.integration.db.PulseDataWrapper;
 import com.codesmore.codesmore.model.DataWrapper;
@@ -19,9 +20,9 @@ public class MainPresenterImpl implements MainPresenter {
     private DataWrapper mWrapper;
 
 
-    public MainPresenterImpl(MainView mView, ContentResolver resolver) {
+    public MainPresenterImpl(MainView mView, DataWrapper dataWrapper) {
         this.mView = mView;
-        this.mWrapper = new PulseDataWrapper(resolver);
+        this.mWrapper = dataWrapper;
     }
 
     @Override
@@ -63,6 +64,32 @@ public class MainPresenterImpl implements MainPresenter {
 
         if (mView != null) {
 
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+
+                    final List<Issue> issues = mWrapper.getUnresolvedIssues(0,0);
+
+                    Handler mainHandler = new Handler(Looper.getMainLooper());
+
+                    Runnable myRunnable = new Runnable() {
+                        @Override
+                        public void run() {
+
+                            if (mView != null) {
+                                mView.showIssues(issues);
+                            }
+                        }
+                    };
+
+                    mainHandler.post(myRunnable);
+
+                }
+            });
+
+            t.start();
+
+            /*
             final Handler fakeData = new Handler();
             fakeData.postDelayed(new Runnable() {
                 @Override
@@ -107,6 +134,7 @@ public class MainPresenterImpl implements MainPresenter {
 
                 }
             }, 5000);
+            */
 
         }
     }
