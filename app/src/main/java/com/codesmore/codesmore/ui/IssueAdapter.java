@@ -59,13 +59,13 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.IssueHolder>
             e.printStackTrace();
         }
         try {
-            holder.downVotes.setText(issue.getDownvotes());
+            holder.downVotes.setText(issue.getDownvotes()+"");
         } catch (Exception e) {
             holder.downVotes.setText("NULL");
             e.printStackTrace();
         }
         try {
-            holder.upVotes.setText(issue.getUpvotes());
+            holder.upVotes.setText(issue.getUpvotes()+"");
         } catch (Exception e) {
             holder.upVotes.setText("NULL");
             e.printStackTrace();
