@@ -80,6 +80,9 @@ public class PulseContract {
 
             public static String BY_UNRESOLVED_STATUS =
                 Issue.TABLE_NAME + "." + Columns.FIXED_IND + " = ?";
+
+            public static String BY_CREATOR_ID =
+                Issue.TABLE_NAME + "." + Columns.CREATOR_ID + " = ?";
         }
 
         public static class Builders {
@@ -88,6 +91,14 @@ public class PulseContract {
                 return Issue.CONTENT_URI
                     .buildUpon()
                     .appendPath(Long.toString(issueId))
+                    .build();
+            }
+
+            public static Uri buildForUpvotedIssues(long upvoterId){
+                return Issue.CONTENT_URI
+                    .buildUpon()
+                    .appendPath("upvoter")
+                    .appendPath(Long.toString(upvoterId))
                     .build();
             }
         }

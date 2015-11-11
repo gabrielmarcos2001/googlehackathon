@@ -5,6 +5,11 @@ import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.codesmore.codesmore.integration.converter.Converter;
+import com.codesmore.codesmore.integration.converter.AccountConverter;
+import com.codesmore.codesmore.integration.converter.CategoryConverter;
+import com.codesmore.codesmore.integration.converter.Converter;
+import com.codesmore.codesmore.integration.converter.IssueConverter;
+import com.codesmore.codesmore.integration.converter.UpvoteConverter;
 import com.codesmore.codesmore.model.DataWrapper;
 import com.codesmore.codesmore.model.pojo.Account;
 import com.codesmore.codesmore.model.pojo.Category;
@@ -12,7 +17,10 @@ import com.codesmore.codesmore.model.pojo.Issue;
 import com.codesmore.codesmore.model.pojo.Upvote;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Darryl Staflund on 11/10/2015.
@@ -29,7 +37,13 @@ public class LocalDataWrapper implements DataWrapper {
      * @param contentResolver to place calls to.
      */
     public LocalDataWrapper(ContentResolver contentResolver){
-        this.contentResolver = contentResolver;
+        this(
+            contentResolver,
+            new AccountConverter(),
+            new CategoryConverter(),
+            new IssueConverter(),
+            new UpvoteConverter()
+        );
     }
 
     public LocalDataWrapper(
@@ -45,6 +59,10 @@ public class LocalDataWrapper implements DataWrapper {
         this.categoryConverter = categoryConverter;
         this.issueConverter = issueConverter;
         this.upvoteConverter = upvoteConverter;
+
+        // I really don't like the following two lines.  See how we can change this.
+        ((IssueConverter) issueConverter).setDataWrapper(this);
+        ((UpvoteConverter) upvoteConverter).setDataWrapper(this);
     }
 
     @Override
@@ -264,8 +282,29 @@ public class LocalDataWrapper implements DataWrapper {
     }
 
     @Override
-    public List<Issue> getCreatedOrUpvotedIssuesFor(Account owner) {
-        return null;
-        //  TODO
+    public List<Issue> getCreatedOrUpvotedIssuesFor(Account ownerOrUpvoter) {
+        if (ownerOrUpvoter == null){
+            return Collections.emptyList();
+        }
+
+        Cursor cursor = contentResolver.query(
+            PulseContract.Issue.Builders.buildForUpvotedIssues(ownerOrUpvoter.getId()),
+            null,
+            null,
+            null,
+            null
+        );
+
+        List<Issue> issues = new ArrayList<>();
+        if (cursor != null){
+            while(cursor.moveToNext()){
+                ContentValues values = issueConverter.convert(cursor);
+                Issue issue = issueConverter.convert(values);
+                issues.add(issue);
+            }
+        }
+
+        Set<Issue> uniqueIssues = new HashSet<>(issues);
+        return new ArrayList<> (uniqueIssues);
     }
 }
