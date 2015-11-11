@@ -103,7 +103,8 @@ public class CompletedDetailsActivity extends BaseActivity implements CompletedD
             LatLng mtnView = new LatLng(resolvedIssue.getLatitude(), resolvedIssue.getLongitude());
             mMap.addMarker(new MarkerOptions().position(mtnView).title("Marker in Mountain View"));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(mtnView));
-            mMap.moveCamera(CameraUpdateFactory.zoomTo(14));
+            // TODO: Marker is not centered until screen is rotated
+            mMap.moveCamera(CameraUpdateFactory.zoomTo(10));
 
             mIssueTitle.setText(resolvedIssue.getTitle());
             mIssueDescription.setText(resolvedIssue.getDescription());
