@@ -66,6 +66,7 @@ public class UpvoteConverter implements Converter<Upvote> {
         upvote.setUpvotedIssue(upvotedIssue);
         upvote.setUpvoter(upvoter);
         return upvote;
+
     }
 
 }
