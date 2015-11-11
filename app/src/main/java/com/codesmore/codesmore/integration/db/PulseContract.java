@@ -153,6 +153,13 @@ public class PulseContract {
         public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + IssueCategory.TABLE_NAME;
         public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + IssueCategory.TABLE_NAME;
 
+        public static class Values {
+            public static final String CLEANLINESS = "Cleanliness";
+            public static final String IMPROVEMENT = "Improvement";
+            public static final String INFRASTRUCTURE = "Infrastructure";
+            public static final String SAFETY = "Safety";
+        }
+
         public static class Columns {
             public static final String ISSUE_CATEGORY = "issue_category";
             public static final String ISSUE_CATEGORY_IMAGE = "issue_category_image";
@@ -174,13 +181,13 @@ public class PulseContract {
                 final ContentValues cv4 = new ContentValues();
 
                 cv1.put(IssueCategory._ID, 1);
-                cv1.put(IssueCategory.Columns.ISSUE_CATEGORY, "Cleanliness");
+                cv1.put(IssueCategory.Columns.ISSUE_CATEGORY, Values.CLEANLINESS);
                 cv2.put(IssueCategory._ID, 2);
-                cv2.put(IssueCategory.Columns.ISSUE_CATEGORY, "Improvement");
+                cv2.put(IssueCategory.Columns.ISSUE_CATEGORY, Values.IMPROVEMENT);
                 cv3.put(IssueCategory._ID, 3);
-                cv3.put(IssueCategory.Columns.ISSUE_CATEGORY, "Infrastructure");
+                cv3.put(IssueCategory.Columns.ISSUE_CATEGORY, Values.INFRASTRUCTURE);
                 cv4.put(IssueCategory._ID, 4);
-                cv4.put(IssueCategory.Columns.ISSUE_CATEGORY, "Safety");
+                cv4.put(IssueCategory.Columns.ISSUE_CATEGORY, Values.SAFETY);
 
                 return new ArrayList<ContentValues>(){
                     {
