@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CodeSMore</string>
+    <string name="app_name">Pulse</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -26,7 +26,7 @@
     <string name="welcome_message">Welcome to</string>
     <string name="slogan">A different way to Sense your surroundings</string>
     <string name="login_with">Login with</string>
-    <string name="google">Google</string>
+    <string name="google_singin">Sign in with Google</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -35,6 +35,7 @@
     <string name="menu_upvoted_issues">My UpVoted Issues</string>
     <string name="menu_completed_issues">Completed Issues</string>
     <string name="menu_sign_out">Sign Out</string>
+    <string name="message_no_resolved_items">Uh Oh!\nIt doesn\'t appear any issues have been resolved in your area. Please submit any issues you see and check back later!</string>
     <string name="upvote">UPVOTE</string>
     <string name="downvote">DOWNVOTE</string>
 </resources>

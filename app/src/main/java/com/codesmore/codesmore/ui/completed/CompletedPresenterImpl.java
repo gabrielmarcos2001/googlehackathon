@@ -1,6 +1,7 @@
 package com.codesmore.codesmore.ui.completed;
 
 import android.location.Location;
+import android.util.Log;
 
 import com.codesmore.codesmore.integration.db.PulseDataWrapper;
 import com.codesmore.codesmore.model.DataFetchedListener;
@@ -37,12 +38,24 @@ public class CompletedPresenterImpl implements CompletedPresenter, DataFetchedLi
     @Override
     public void onLocationAvailable(Location location) {
         //Triggers data load when a location is available
-        mDataWrapper.getResolvedIssues(location.getLatitude(), location.getLongitude());
+        mDataWrapper.getResolvedIssues(location.getLatitude(), location.getLongitude(), this);
     }
 
     @Override
     public void onCompletedIssuesLoaded(List<Issue> issues) {
         //Sets the main view when problems become loaded
-        mView.onProblemsLoaded(issues);
+        if (issues.size() == 0){
+            Log.v("DEBUG", "No Data on System");
+            mView.onProblemsLoaded(issues);
+            onNoCompleteItems();
+        }else{
+            mView.onProblemsLoaded(issues);
+        }
+
+    }
+
+    @Override
+    public void onNoCompleteItems() {
+        mView.showNoItemsAvailableMessage();
     }
 }

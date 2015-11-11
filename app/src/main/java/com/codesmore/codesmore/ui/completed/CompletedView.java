@@ -14,4 +14,6 @@ public interface CompletedView {
 
     void openCompletedIssueDetail(long issueId);
 
+    void showNoItemsAvailableMessage();
+
 }
