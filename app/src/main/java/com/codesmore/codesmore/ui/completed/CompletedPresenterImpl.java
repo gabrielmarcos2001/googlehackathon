@@ -3,12 +3,14 @@ package com.codesmore.codesmore.ui.completed;
 import android.location.Location;
 import android.util.Log;
 
-import com.codesmore.codesmore.integration.db.PulseDataWrapper;
 import com.codesmore.codesmore.model.DataWrapper;
 import com.codesmore.codesmore.model.pojo.Issue;
-import com.codesmore.codesmore.ui.completeddetails.CompletedDetailsPresenter;
 
 import java.util.List;
+
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by demouser on 11/9/15.
@@ -40,8 +42,25 @@ public class CompletedPresenterImpl implements CompletedPresenter{
         double lat = location.getLatitude();
         double lon = location.getLongitude();
 
-        List<Issue> issues = mDataWrapper.getResolvedIssues(lat, lon);
-        this.onCompletedIssuesLoaded(issues);
+        mDataWrapper.getResolvedIssues(lat, lon)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<List<Issue>>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(List<Issue> issues) {
+                        onCompletedIssuesLoaded(issues);
+                    }
+                });
     }
 
     public void onCompletedIssuesLoaded(List<Issue> issues) {

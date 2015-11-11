@@ -9,14 +9,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.codesmore.codesmore.BaseActivity;
 import com.codesmore.codesmore.R;
-import com.codesmore.codesmore.integration.backend.WebService;
+import com.codesmore.codesmore.integration.db.PulseDataWrapper;
 import com.codesmore.codesmore.model.pojo.Issue;
 import com.codesmore.codesmore.ui.GenericIssueAdapter;
-import com.codesmore.codesmore.ui.IssueAdapter;
 import com.codesmore.codesmore.ui.IssueSelectedListener;
 import com.codesmore.codesmore.ui.completeddetails.CompletedDetailsActivity;
 import com.google.android.gms.common.ConnectionResult;
@@ -67,7 +65,7 @@ public class IssueListActivity extends BaseActivity implements IssueListView, Is
 
         connectGoogleApiClient();
 
-        mPresenter = new IssueListPresenterImpl(this, new WebService());
+        mPresenter = new IssueListPresenterImpl(this, new PulseDataWrapper());
     }
 
     private void initViews(){

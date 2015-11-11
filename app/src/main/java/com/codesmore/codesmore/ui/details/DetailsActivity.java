@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.codesmore.codesmore.BaseActivity;
 import com.codesmore.codesmore.R;
-import com.codesmore.codesmore.integration.backend.WebService;
+import com.codesmore.codesmore.integration.db.PulseDataWrapper;
 import com.codesmore.codesmore.model.pojo.Issue;
 import com.codesmore.codesmore.ui.completeddetails.CompletedDetailsActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -75,7 +75,7 @@ public class DetailsActivity extends BaseActivity implements DetailsView, OnMapR
         String issueParseId = null;
 
         issueParseId = intent.getStringExtra("PASSEDISSUE");
-        mPresenter = new DetailsPresenterImpl(this, new WebService());
+        mPresenter = new DetailsPresenterImpl(this, new PulseDataWrapper());
 
         if (issueParseId != null) {
             loadIssue(issueParseId);

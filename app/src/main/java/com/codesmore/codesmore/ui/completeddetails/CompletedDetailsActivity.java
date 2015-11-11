@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.codesmore.codesmore.BaseActivity;
 import com.codesmore.codesmore.R;
-import com.codesmore.codesmore.integration.backend.WebService;
+import com.codesmore.codesmore.integration.db.PulseDataWrapper;
 import com.codesmore.codesmore.model.pojo.Issue;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -69,7 +69,7 @@ public class CompletedDetailsActivity extends BaseActivity implements CompletedD
         String issueParseId = null;
 
         issueParseId = intent.getStringExtra("PASSEDISSUE");
-        mPresenter = new CompletedDetailsPresenterImpl(this, new WebService());
+        mPresenter = new CompletedDetailsPresenterImpl(this, new PulseDataWrapper());
 
         if (issueParseId != null) {
             loadIssue(issueParseId);

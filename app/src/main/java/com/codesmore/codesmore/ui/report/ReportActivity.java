@@ -3,16 +3,11 @@ package com.codesmore.codesmore.ui.report;
 import android.graphics.Bitmap;
 import android.location.Location;
 import android.os.Bundle;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Spinner;
 
 import com.codesmore.codesmore.BaseActivityWithImageSaving;
 import com.codesmore.codesmore.R;
-import com.codesmore.codesmore.integration.backend.WebService;
+import com.codesmore.codesmore.integration.db.PulseDataWrapper;
 import com.codesmore.codesmore.model.pojo.Category;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -24,7 +19,6 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnItemSelected;
 
 public class ReportActivity extends BaseActivityWithImageSaving implements ReportView,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
@@ -73,7 +67,7 @@ public class ReportActivity extends BaseActivityWithImageSaving implements Repor
         connectGoogleApiClient();
 
 //        mPresenter = new ReportPresenterImpl(this, new PulseDataWrapper(getContentResolver()));
-        mPresenter = new ReportPresenterImpl(this, new WebService());
+        mPresenter = new ReportPresenterImpl(this, new PulseDataWrapper());
         mPresenter.requestCategoriesChooser();
     }
 

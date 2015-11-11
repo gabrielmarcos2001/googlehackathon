@@ -137,10 +137,10 @@ public class GenericIssueAdapter extends RecyclerView.Adapter<GenericIssueAdapte
                 //issueResolvedDate = (TextView) view.findViewById(R.id.item_issue_resolved_date);
 
             }else if (mIssueType == 1){
-                upVoteIcon = (ImageView) view.findViewById(R.id.item_icon_up_votes);
-                upVoteIcon.setOnClickListener(this);
-                downVoteIcon = (ImageView) view.findViewById(R.id.item_icon_down_votes);
-                downVoteIcon.setOnClickListener(this);
+                //upVoteIcon = (ImageView) view.findViewById(R.id.item_icon_up_votes);
+                //upVoteIcon.setOnClickListener(this);
+                //downVoteIcon = (ImageView) view.findViewById(R.id.item_icon_down_votes);
+                //downVoteIcon.setOnClickListener(this);
             }
         }
 
