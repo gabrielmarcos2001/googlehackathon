@@ -181,7 +181,6 @@ public class LocalDataWrapper implements DataWrapper {
 
     @Override
     public void upvote(Issue issue, Account upvoter) {
-        //  TODO
     }
 
     @Override
@@ -190,13 +189,25 @@ public class LocalDataWrapper implements DataWrapper {
     }
 
     @Override
-    public List<Issue> getCreatedOrUpvotedIssuesFor(Account owner) {
-        return null;
-        //  TODO
+    public void resolveIssue(Issue issue, Account resolver) {
+        if (issue == null || resolver == null) {
+            return;
+        }
+
+        issue.setFixer(resolver);
+        ContentValues values = issueConverter.convert(issue);
+
+        contentResolver.update(
+            PulseContract.Issue.Builders.buildForIssueId(issue.getId()),
+            values,
+            null,
+            null
+        );
     }
 
     @Override
-    public void resolveIssue(Issue issue, Account resolver) {
+    public List<Issue> getCreatedOrUpvotedIssuesFor(Account owner) {
+        return null;
         //  TODO
     }
 }

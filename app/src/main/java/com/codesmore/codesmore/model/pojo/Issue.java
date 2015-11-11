@@ -29,6 +29,7 @@ public class Issue {
     private Boolean fixedInd;
     private Date createDate;
     private Date fixedDate;
+    private String parseId;
 
     public Long getId(){
         return id;
@@ -158,5 +159,13 @@ public class Issue {
 
     public void setFixedDate(Date fixedDate) {
         this.fixedDate = fixedDate;
+    }
+
+    public String getParseId() {
+        return parseId;
+    }
+
+    public void setParseId(String parseId) {
+        this.parseId = parseId;
     }
 }
