@@ -158,41 +158,45 @@ public class ViewBubblesAdapter extends RelativeLayout{
 
         mBubbles = new ArrayList<>();
 
-        for (Issue issue : mItems) {
+        for (Point point : mBubblesPositions) {
 
-            ViewBubble bubble = new ViewBubble(getContext());
-            mContainer.addView(bubble);
+            try {
+                Issue issue = mItems.get(bubbleIndex);
 
-            Point point = mBubblesPositions.get(bubbleIndex);
+                ViewBubble bubble = new ViewBubble(getContext());
+                mContainer.addView(bubble);
 
-            bubble.setPosition(point.x,point.y);
-            bubble.setmIssueData(issue);
+                bubble.setPosition(point.x, point.y);
+                bubble.setmIssueData(issue);
 
-            mBubbles.add(bubble);
+                mBubbles.add(bubble);
 
-            bubble.setmInterface(new ViewBubble.BubbleInterface() {
-                @Override
-                public void onReleased(ViewBubble bubble) {
-                    mInterface.onBubbleUnselected();
-                }
+                bubble.setmInterface(new ViewBubble.BubbleInterface() {
+                    @Override
+                    public void onReleased(ViewBubble bubble) {
+                        mInterface.onBubbleUnselected();
+                    }
 
-                @Override
-                public void onSelected(ViewBubble bubble) {
-                    mInterface.onBubbleSelected(bubble);
-                }
+                    @Override
+                    public void onSelected(ViewBubble bubble) {
+                        mInterface.onBubbleSelected(bubble);
+                    }
 
-                @Override
-                public void onDownVoted(ViewBubble bubble) {
-                    mInterface.downVoteIssue(bubble);
-                }
+                    @Override
+                    public void onDownVoted(ViewBubble bubble) {
+                        mInterface.downVoteIssue(bubble);
+                    }
 
-                @Override
-                public void onUpVoted(ViewBubble bubble) {
-                    mInterface.upVoteIssue(bubble);
-                }
-            });
+                    @Override
+                    public void onUpVoted(ViewBubble bubble) {
+                        mInterface.upVoteIssue(bubble);
+                    }
+                });
 
-            bubbleIndex ++;
+                bubbleIndex++;
+            }catch (IndexOutOfBoundsException e) {
+                
+            }
 
         }
 
