@@ -44,6 +44,10 @@
         <activity android:name=".ui.completed.CompletedActivity" >
         </activity>
 
+        <!-- Generic Issue List Activity -->
+        <activity android:name=".ui.issuelist.IssueListActivity" >
+        </activity>
+
         <!-- Completed issues detail activity - How is this different from the Details Activity???? -->
         <activity android:name=".ui.completeddetails.CompletedDetailsActivity"
             android:exported="true">

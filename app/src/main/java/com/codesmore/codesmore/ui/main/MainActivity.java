@@ -13,11 +13,13 @@ import android.widget.Toast;
 import com.codesmore.codesmore.BaseActivity;
 import com.codesmore.codesmore.R;
 import com.codesmore.codesmore.ui.completed.CompletedActivity;
+import com.codesmore.codesmore.ui.issuelist.IssueListActivity;
 import com.codesmore.codesmore.ui.navdrawer.FragmentNavigationDrawer;
 
 public class MainActivity extends BaseActivity implements FragmentNavigationDrawer.NavigationDrawerCallbacks, MainActivityView{
 
     private static final String FRAGMENT_TAG = "MainFragment";
+    private static final String ISSUETYPE = "ISSUETYPE";
 
     private Toolbar mToolbar;
     private MainActivityPresenter mPresenter;
@@ -97,14 +99,18 @@ public class MainActivity extends BaseActivity implements FragmentNavigationDraw
     public void openCompletedIssues() {
         //Toast toast = Toast.makeText(this, "Open Completed Issues", Toast.LENGTH_SHORT);
         //toast.show();
-        Intent intent = new Intent(this, CompletedActivity.class);
+        Intent intent = new Intent(this, IssueListActivity.class);
+        intent.putExtra(ISSUETYPE, 0);
         startActivity(intent);
     }
 
     @Override
     public void openUpvotedIssues() {
-        Toast toast = Toast.makeText(this, "Open UpVoted Issues", Toast.LENGTH_SHORT);
-        toast.show();
+        Intent intent = new Intent(this, IssueListActivity.class);
+        intent.putExtra(ISSUETYPE, 1);
+        startActivity(intent);
+        //Toast toast = Toast.makeText(this, "Open UpVoted Issues", Toast.LENGTH_SHORT);
+        //toast.show();
         //Intent intent = new Intent(this, )
     }
 
