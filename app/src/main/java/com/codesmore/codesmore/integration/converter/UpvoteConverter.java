@@ -18,8 +18,15 @@ import static com.codesmore.codesmore.integration.db.PulseContract.getContentVal
 public class UpvoteConverter implements Converter<Upvote> {
     private DataWrapper wrapper;
 
+    public UpvoteConverter(){
+    }
+
     public UpvoteConverter(DataWrapper wrapper){
         this.wrapper = wrapper;
+    }
+
+    public void setDataWrapper(DataWrapper value){
+        wrapper = value;
     }
 
     @Override

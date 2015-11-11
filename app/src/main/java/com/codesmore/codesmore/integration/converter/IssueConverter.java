@@ -22,8 +22,15 @@ import static com.codesmore.codesmore.integration.db.PulseContract.getContentVal
 public class IssueConverter implements Converter<Issue> {
     private DataWrapper wrapper;
 
+    public IssueConverter(){
+    }
+
     public IssueConverter(DataWrapper wrapper){
         this.wrapper = wrapper;
+    }
+
+    public void setDataWrapper(DataWrapper value){
+        wrapper = value;
     }
 
     @Override
