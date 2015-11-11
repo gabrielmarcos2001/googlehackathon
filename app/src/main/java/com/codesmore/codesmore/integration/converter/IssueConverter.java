@@ -46,7 +46,7 @@ public class IssueConverter implements Converter<Issue> {
         ContentValues values = new ContentValues();
         values.put(_ID, object.getId());
         values.put(PulseContract.Issue.Columns.LATITUDE, object.getLatitude());
-        values.put(PulseContract.Issue.Columns.LONGITUDE, object.getLongtitude());
+        values.put(PulseContract.Issue.Columns.LONGITUDE, object.getLongitude());
         values.put(PulseContract.Issue.Columns.IMAGE, CameraUtils.toByteArray(object.getImage()));
         values.put(PulseContract.Issue.Columns.TITLE, object.getTitle());
         values.put(PulseContract.Issue.Columns.ISSUE_CATEGORY_ID, object.getCategory().getId());
@@ -84,7 +84,7 @@ public class IssueConverter implements Converter<Issue> {
         issue.setId(values.getAsLong(_ID));
         issue.setImage(BitmapFactory.decodeByteArray(imageData, 0, imageData.length));
         issue.setLatitude(values.getAsDouble(PulseContract.Issue.Columns.LATITUDE));
-        issue.setLongtitude(values.getAsDouble(PulseContract.Issue.Columns.LONGITUDE));
+        issue.setLongitude(values.getAsDouble(PulseContract.Issue.Columns.LONGITUDE));
         issue.setTitle(values.getAsString(PulseContract.Issue.Columns.TITLE));
         issue.setCategory(category);
         issue.setDescription(values.getAsString(PulseContract.Issue.Columns.DESCRIPTION));

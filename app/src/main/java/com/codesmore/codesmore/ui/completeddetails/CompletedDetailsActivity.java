@@ -100,7 +100,7 @@ public class CompletedDetailsActivity extends BaseActivity implements CompletedD
         if (resolvedIssue != null) {
 
             // Add a marker in Mountain View and move the camera
-            LatLng mtnView = new LatLng(resolvedIssue.getLatitude(), resolvedIssue.getLongtitude());
+            LatLng mtnView = new LatLng(resolvedIssue.getLatitude(), resolvedIssue.getLongitude());
             mMap.addMarker(new MarkerOptions().position(mtnView).title("Marker in Mountain View"));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(mtnView));
             mMap.moveCamera(CameraUpdateFactory.zoomTo(14));
@@ -108,7 +108,7 @@ public class CompletedDetailsActivity extends BaseActivity implements CompletedD
             mIssueTitle.setText(resolvedIssue.getTitle());
             mIssueDescription.setText(resolvedIssue.getDescription());
             mIssueLatitude.setText(Double.toString(resolvedIssue.getLatitude()));
-            mIssueLongitude.setText(Double.toString(resolvedIssue.getLongtitude()));
+            mIssueLongitude.setText(Double.toString(resolvedIssue.getLongitude()));
 
             String createDate = "";
             if (resolvedIssue.getCreateDate() != null) {

@@ -43,7 +43,7 @@ public class CompletedDetailsPresenterImpl implements CompletedDetailsPresenter 
                 });
     }
 
-    public void onIssueLoaded(Issue resolvedIssue) {
+    private void onIssueLoaded(Issue resolvedIssue) {
         mView.onIssueLoaded(resolvedIssue);
     }
 }
