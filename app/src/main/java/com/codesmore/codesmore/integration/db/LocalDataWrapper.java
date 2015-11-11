@@ -181,6 +181,31 @@ public class LocalDataWrapper implements DataWrapper {
 
     @Override
     public void upvote(Issue issue, Account upvoter) {
+        if (issue == null || upvoter == null){
+            return;
+        }
+
+        /**
+         * First, we need to increment the upvote count and save it to database.
+         */
+        issue.setUpvotes(issue.getUpvotes() == null ? 0 : issue.getUpvotes() + 1);
+        ContentValues issueValues = issueConverter.convert(issue);
+        contentResolver.update(
+            PulseContract.Issue.Builders.buildForIssueId(issue.getId()),
+            issueValues,
+            null,
+            null
+        );
+
+        /**
+         * Next, we need to insert a new upvote record into the database.
+         */
+        Upvote upvote = new Upvote();
+        upvote.setUpvoter(upvoter);
+        upvote.setUpvotedIssue(issue);
+
+        ContentValues upvoteValues = upvoteConverter.convert(upvote);
+        contentResolver.insert(PulseContract.Upvote.CONTENT_URI, upvoteValues);
     }
 
     @Override
