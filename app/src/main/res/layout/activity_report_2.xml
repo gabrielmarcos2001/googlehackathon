@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.55"
+            android:background="@color/background_red"
+            android:elevation="5dp">
+
+            <ImageView
+                android:id="@+id/happy"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/happy"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/happy"
+                android:text="@string/report_issue_text"
+                android:textColor="@color/clouds"
+                android:layout_marginLeft="60dp"
+                android:layout_marginRight="60dp"
+                android:gravity="center"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.45">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="20dp">
+
+                <!-- Report Title -->
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/report_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapWords"
+                    android:hint="@string/hint_report_title"
+                    custom:met_baseColor="@color/flat_black"
+                    custom:met_primaryColor="@color/background_red"
+                    custom:met_floatingLabel="highlight"/>
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/report_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapWords"
+                    android:hint="@string/hint_report_description"
+                    custom:met_baseColor="@color/flat_black"
+                    custom:met_primaryColor="@color/background_red"
+                    custom:met_floatingLabel="highlight"/>
+
+               <LinearLayout
+                   android:layout_width="fill_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal"
+                   android:weightSum="100">
+
+                   <LinearLayout
+                       android:layout_width="0dp"
+                       android:layout_weight="25"
+                       android:layout_height="wrap_content"
+                       android:orientation="vertical">
+                       <ImageView
+                           android:id="@+id/icon_category1"
+                           android:layout_width="fill_parent"
+                           android:layout_height="wrap_content"
+                           android:src="@drawable/bus"
+                           android:scaleType="fitCenter"/>
+
+                       <TextView
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:text="Cleanliness"
+                           android:textSize="10sp"
+                           android:layout_gravity="center_horizontal"/>
+                   </LinearLayout>
+
+
+                   <LinearLayout
+                       android:layout_width="0dp"
+                       android:layout_weight="25"
+                       android:layout_height="wrap_content"
+                       android:orientation="vertical">
+                       <ImageView
+                           android:id="@+id/icon_category2"
+                           android:layout_width="fill_parent"
+                           android:layout_height="wrap_content"
+                           android:src="@drawable/bus"
+                           android:scaleType="fitCenter"/>
+
+                       <TextView
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:text="Improvement"
+                           android:textSize="10sp"
+                           android:layout_gravity="center_horizontal"/>
+                   </LinearLayout>
+
+                   <LinearLayout
+                       android:layout_width="0dp"
+                       android:layout_weight="25"
+                       android:layout_height="wrap_content"
+                       android:orientation="vertical">
+                       <ImageView
+                           android:id="@+id/icon_category3"
+                           android:layout_width="fill_parent"
+                           android:layout_height="wrap_content"
+                           android:src="@drawable/bus"
+                           android:scaleType="fitCenter"/>
+
+                       <TextView
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:text="Infrastructure"
+                           android:textSize="10sp"
+                           android:layout_gravity="center_horizontal"/>
+                   </LinearLayout>
+
+                   <LinearLayout
+                       android:layout_width="0dp"
+                       android:layout_weight="25"
+                       android:layout_height="wrap_content"
+                       android:orientation="vertical">
+                       <ImageView
+                           android:id="@+id/icon_category4"
+                           android:layout_width="fill_parent"
+                           android:layout_height="wrap_content"
+                           android:src="@drawable/bus"
+                           android:scaleType="fitCenter"/>
+
+                       <TextView
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:text="Safety"
+                           android:textSize="10sp"
+                           android:layout_gravity="center_horizontal"/>
+                   </LinearLayout>
+
+
+
+               </LinearLayout>
+
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/camera"
+                    android:src="@drawable/camera_icon"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"/>
+
+                <TextView
+                    android:id="@+id/attach_photo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/background_red"
+                    android:text="@string/select_image"
+                    style="?android:borderlessButtonStyle" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <!-- Lolipop toolbar -->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/lolipop_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/background_red"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
+        custom:contentInsetLeft="0dp"
+        custom:contentInsetStart="0dp"
+        >
+
+        <!-- Toolbar data container -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Save Title -->
+            <TextView
+                android:id="@+id/save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/save"
+                android:layout_centerVertical="true"
+                android:textColor="@color/clouds"
+                style="?android:actionButtonStyle"
+                android:layout_alignParentRight="true"
+                android:textSize="18sp"
+                android:layout_marginRight="10dp"/>
+
+            <!-- Save Button -->
+            <ImageButton
+                android:id="@+id/save_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:actionButtonStyle"
+                android:layout_toLeftOf="@+id/save"
+                android:layout_marginRight="-15dp"
+                android:src="@drawable/ic_action_accept"
+                />
+
+            <!-- Cancel Button -->
+            <ImageButton
+                android:id="@+id/cancel_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:actionButtonStyle"
+                android:src="@drawable/ic_action_cancel"
+                />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.Toolbar>
+
+    <!--
+    <Spinner
+        android:id="@+id/report_category"
+>>>>>>> master
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Spinner
+            android:id="@+id/report_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/issue_category" />
+
+        <EditText
+            android:id="@+id/report_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/issue_title" />
+
+        <EditText
+            android:id="@+id/report_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/description" />
+
+        <EditText
+            android:id="@+id/report_creator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/issue_creator" />
+
+        <EditText
+            android:id="@+id/report_fixer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/issue_fixer" />
+
+        <Spinner
+            android:id="@+id/report_priority"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/issue_priority" />
+
+        <Button
+            android:id="@+id/report_upvotes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/issue_upvotes" />
+
+        <Button
+            android:id="@+id/report_downvotes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/issue_downvotes" />
+
+        <Switch
+            android:id="@+id/report_fixedInd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/issue_fixedInd" />
+
+        <EditText
+            android:id="@+id/report_createDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/issue_createDate" />
+
+        <EditText
+            android:id="@+id/report_fixedDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/issue_fixedDate" />
+
+<<<<<<< HEAD
+        <ImageView
+            android:id="@+id/report_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/cd_issue_image"
+            android:src="@mipmap/ic_launcher" />
+
+        <Button
+            android:id="@+id/report_save_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/save" />
+    </LinearLayout>
+
+</ScrollView>
+=======
+    <Button
+        android:id="@+id/report_save_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/save" />
+        -->
+</RelativeLayout>

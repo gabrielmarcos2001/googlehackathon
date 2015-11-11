@@ -57,10 +57,16 @@ public class ReportPresenterImpl implements ReportPresenter {
 
     @Override
     public void saveData(String description, String title) {
-        mCurrentIssue.setDescription(description);
-        mCurrentIssue.setTitle(title);
-        mDataWrapper.insertIssue(mCurrentIssue);
-        mView.onDataSaved();
+        if (null == mCurrentIssue.getCategory()){
+            mView.onNoCategorySelected();
+            //TODO: Notify user to select a category
+        }else{
+            mCurrentIssue.setDescription(description);
+            mCurrentIssue.setTitle(title);
+            mDataWrapper.insertIssue(mCurrentIssue);
+            mView.onDataSaved();
+        }
+
     }
 
     @Override
@@ -73,5 +79,9 @@ public class ReportPresenterImpl implements ReportPresenter {
         mCurrentIssue.setLocation(location);
     }
 
+    @Override
+    public void onCategoryClicked(int categoryId) {
+       mCurrentIssue.setCategory(new Category(categoryId));
+    }
 
 }
