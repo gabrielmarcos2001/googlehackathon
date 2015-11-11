@@ -1,7 +1,7 @@
 package com.codesmore.codesmore.ui.completeddetails;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -53,6 +53,7 @@ public class CompletedDetailsActivity extends BaseActivity implements CompletedD
     @Bind(R.id.item_issue_image)
     ImageView mIssuePicture;
 
+    private String mIssueParseId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,18 +66,15 @@ public class CompletedDetailsActivity extends BaseActivity implements CompletedD
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        Intent intent = getIntent();
-        String issueParseId = null;
-
-        issueParseId = intent.getStringExtra("PASSEDISSUE");
-        mPresenter = new CompletedDetailsPresenterImpl(this, new PulseDataWrapper());
-
-        if (issueParseId != null) {
-            loadIssue(issueParseId);
+        mIssueParseId = getIntent().getStringExtra("PASSEDISSUE");
+        if (TextUtils.isEmpty(mIssueParseId)) {
+            throw new IllegalStateException("We didn't receive an issue id!");
         }
+
+        mPresenter = new CompletedDetailsPresenterImpl(this, new PulseDataWrapper());
     }
 
-    public void loadIssue(String issueParseId) {
+    private void loadIssue(String issueParseId) {
         mPresenter.loadIssueByParseId(issueParseId);
     }
 
@@ -93,16 +91,20 @@ public class CompletedDetailsActivity extends BaseActivity implements CompletedD
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Mountain View and move the camera
-        LatLng mtnView = new LatLng(37.3861111, -122.0827778);
-        mMap.addMarker(new MarkerOptions().position(mtnView).title("Marker in Mountain View"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(mtnView));
-        mMap.moveCamera(CameraUpdateFactory.zoomTo(14));
+        // request issue
+        loadIssue(mIssueParseId);
     }
 
     @Override
     public void onIssueLoaded(Issue resolvedIssue) {
         if (resolvedIssue != null) {
+
+            // Add a marker in Mountain View and move the camera
+            LatLng mtnView = new LatLng(resolvedIssue.getLatitude(), resolvedIssue.getLongtitude());
+            mMap.addMarker(new MarkerOptions().position(mtnView).title("Marker in Mountain View"));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(mtnView));
+            mMap.moveCamera(CameraUpdateFactory.zoomTo(14));
+
             mIssueTitle.setText(resolvedIssue.getTitle());
             mIssueDescription.setText(resolvedIssue.getDescription());
             mIssueLatitude.setText(Double.toString(resolvedIssue.getLatitude()));
