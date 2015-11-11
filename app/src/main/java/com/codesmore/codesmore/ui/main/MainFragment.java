@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.codesmore.codesmore.R;
+import com.codesmore.codesmore.integration.backend.WebService;
 import com.codesmore.codesmore.model.pojo.Issue;
 import com.codesmore.codesmore.ui.bubbleviews.ViewAnimatedBackground;
 import com.codesmore.codesmore.ui.bubbleviews.ViewBubble;
@@ -59,7 +60,7 @@ public class MainFragment extends Fragment implements MainView {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mPresenter = new MainPresenterImpl(this,null);
+        mPresenter = new MainPresenterImpl(this,new WebService());
     }
 
     @Nullable
