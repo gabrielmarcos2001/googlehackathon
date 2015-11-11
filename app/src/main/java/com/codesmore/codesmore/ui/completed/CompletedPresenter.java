@@ -10,7 +10,7 @@ public interface CompletedPresenter {
 
     void onResume();
 
-    void onProblemSelected(long issueId);
+    void onProblemSelected(String issueParseId);
 
     void onLocationAvailable(Location location);
 

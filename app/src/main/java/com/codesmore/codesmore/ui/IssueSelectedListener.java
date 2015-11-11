@@ -5,6 +5,6 @@ package com.codesmore.codesmore.ui;
  */
 public interface IssueSelectedListener {
 
-    void onIssueSelected(long issueId);
+    void onIssueSelected(String issueParseId);
 
 }

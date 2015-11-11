@@ -12,7 +12,7 @@ public interface CompletedView {
 
     void onProblemsLoaded(List<Issue> issues);
 
-    void openCompletedIssueDetail(long issueId);
+    void openCompletedIssueDetail(String issueParseId);
 
     void showNoItemsAvailableMessage();
 

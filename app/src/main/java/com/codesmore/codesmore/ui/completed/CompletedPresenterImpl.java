@@ -30,8 +30,8 @@ public class CompletedPresenterImpl implements CompletedPresenter{
     }
 
     @Override
-    public void onProblemSelected(long issueId) {
-        mView.openCompletedIssueDetail(issueId);
+    public void onProblemSelected(String issueParseId) {
+        mView.openCompletedIssueDetail(issueParseId);
     }
 
     @Override

@@ -17,8 +17,8 @@ public class CompletedDetailsPresenterImpl implements CompletedDetailsPresenter 
     }
 
     @Override
-    public void loadIssueById(Long issueId) {
-        Issue resolvedIssue = mDataWrapper.getIssue(issueId);
+    public void loadIssueById(String issueParseId) {
+        Issue resolvedIssue = mDataWrapper.getIssue(issueParseId);
         onIssueLoaded(resolvedIssue);
     }
 

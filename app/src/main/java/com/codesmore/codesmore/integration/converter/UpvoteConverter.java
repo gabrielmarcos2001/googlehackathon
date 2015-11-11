@@ -47,8 +47,11 @@ public class UpvoteConverter implements Converter<Upvote> {
         return values;
     }
 
+
+
     @Override
     public Upvote convert(ContentValues values) {
+        /*
         if (values == null){
             return new Upvote();
         }
@@ -62,7 +65,11 @@ public class UpvoteConverter implements Converter<Upvote> {
         Upvote upvote = new Upvote();
         upvote.setId(values.getAsLong(PulseContract.Upvote._ID));
         upvote.setUpvotedIssue(upvotedIssue);
-        upvote.setUpvoter(upvoter);
+        upvote.setUpvoter(upvoter);ß
         return upvote;
+        */
+
+        return null;
     }
+
 }

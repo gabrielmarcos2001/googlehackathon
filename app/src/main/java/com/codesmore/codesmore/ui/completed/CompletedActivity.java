@@ -76,17 +76,17 @@ public class CompletedActivity extends BaseActivity implements CompletedView, Is
     }
 
     @Override
-    public void openCompletedIssueDetail(long issueId) {
+    public void openCompletedIssueDetail(String issueParseId) {
         Intent intent = new Intent(this, CompletedDetailsActivity.class);
 
-        intent.putExtra(PASSEDISSUED, issueId);
+        intent.putExtra(PASSEDISSUED, issueParseId);
 
         startActivity(intent);
     }
 
     @Override
-    public void onIssueSelected(long issueId) {
-        mPresenter.onProblemSelected(issueId);
+    public void onIssueSelected(String issueParseId) {
+        mPresenter.onProblemSelected(issueParseId);
     }
 
     @Override

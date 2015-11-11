@@ -65,18 +65,18 @@ public class CompletedDetailsActivity extends BaseActivity implements
         mapFragment.getMapAsync(this);
 
         Intent intent = getIntent();
-        Long issueId = null;
+        String issueParseId = null;
 
-        intent.getLongExtra("PASSEDISSUE", issueId);
+        issueParseId = intent.getStringExtra("PASSEDISSUE");
         mPresenter = new CompletedDetailsPresenterImpl(this, new PulseDataWrapper(getContentResolver()));
 
-        if (issueId != null) {
-            loadIssue(issueId);
+        if (issueParseId != null) {
+            loadIssue(issueParseId);
         }
     }
 
-    public void loadIssue(Long issueId) {
-        mPresenter.loadIssueById(issueId);
+    public void loadIssue(String issueParseId) {
+        mPresenter.loadIssueById(issueParseId);
     }
 
     /**

@@ -55,7 +55,7 @@ public class PulseDataWrapper implements DataWrapper {
     }
 
     @Override
-    public Issue getIssue(Long id) {
+    public Issue getIssue(String id) {
         return localDataWrapper.getIssue(id);
     }
 

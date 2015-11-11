@@ -87,7 +87,7 @@ public class WebService implements DataWrapper {
     }
 
     @Override
-    public Issue getIssue(Long id) {
+    public Issue getIssue(String id) {
         return null;
     }
 

@@ -71,7 +71,7 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.IssueHolder>
             e.printStackTrace();
         }
         try {
-            holder.productId = issue.getId();
+            holder.issueParseId = issue.getParseId();
         } catch (Exception e) {
 
             e.printStackTrace();
@@ -91,7 +91,7 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.IssueHolder>
 
     class IssueHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        long productId;
+        String issueParseId;
         ImageView issueIcon;
         TextView issueTitle;
         TextView issueDescription;
@@ -112,7 +112,7 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.IssueHolder>
 
         @Override
         public void onClick(View v) {
-            mListener.onIssueSelected(productId);
+            mListener.onIssueSelected(issueParseId);
         }
 
     }

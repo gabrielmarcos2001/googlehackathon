@@ -24,7 +24,11 @@ import java.util.Set;
 /**
  * Created by Darryl Staflund on 11/10/2015.
  */
+
+
 public class LocalDataWrapper implements DataWrapper {
+
+
     private ContentResolver contentResolver;
     private Converter<Account> accountConverter;
     private Converter<Category> categoryConverter;
@@ -149,11 +153,12 @@ public class LocalDataWrapper implements DataWrapper {
     }
 
     @Override
-    public Issue getIssue(Long id) {
+    public Issue getIssue(String id) {
         if (id == null){
             return null;
         }
 
+        /*
         Cursor cursor = contentResolver.query(
             PulseContract.Issue.Builders.buildForIssueId(id),
             null,
@@ -162,6 +167,7 @@ public class LocalDataWrapper implements DataWrapper {
             null
         );
 
+
         if (cursor == null){
             return null;
         }
@@ -169,6 +175,8 @@ public class LocalDataWrapper implements DataWrapper {
         ContentValues values = issueConverter.convert(cursor);
         Issue issue = issueConverter.convert(values);
         return issue;
+        */
+        return null;
     }
 
     @Override
