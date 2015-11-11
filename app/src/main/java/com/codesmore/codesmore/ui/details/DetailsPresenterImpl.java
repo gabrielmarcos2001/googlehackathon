@@ -1,6 +1,6 @@
 package com.codesmore.codesmore.ui.details;
 
-import com.codesmore.codesmore.integration.backend.WebService;
+import com.codesmore.codesmore.model.DataWrapper;
 import com.codesmore.codesmore.model.pojo.Issue;
 
 /**
@@ -9,9 +9,9 @@ import com.codesmore.codesmore.model.pojo.Issue;
 public class DetailsPresenterImpl implements DetailsPresenter {
 
     private DetailsView mView;
-    private WebService mDataWrapper;
+    private DataWrapper mDataWrapper;
 
-    public DetailsPresenterImpl(DetailsView mainView, WebService dataWrapper) {
+    public DetailsPresenterImpl(DetailsView mainView, DataWrapper dataWrapper) {
         mDataWrapper = dataWrapper;
         mView = mainView;
     }
