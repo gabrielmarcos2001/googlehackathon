@@ -7,6 +7,7 @@ import android.database.Cursor;
 import com.codesmore.codesmore.integration.converter.AccountConverter;
 import com.codesmore.codesmore.integration.converter.CategoryConverter;
 import com.codesmore.codesmore.integration.converter.Converter;
+import com.codesmore.codesmore.integration.converter.Converter;
 import com.codesmore.codesmore.integration.converter.IssueConverter;
 import com.codesmore.codesmore.integration.converter.UpvoteConverter;
 import com.codesmore.codesmore.model.DataFetchedListener;
@@ -87,7 +88,7 @@ public class LocalDataWrapper implements DataWrapper {
     }
 
     @Override
-    public void getResolvedIssues(double lat, double lon, DataFetchedListener listener) {
+    public List<Issue> getResolvedIssues(double lat, double lon) {
         Cursor cursor = contentResolver.query(
             PulseContract.Issue.CONTENT_URI,
             null,
@@ -104,8 +105,7 @@ public class LocalDataWrapper implements DataWrapper {
                 issues.add(issue);
             }
         }
-        listener.onCompletedIssuesLoaded(issues);
-        //return issues;
+        return issues;
     }
 
     @Override

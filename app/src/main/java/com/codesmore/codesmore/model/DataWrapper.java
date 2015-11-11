@@ -12,7 +12,7 @@ import java.util.List;
 public interface DataWrapper {
     List<Category> getCategories();
 
-    void getResolvedIssues(double lat, double lon, DataFetchedListener listener);
+    List<Issue> getResolvedIssues(double lat, double lon);
     List<Issue> getUnresolvedIssues(double lat, double lon);
 
     void insertIssue(Issue issue);

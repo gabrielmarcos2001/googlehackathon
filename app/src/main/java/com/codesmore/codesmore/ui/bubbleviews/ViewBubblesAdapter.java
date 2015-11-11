@@ -2,9 +2,13 @@ package com.codesmore.codesmore.ui.bubbleviews;
 
 import android.content.Context;
 import android.graphics.Point;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 
 import com.codesmore.codesmore.R;
@@ -93,14 +97,55 @@ public class ViewBubblesAdapter extends RelativeLayout{
         mBubblesPositions.add(point5);
     }
 
-    public void setItems(List<Issue> items) {
-        this.mItems = items;
+    public void setItems(final List<Issue> items) {
 
-        generateBubbles();
+        if (haveVisibleBubbles()) {
 
-        showBubbles();
+            dismissVisibleBubbles();
+
+            final Handler fakeContextualEvent = new Handler();
+            fakeContextualEvent.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+
+                    mItems = items;
+                    generateBubbles();
+                    showBubbles();
+
+                }
+            }, 500);
+
+
+        } else {
+
+            this.mItems = items;
+            generateBubbles();
+            showBubbles();
+
+        }
+
     }
 
+    public void dismissVisibleBubbles() {
+        for (ViewBubble bubble : mBubbles) {
+            if (bubble.isVisible()) {
+                bubble.dismissBubble();
+            }
+        }
+    }
+
+    public boolean haveVisibleBubbles() {
+
+        if (mBubbles != null) {
+            for (ViewBubble bubble : mBubbles) {
+                if (bubble.isVisible()) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 
     public void setmInterface(BubblesInterface mInterface) {
         this.mInterface = mInterface;

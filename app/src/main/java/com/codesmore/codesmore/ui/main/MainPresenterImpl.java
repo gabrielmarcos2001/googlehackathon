@@ -66,7 +66,6 @@ public class MainPresenterImpl implements MainPresenter {
 
         if (mView != null) {
 
-            /*
             final Handler fakeData = new Handler();
             fakeData.postDelayed(new Runnable() {
                 @Override
@@ -111,7 +110,6 @@ public class MainPresenterImpl implements MainPresenter {
 
                 }
             }, 5000);
-            */
 
         }
     }
