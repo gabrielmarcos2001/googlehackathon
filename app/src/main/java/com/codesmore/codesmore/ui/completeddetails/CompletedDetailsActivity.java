@@ -2,9 +2,12 @@ package com.codesmore.codesmore.ui.completeddetails;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.codesmore.codesmore.BaseActivity;
 import com.codesmore.codesmore.R;
+import com.codesmore.codesmore.integration.db.PulseDataWrapper;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -18,6 +21,15 @@ public class CompletedDetailsActivity extends BaseActivity implements
     private CompletedDetailsPresenter mPresenter;
     private GoogleMap mMap;
 
+    private TextView mIssueTitle;
+    private TextView mIssueDescription;
+    private TextView mIssueLocation;
+    private TextView mIssueTime;
+    private TextView mIssueUpVotes;
+    private TextView mIssueDownVotes;
+    private TextView mIssueResolvedDate;
+    private ImageView mIssuePicture;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +38,8 @@ public class CompletedDetailsActivity extends BaseActivity implements
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        mPresenter = new CompletedDetailsPresenterImpl(this, new PulseDataWrapper(getContentResolver()));
     }
 
     /**
