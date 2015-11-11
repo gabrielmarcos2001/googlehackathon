@@ -136,7 +136,7 @@ public class PulseContract {
     }
 
     public static final class Upvote implements BaseColumns {
-        public static final String TABLE_NAME = "upvote";
+        public static final String TABLE_NAME = "upVote";
         public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(TABLE_NAME).build();
         public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + Upvote.TABLE_NAME;
         public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + Upvote.TABLE_NAME;

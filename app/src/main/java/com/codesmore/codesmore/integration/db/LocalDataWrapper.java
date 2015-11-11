@@ -10,7 +10,6 @@ import com.codesmore.codesmore.integration.converter.CategoryConverter;
 import com.codesmore.codesmore.integration.converter.Converter;
 import com.codesmore.codesmore.integration.converter.IssueConverter;
 import com.codesmore.codesmore.integration.converter.UpvoteConverter;
-import com.codesmore.codesmore.model.DataWrapper;
 import com.codesmore.codesmore.model.pojo.Account;
 import com.codesmore.codesmore.model.pojo.Category;
 import com.codesmore.codesmore.model.pojo.Issue;
@@ -27,7 +26,7 @@ import java.util.Set;
  */
 
 
-public class LocalDataWrapper implements DataWrapper {
+public class LocalDataWrapper {
 
 
     private ContentResolver contentResolver;
@@ -64,12 +63,11 @@ public class LocalDataWrapper implements DataWrapper {
         this.issueConverter = issueConverter;
         this.upvoteConverter = upvoteConverter;
 
-        // I really don't like the following two lines.  See how we can change this.
-        ((IssueConverter) issueConverter).setDataWrapper(this);
-        ((UpvoteConverter) upvoteConverter).setDataWrapper(this);
+        // TODO: 11/11/2015 I really don't like the following two lines.  See how we can change this.
+//        ((IssueConverter) issueConverter).setDataWrapper(this);
+//        ((UpvoteConverter) upvoteConverter).setDataWrapper(this);
     }
 
-    @Override
     public List<Category> getCategories() {
         Cursor cursor = contentResolver.query(
             PulseContract.IssueCategory.CONTENT_URI,
@@ -90,7 +88,6 @@ public class LocalDataWrapper implements DataWrapper {
         return categories;
     }
 
-    @Override
     public List<Issue> getResolvedIssues(double lat, double lon) {
         Cursor cursor = contentResolver.query(
             PulseContract.Issue.CONTENT_URI,
@@ -111,7 +108,6 @@ public class LocalDataWrapper implements DataWrapper {
         return issues;
     }
 
-    @Override
     public List<Issue> getUnresolvedIssues(double lat, double lon) {
         Cursor cursor = contentResolver.query(
             PulseContract.Issue.CONTENT_URI,
@@ -133,7 +129,6 @@ public class LocalDataWrapper implements DataWrapper {
         return issues;
     }
 
-    @Override
     public void insertIssue(Issue issue) {
         if (issue == null){
             throw new IllegalArgumentException("Issue is required.");
@@ -143,7 +138,6 @@ public class LocalDataWrapper implements DataWrapper {
         contentResolver.insert(PulseContract.Issue.CONTENT_URI, values);
     }
 
-    @Override
     public void insertAccount(Account account) {
         if (account == null){
             throw new IllegalArgumentException("Account is required.");
@@ -153,7 +147,6 @@ public class LocalDataWrapper implements DataWrapper {
         contentResolver.insert(PulseContract.Account.CONTENT_URI, values);
     }
 
-    @Override
     public Issue getIssue(@NonNull String parseId) {
         Cursor cursor = contentResolver.query(
             PulseContract.Issue.Builders.buildForParseIssueId(parseId),
@@ -173,7 +166,6 @@ public class LocalDataWrapper implements DataWrapper {
         return issue;
     }
 
-    @Override
     public Account getAccount(Long id) {
         if (id == null){
             return null;
@@ -196,7 +188,6 @@ public class LocalDataWrapper implements DataWrapper {
         return account;
     }
 
-    @Override
     public Category getCategory(Long id) {
         if (id == null){
             return null;
@@ -219,14 +210,13 @@ public class LocalDataWrapper implements DataWrapper {
         return category;
     }
 
-    @Override
     public void upvote(Issue issue, Account upvoter) {
         if (issue == null || upvoter == null){
             return;
         }
 
         /**
-         * First, we need to increment the upvote count and save it to database.
+         * First, we need to increment the upVote count and save it to database.
          */
         issue.setUpvotes(issue.getUpvotes() + 1);
         ContentValues issueValues = issueConverter.convert(issue);
@@ -238,7 +228,7 @@ public class LocalDataWrapper implements DataWrapper {
         );
 
         /**
-         * Next, we need to insert a new upvote record into the database.
+         * Next, we need to insert a new upVote record into the database.
          */
         Upvote upvote = new Upvote();
         upvote.setUpvoter(upvoter);
@@ -248,7 +238,6 @@ public class LocalDataWrapper implements DataWrapper {
         contentResolver.insert(PulseContract.Upvote.CONTENT_URI, upvoteValues);
     }
 
-    @Override
     public void downvote(Issue issue) {
         if (issue == null){
             return;
@@ -265,7 +254,6 @@ public class LocalDataWrapper implements DataWrapper {
         );
     }
 
-    @Override
     public void resolveIssue(Issue issue, Account resolver) {
         if (issue == null || resolver == null) {
             return;
@@ -282,7 +270,6 @@ public class LocalDataWrapper implements DataWrapper {
         );
     }
 
-    @Override
     public void updateIssue(Issue issue) {
         ContentValues issueValues = issueConverter.convert(issue);
         contentResolver.update(
@@ -293,7 +280,6 @@ public class LocalDataWrapper implements DataWrapper {
         );
     }
 
-    @Override
     public void updateCategory(Category category) {
         ContentValues issueValues = categoryConverter.convert(category);
         contentResolver.update(
@@ -304,7 +290,6 @@ public class LocalDataWrapper implements DataWrapper {
         );
     }
 
-    @Override
     public List<Issue> getCreatedOrUpvotedIssuesFor(Account ownerOrUpvoter) {
         if (ownerOrUpvoter == null){
             return Collections.emptyList();
