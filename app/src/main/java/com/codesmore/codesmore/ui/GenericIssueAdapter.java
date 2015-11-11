@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.codesmore.codesmore.R;
 import com.codesmore.codesmore.model.pojo.Issue;
 
+import java.security.spec.ECField;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,8 +82,15 @@ public class GenericIssueAdapter extends RecyclerView.Adapter<GenericIssueAdapte
         try {
             holder.issueParseId = issue.getParseId();
         } catch (Exception e) {
-
             e.printStackTrace();
+        }
+
+        try{
+            holder.downVoteCount = issue.getDownvotes();
+            holder.upVoteCount = issue.getUpvotes();
+            holder.issue = issue;
+        }catch (Exception e){
+
         }
     }
 
@@ -99,15 +107,20 @@ public class GenericIssueAdapter extends RecyclerView.Adapter<GenericIssueAdapte
 
     class IssueHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
+        Issue issue;
         String issueParseId;
+        Boolean voteUsed = false;
+        int upVoteCount;
+        int downVoteCount;
         ImageView issueIcon;
         TextView issueTitle;
         TextView issueDescription;
         TextView issueResolvedDate;
         TextView upVotes;
         TextView downVotes;
-        Button upVote;
-        Button downVote;
+
+        ImageView downVoteIcon;
+        ImageView upVoteIcon;
 
         public IssueHolder(View view) {
             super(view);
@@ -122,22 +135,47 @@ public class GenericIssueAdapter extends RecyclerView.Adapter<GenericIssueAdapte
             if (mIssueType == 0){
                 issueResolvedDate = (TextView) view.findViewById(R.id.item_issue_resolved_date);
             }else if (mIssueType == 1){
-                upVote = (Button) view.findViewById(R.id.item_button_upvote);
-                upVote.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                    }
-                });
-                downVote = (Button) view.findViewById(R.id.item_button_downvote);
+                upVoteIcon = (ImageView) view.findViewById(R.id.item_icon_up_votes);
+                upVoteIcon.setOnClickListener(this);
+                downVoteIcon = (ImageView) view.findViewById(R.id.item_icon_down_votes);
+                downVoteIcon.setOnClickListener(this);
             }
         }
 
         @Override
         public void onClick(View v) {
+            int finalVal;
+            switch (v.getId()){
+                case R.id.item_icon_down_votes:
+
+                    if (!voteUsed) {
+                        finalVal = downVoteCount + 1;
+                        downVotes.setText(finalVal + "");
+
+                        mListener.onIssueDownVoted(issue);
+                        voteUsed = true;
+                        break;
+                    }
+
+                case R.id.item_icon_up_votes:
+                    if (!voteUsed){
+                        finalVal = downVoteCount + 1;
+                        upVotes.setText(finalVal + "");
+
+                        mListener.onIssueUpVoted(issue);
+                        voteUsed = true;
+                        break;
+                    }
+
+
+                default:
+                    mListener.onIssueSelected(issueParseId);
+                    break;
+            }
             Log.v("RVA", "Clicked:" + v.toString());
-            mListener.onIssueSelected(issueParseId);
+
         }
+
 
     }
 }

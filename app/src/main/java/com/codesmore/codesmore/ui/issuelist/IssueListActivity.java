@@ -130,4 +130,14 @@ public class IssueListActivity extends BaseActivity implements IssueListView, Is
         //toast.show();
 
     }
+
+    @Override
+    public void onIssueUpVoted(Issue issue) {
+        mPresenter.onIssueUpvoted(issue);
+    }
+
+    @Override
+    public void onIssueDownVoted(Issue issue) {
+        mPresenter.onIssueDownvoted(issue);
+    }
 }
