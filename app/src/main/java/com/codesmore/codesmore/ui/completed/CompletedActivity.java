@@ -3,6 +3,7 @@ package com.codesmore.codesmore.ui.completed;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
@@ -36,13 +37,28 @@ public class CompletedActivity extends BaseActivity implements CompletedView, Is
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_completed);
-        ButterKnife.bind(this);
         initViews();
 
         connectGoogleApiClient();
 
         mPresenter = new CompletedPresenterImpl(this, new PulseDataWrapper(getContentResolver()));
+    }
 
+
+    private void initViews(){
+        mCompletedItems = (RecyclerView) findViewById(R.id.completed_items_recycler);
+        mAdapter = new IssueAdapter(this);
+        mCompletedItems.setAdapter(mAdapter);
+        mCompletedItems.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Location locA = new Location("Test Loc");
+        locA.setLatitude(10d);
+        locA.setLongitude(10d);
+        onFakeLocation(locA);
     }
 
     private synchronized void connectGoogleApiClient() {
@@ -52,14 +68,6 @@ public class CompletedActivity extends BaseActivity implements CompletedView, Is
                 .addApi(LocationServices.API)
                 .build();
         mGoogleApiClient.connect();
-    }
-
-
-    private void initViews(){
-        mCompletedItems = (RecyclerView) findViewById(R.id.completed_items_recycler);
-        mAdapter = new IssueAdapter(this);
-        mCompletedItems.setAdapter(mAdapter);
-
     }
 
     @Override
@@ -86,9 +94,14 @@ public class CompletedActivity extends BaseActivity implements CompletedView, Is
         Location location =
                 LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
 
+
         if (location != null) {
             mPresenter.onLocationAvailable(location);
         }
+    }
+
+    public void onFakeLocation(Location location){
+        mPresenter.onLocationAvailable(location);
     }
 
     @Override
