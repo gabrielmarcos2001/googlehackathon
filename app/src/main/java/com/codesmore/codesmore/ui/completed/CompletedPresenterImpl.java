@@ -37,8 +37,11 @@ public class CompletedPresenterImpl implements CompletedPresenter{
     @Override
     public void onLocationAvailable(Location location) {
         //Triggers data load when a location is available
-        List<Issue> issues = mDataWrapper.getResolvedIssues(location.getLatitude(), location.getLongitude());
-        onCompletedIssuesLoaded(issues);
+        double lat = location.getLatitude();
+        double lon = location.getLongitude();
+
+        List<Issue> issues = mDataWrapper.getResolvedIssues(lat, lon);
+        this.onCompletedIssuesLoaded(issues);
     }
 
     public void onCompletedIssuesLoaded(List<Issue> issues) {

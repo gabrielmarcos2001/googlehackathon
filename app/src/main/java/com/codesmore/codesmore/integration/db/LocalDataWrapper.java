@@ -281,6 +281,28 @@ public class LocalDataWrapper implements DataWrapper {
     }
 
     @Override
+    public void updateIssue(Issue issue) {
+        ContentValues issueValues = issueConverter.convert(issue);
+        contentResolver.update(
+            PulseContract.Issue.Builders.buildForIssueId(issue.getId()),
+            issueValues,
+            null,
+            null
+        );
+    }
+
+    @Override
+    public void updateCategory(Category category) {
+        ContentValues issueValues = categoryConverter.convert(category);
+        contentResolver.update(
+            PulseContract.IssueCategory.Builders.buildForCategoryId(category.getId()),
+            issueValues,
+            null,
+            null
+        );
+    }
+
+    @Override
     public List<Issue> getCreatedOrUpvotedIssuesFor(Account ownerOrUpvoter) {
         if (ownerOrUpvoter == null){
             return Collections.emptyList();
