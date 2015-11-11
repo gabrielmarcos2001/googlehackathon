@@ -45,7 +45,8 @@
         </activity>
 
         <!-- Generic Issue List Activity -->
-        <activity android:name=".ui.issuelist.IssueListActivity" >
+        <activity android:name=".ui.issuelist.IssueListActivity"
+            android:theme="@style/Theme.pulse.NoActionBar">
         </activity>
 
         <!-- Completed issues detail activity - How is this different from the Details Activity???? -->

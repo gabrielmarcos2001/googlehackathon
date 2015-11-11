@@ -102,6 +102,8 @@ public class MainActivity extends BaseActivity implements FragmentNavigationDraw
         Intent intent = new Intent(this, IssueListActivity.class);
         intent.putExtra(ISSUETYPE, 0);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_horizontal, R.anim.slide_out_left);
+
     }
 
     @Override
@@ -109,6 +111,8 @@ public class MainActivity extends BaseActivity implements FragmentNavigationDraw
         Intent intent = new Intent(this, IssueListActivity.class);
         intent.putExtra(ISSUETYPE, 1);
         startActivity(intent);
+
+        overridePendingTransition(R.anim.slide_in_horizontal, R.anim.slide_out_left);
         //Toast toast = Toast.makeText(this, "Open UpVoted Issues", Toast.LENGTH_SHORT);
         //toast.show();
         //Intent intent = new Intent(this, )

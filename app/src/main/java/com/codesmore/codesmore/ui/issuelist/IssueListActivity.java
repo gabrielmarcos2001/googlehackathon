@@ -5,6 +5,8 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -31,6 +33,8 @@ public class IssueListActivity extends BaseActivity implements IssueListView, Is
     private RecyclerView mCompletedItems;
     private GoogleApiClient mGoogleApiClient;
 
+    private Toolbar mToolbar;
+
     //0: Resolved
     //1: UpVoted
     private int issueType;
@@ -41,8 +45,21 @@ public class IssueListActivity extends BaseActivity implements IssueListView, Is
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_completed);
 
+        mToolbar = (Toolbar)findViewById(R.id.toolbar);
+
         Intent intent = getIntent();
         issueType = intent.getIntExtra(ISSUETYPE, -1);
+
+        if (mToolbar != null) {
+            if (issueType == 0) {
+                mToolbar.setTitle("Resolved Issues"); // We are super cool and we don't show a title on the toolbar
+            }else {
+                mToolbar.setTitle("My UpVoted Issues");
+            }
+
+            setSupportActionBar(mToolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         initViews();
 
@@ -126,6 +143,35 @@ public class IssueListActivity extends BaseActivity implements IssueListView, Is
         errorMessage.setVisibility(View.VISIBLE);
         //Toast toast = Toast.makeText(this, "Showing error message", Toast.LENGTH_SHORT);
         //toast.show();
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_horizontal);
+    }
+
+    @Override
+    public void onIssueUpVoted(Issue issue) {
+
+    }
+
+    @Override
+    public void onIssueDownVoted(Issue issue) {
 
     }
 }

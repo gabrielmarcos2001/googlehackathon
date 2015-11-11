@@ -95,7 +95,7 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.IssueHolder>
         ImageView issueIcon;
         TextView issueTitle;
         TextView issueDescription;
-        TextView issueResolvedDate;
+        //TextView issueResolvedDate;
         TextView upVotes;
         TextView downVotes;
 
@@ -103,7 +103,7 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.IssueHolder>
             super(view);
             issueIcon = (ImageView) view.findViewById(R.id.item_issue_icon);
             issueDescription = (TextView) view.findViewById(R.id.item_issue_description);
-            issueResolvedDate = (TextView) view.findViewById(R.id.item_issue_resolved_date);
+            //issueResolvedDate = (TextView) view.findViewById(R.id.item_issue_resolved_date);
             issueTitle = (TextView) view.findViewById(R.id.item_issue_title);
             upVotes = (TextView) view.findViewById(R.id.item_up_votes);
             downVotes = (TextView) view.findViewById(R.id.item_down_votes);
