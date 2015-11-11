@@ -577,7 +577,7 @@ public class ViewBubble extends RelativeLayout {
         float maxScale = 2f;
         float minScale = 0.5f;
 
-        float scale = (mIssueData.getUpvotes() / 150f) + 1;
+        float scale = (mIssueData.getUpvotes() / 10f) + 1;
 
         if (scale > maxScale) scale = maxScale;
         if (scale < minScale) scale = minScale;
