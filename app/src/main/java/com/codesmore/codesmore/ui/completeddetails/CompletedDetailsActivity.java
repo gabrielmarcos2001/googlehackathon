@@ -2,7 +2,12 @@ package com.codesmore.codesmore.ui.completeddetails;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,33 +31,41 @@ public class CompletedDetailsActivity extends BaseActivity implements CompletedD
     private CompletedDetailsPresenter mPresenter;
     private GoogleMap mMap;
 
+    @Bind(R.id.no_image)
+    View mNoImage;
+
+    @Bind(R.id.toolbar)
+    Toolbar mToolbar;
+
     @Bind(R.id.item_issue_title)
     TextView mIssueTitle;
 
     @Bind(R.id.item_issue_description)
     TextView mIssueDescription;
 
-    @Bind(R.id.item_issue_latitude)
-    TextView mIssueLatitude;
+    @Bind(R.id.data_container)
+    View mDataContainer;
 
-    @Bind(R.id.item_issue_longitude)
-    TextView mIssueLongitude;
+    //@Bind(R.id.item_issue_latitude)
+    //TextView mIssueLatitude;
 
-    @Bind(R.id.item_issue_create_date)
-    TextView mIssueCreateDate;
+    //@Bind(R.id.item_issue_longitude)
+    //TextView mIssueLongitude;
 
-    @Bind(R.id.item_issue_fixed_date)
-    TextView mIssueFixedDate;
+    //@Bind(R.id.item_issue_create_date)
+    //TextView mIssueCreateDate;
 
-    @Bind(R.id.item_issue_up_votes)
+    //@Bind(R.id.item_issue_fixed_date)
+    //TextView mIssueFixedDate;
+
+    @Bind(R.id.upvotes)
     TextView mIssueUpVotes;
 
-    @Bind(R.id.item_issue_down_votes)
+    @Bind(R.id.downvotes)
     TextView mIssueDownVotes;
 
     @Bind(R.id.item_issue_image)
     ImageView mIssuePicture;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,9 +84,17 @@ public class CompletedDetailsActivity extends BaseActivity implements CompletedD
         issueParseId = intent.getStringExtra("PASSEDISSUE");
         mPresenter = new CompletedDetailsPresenterImpl(this, new PulseDataWrapper());
 
+        if (mToolbar != null) {
+            mToolbar.setTitle("Issue Detail");
+            setSupportActionBar(mToolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
         if (issueParseId != null) {
             loadIssue(issueParseId);
         }
+
+        mDataContainer.setVisibility(View.INVISIBLE);
     }
 
     public void loadIssue(String issueParseId) {
@@ -105,37 +126,61 @@ public class CompletedDetailsActivity extends BaseActivity implements CompletedD
         if (resolvedIssue != null) {
             mIssueTitle.setText(resolvedIssue.getTitle());
             mIssueDescription.setText(resolvedIssue.getDescription());
-            mIssueLatitude.setText(Double.toString(resolvedIssue.getLatitude()));
-            mIssueLongitude.setText(Double.toString(resolvedIssue.getLongtitude()));
 
             String createDate = "";
             if (resolvedIssue.getCreateDate() != null) {
                 createDate = resolvedIssue.getCreateDate().toString();
             }
-            mIssueCreateDate.setText(createDate);
 
             String fixedDate = "";
             if (resolvedIssue.getFixedDate() != null) {
                 fixedDate = resolvedIssue.getFixedDate().toString();
             }
-            mIssueFixedDate.setText(fixedDate);
 
-            String upVotes = "";
+            String upVotes = "+0";
             try {
-                upVotes = Integer.toString(resolvedIssue.getUpvotes());
+                upVotes = "+" + Integer.toString(resolvedIssue.getUpvotes());
             } catch (Exception e) {
                 Log.v(LOG_TAG, e.toString());
             }
             mIssueUpVotes.setText(upVotes);
 
-            String downVotes = "";
+            String downVotes = "-0";
             try {
-                downVotes = Integer.toString(resolvedIssue.getDownvotes());
+                downVotes = "-" + Integer.toString(resolvedIssue.getDownvotes());
             } catch (Exception e) {
                 Log.v(LOG_TAG, e.toString());
             }
+
             mIssueDownVotes.setText(downVotes);
-            mIssuePicture.setImageBitmap(resolvedIssue.getImage());
+
+            if (resolvedIssue.getImage() != null) {
+                mIssuePicture.setImageBitmap(resolvedIssue.getImage());
+                mNoImage.setVisibility(View.INVISIBLE);
+            }
+
+            mDataContainer.setVisibility(View.VISIBLE);
+            Animation animation = AnimationUtils.loadAnimation(this, R.anim.show_from_bottom);
+            mDataContainer.startAnimation(animation);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_horizontal);
     }
 }

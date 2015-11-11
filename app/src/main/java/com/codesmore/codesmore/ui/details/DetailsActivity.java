@@ -21,6 +21,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 public class DetailsActivity extends BaseActivity implements DetailsView, OnMapReadyCallback {
@@ -35,30 +36,23 @@ public class DetailsActivity extends BaseActivity implements DetailsView, OnMapR
     @Bind(R.id.item_issue_description)
     TextView mIssueDescription;
 
-    @Bind(R.id.item_issue_latitude)
-    TextView mIssueLatitude;
+    //@Bind(R.id.item_issue_latitude)
+    //TextView mIssueLatitude;
 
-    @Bind(R.id.item_issue_longitude)
-    TextView mIssueLongitude;
+    //@Bind(R.id.item_issue_longitude)
+    //TextView mIssueLongitude;
 
-    @Bind(R.id.item_issue_create_date)
-    TextView mIssueCreateDate;
+    //@Bind(R.id.item_issue_create_date)
+    //TextView mIssueCreateDate;
 
-    @Bind(R.id.item_issue_up_votes)
+    @Bind(R.id.upvotes)
     TextView mIssueUpVotes;
 
-    @Bind(R.id.item_icon_up_votes)
-    ImageView mIssueUpVoteButton;
-
-    @Bind(R.id.item_issue_down_votes)
+    @Bind(R.id.downvotes)
     TextView mIssueDownVotes;
-
-    @Bind(R.id.item_icon_down_votes)
-    ImageView mIssueDownVoteButton;
 
     @Bind(R.id.item_issue_image)
     ImageView mIssuePicture;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,28 +73,11 @@ public class DetailsActivity extends BaseActivity implements DetailsView, OnMapR
 
         if (issueParseId != null) {
             loadIssue(issueParseId);
-            setVotingButtons();
         }
     }
 
     public void loadIssue(String issueParseId) {
         mPresenter.loadIssueById(issueParseId);
-    }
-
-    public void setVotingButtons() {
-        mIssueUpVoteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        mIssueDownVoteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
     }
 
     /**
@@ -128,14 +105,14 @@ public class DetailsActivity extends BaseActivity implements DetailsView, OnMapR
         if (resolvedIssue != null) {
             mIssueTitle.setText(resolvedIssue.getTitle());
             mIssueDescription.setText(resolvedIssue.getDescription());
-            mIssueLatitude.setText(Double.toString(resolvedIssue.getLatitude()));
-            mIssueLongitude.setText(Double.toString(resolvedIssue.getLongtitude()));
+            //mIssueLatitude.setText(Double.toString(resolvedIssue.getLatitude()));
+            //mIssueLongitude.setText(Double.toString(resolvedIssue.getLongtitude()));
 
             String createDate = "";
             if (resolvedIssue.getCreateDate() != null) {
                 createDate = resolvedIssue.getCreateDate().toString();
             }
-            mIssueCreateDate.setText(createDate);
+           // mIssueCreateDate.setText(createDate);
 
             String upVotes = "";
             try {
@@ -154,5 +131,15 @@ public class DetailsActivity extends BaseActivity implements DetailsView, OnMapR
             mIssueDownVotes.setText(downVotes);
             mIssuePicture.setImageBitmap(resolvedIssue.getImage());
         }
+    }
+
+    @OnClick(R.id.downvote)
+    void onDownVoteClicked() {
+
+    }
+
+    @OnClick(R.id.upvote)
+    void onUpVoteClicked() {
+
     }
 }

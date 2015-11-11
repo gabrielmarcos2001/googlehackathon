@@ -1,109 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="100"
     android:fitsSystemWindows="true"
-    tools:context="com.codesmore.codesmore.ui.completeddetails.CompletedDetailsActivity"
+    tools:context="com.codesmore.codesmore.ui.details.DetailsActivity"
     android:orientation="vertical">
 
-    <!--<com.google.android.gms.maps.MapView android:id="@+id/mapview"-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="fill_parent" />-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/tiled_background"
+        android:alpha="0.05"/>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/flat_black"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
+        android:elevation="5dp"
+        custom:contentInsetLeft="0dp"
+        custom:contentInsetStart="0dp"
+        app:theme="@style/toolbar_theme"
+        />
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="30"
+        android:layout_height="200dp"
+        android:layout_below="@+id/toolbar"
         android:id="@+id/map"
-        tools:context="com.codesmore.codesmore.ui.completeddetails.CompletedDetailsActivity"
+        tools:context="com.codesmore.codesmore.ui.details.DetailsActivity"
         android:name="com.google.android.gms.maps.SupportMapFragment" />
 
-    <LinearLayout
+    <ScrollView
+        android:id="@+id/data_container"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="70">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/map">
 
         <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:orientation="vertical"
-            android:weightSum="100">
-
-            <ImageView
-                android:id="@+id/item_issue_image"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="40"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="10dp"
+            android:padding="20dp"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/item_issue_title"
-                android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:layout_weight="10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="TITLE"
+                android:maxLines="1"
+                android:textColor="@color/background_red"
+                android:textSize="24sp"
+                android:textStyle="bold"
                 android:gravity="center" />
 
             <LinearLayout
-                android:id="@+id/container_description"
-                android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:layout_weight="19.41"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:orientation="horizontal"
-                android:weightSum="100">
+                android:weightSum="1">
 
                 <TextView
-                    android:id="@+id/item_issue_description"
-                    android:layout_width="fill_parent"
+                    android:id="@+id/downvotes"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Kinfolk health goth vegan quinoa hammock biodiesel. Marfa lo-fi vegan, freegan portland typewriter cliche scenester butcher kombucha fanny pack letterpress. Tilde direct trade keffiyeh, yuccie craft beer flannel hoodie plaid microdosing gluten-free retro cornhole beard readymade tote bag. Fixie heirloom gluten-free microdosing meh, put a bird on it typewriter mixtape hashtag banh mi you probably haven't heard of them cred. Disrupt skateboard mixtape, cray pour-over selfies slow-carb typewriter DIY listicle bespoke 90's. Pop-up williamsburg "
-                    android:maxLines="2"
-                    android:ellipsize="end"
-                    android:singleLine="false"/>
+                    android:text="-10"
+                    android:textColor="@color/background_red"
+                    android:padding="10dp"
+                    android:layout_weight="0.5"
+                    android:gravity="center"/>
 
                 <TextView
-                    android:id="@+id/item_issue_latitude"
-                    android:layout_width="fill_parent"
+                    android:id="@+id/upvotes"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="123"
-                    android:maxLines="2"
-                    android:ellipsize="end"
-                    android:singleLine="false"/>
-
-                <TextView
-                    android:id="@+id/item_issue_longitude"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="72"
-                    android:maxLines="2"
-                    android:ellipsize="end"
-                    android:singleLine="false"/>
-
-                <TextView
-                    android:id="@+id/item_issue_create_date"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="72"
-                    android:maxLines="2"
-                    android:ellipsize="end"
-                    android:singleLine="false"/>
-
-                <TextView
-                    android:id="@+id/item_issue_fixed_date"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="72"
-                    android:maxLines="2"
-                    android:ellipsize="end"
-                    android:singleLine="false"/>
+                    android:text="+5"
+                    android:textColor="@color/background_green"
+                    android:padding="10dp"
+                    android:layout_weight="0.5"
+                    android:gravity="center"/>
 
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/item_issue_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Kinfolk health goth vegan quinoa hammock biodiesel. Marfa lo-fi vegan, freegan portland typewriter cliche scen "
+                android:ellipsize="end"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="0dp"
+                android:singleLine="false"/>
 
+            <TextView
+                android:id="@+id/item_issue_create_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="72"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:visibility="gone"
+                android:singleLine="false"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp">
+                <ImageView
+                    android:id="@+id/item_issue_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@color/background_red"
+                    android:layout_marginTop="10dp"
+                    android:scaleType="centerCrop"/>
+
+                <TextView
+                    android:id="@+id/no_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="IMAGE NOT AVAILABLE"
+                    android:textStyle="bold"
+                    android:textColor="@color/clouds"
+                    android:gravity="center"/>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@color/background_red"/>
+
+            <!--
             <FrameLayout
                 android:id="@+id/container_rating"
                 android:layout_width="fill_parent"
@@ -164,8 +206,11 @@
                 </LinearLayout>
 
             </FrameLayout>
+            -->
+
 
         </LinearLayout>
 
-    </LinearLayout>
-</LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

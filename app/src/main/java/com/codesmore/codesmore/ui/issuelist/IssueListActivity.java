@@ -101,11 +101,11 @@ public class IssueListActivity extends BaseActivity implements IssueListView, Is
 
     @Override
     public void openCompletedIssueDetail(String issueParseId) {
+
         Intent intent = new Intent(this, CompletedDetailsActivity.class);
-
         intent.putExtra(PASSEDISSUED, issueParseId);
-
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_horizontal, R.anim.slide_out_left);
     }
 
     @Override
