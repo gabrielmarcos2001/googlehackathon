@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.util.SparseArray;
 
@@ -183,7 +184,45 @@ public class PulseContentProvider extends ContentProvider {
                 );
 
             case MatchCodes.ISSUES_BY_UPVOTER:
-                //  TODO
+                String issueIdColumn = PulseContract.Issue.TABLE_NAME + "." + PulseContract.Issue._ID;
+                String upvoteIdColumn = PulseContract.Upvote.TABLE_NAME + "." + PulseContract.Upvote.Columns.UPVOTED_ISSUE_ID;
+
+                SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
+                builder.setTables(
+                    new StringBuilder()
+                        .append("           " + PulseContract.Issue.TABLE_NAME)
+                        .append(" LEFT JOIN " + PulseContract.Upvote.TABLE_NAME)
+                        .append("        ON " + issueIdColumn + " = " + upvoteIdColumn)
+                        .toString()
+                );
+
+                return builder.query(
+                    db,
+                    new String[]{
+                        PulseContract.Issue.TABLE_NAME + "." + PulseContract.Issue._ID,
+                        PulseContract.Issue.TABLE_NAME + "." + PulseContract.Issue.Columns.CREATOR_ID,
+                        PulseContract.Issue.TABLE_NAME + "." + PulseContract.Issue.Columns.UPVOTES,
+                        PulseContract.Issue.TABLE_NAME + "." + PulseContract.Issue.Columns.FIXED_IND,
+                        PulseContract.Issue.TABLE_NAME + "." + PulseContract.Issue.Columns.IMAGE,
+                        PulseContract.Issue.TABLE_NAME + "." + PulseContract.Issue.Columns.CREATE_DATE,
+                        PulseContract.Issue.TABLE_NAME + "." + PulseContract.Issue.Columns.DESCRIPTION,
+                        PulseContract.Issue.TABLE_NAME + "." + PulseContract.Issue.Columns.DOWNVOTES,
+                        PulseContract.Issue.TABLE_NAME + "." + PulseContract.Issue.Columns.FIX_DATE,
+                        PulseContract.Issue.TABLE_NAME + "." + PulseContract.Issue.Columns.FIXER_ID,
+                        PulseContract.Issue.TABLE_NAME + "." + PulseContract.Issue.Columns.ISSUE_CATEGORY_ID,
+                        PulseContract.Issue.TABLE_NAME + "." + PulseContract.Issue.Columns.LATITUDE,
+                        PulseContract.Issue.TABLE_NAME + "." + PulseContract.Issue.Columns.LONGITUDE,
+                        PulseContract.Issue.TABLE_NAME + "." + PulseContract.Issue.Columns.PARSE_ID,
+                        PulseContract.Issue.TABLE_NAME + "." + PulseContract.Issue.Columns.PRIORITY,
+                        PulseContract.Issue.TABLE_NAME + "." + PulseContract.Issue.Columns.TITLE
+                    },
+                    PulseContract.Upvote.TABLE_NAME + "." + PulseContract.Upvote.Columns.UPVOTER_ID + " = ?",
+                    new String[]{uri.getLastPathSegment()},
+                    null,
+                    null,
+                    null
+                );
+
 
             default:
                 db.close();
@@ -221,12 +260,48 @@ public class PulseContentProvider extends ContentProvider {
     }
 
     @Override
-    public int delete(Uri uri, String selection, String[] selectionArgs){
-        throw new UnsupportedOperationException("Feature not yet implemented.");
+    public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs){
+        final SQLiteDatabase db = helper.getWritableDatabase();
+        int recordsUpdated;
+
+        switch(URI_MATCHER.match(uri)) {
+            case MatchCodes.ISSUE_CATEGORY:
+                recordsUpdated = db.update(
+                    PulseContract.IssueCategory.TABLE_NAME,
+                    values,
+                    selection,
+                    selectionArgs
+                );
+                break;
+
+            case MatchCodes.ISSUE:
+                recordsUpdated = db.update(
+                    PulseContract.Issue.TABLE_NAME,
+                    values,
+                    selection,
+                    selectionArgs
+                );
+                break;
+
+            case MatchCodes.ACCOUNT:
+                recordsUpdated = db.update(
+                    PulseContract.Account.TABLE_NAME,
+                    values,
+                    selection,
+                    selectionArgs
+                );
+                break;
+
+            default:
+                db.close();
+                throw new UnsupportedOperationException("Unknown uri:  " + uri);
+        }
+
+        return recordsUpdated;
     }
 
     @Override
-    public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs){
+    public int delete(Uri uri, String selection, String[] selectionArgs){
         throw new UnsupportedOperationException("Feature not yet implemented.");
     }
 }

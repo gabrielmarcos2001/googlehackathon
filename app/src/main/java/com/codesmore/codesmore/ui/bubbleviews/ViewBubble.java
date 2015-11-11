@@ -577,7 +577,7 @@ public class ViewBubble extends RelativeLayout {
         float maxScale = 2f;
         float minScale = 0.5f;
 
-        float scale = (mIssueData.getPriority() / 150f) + 1;
+        float scale = (mIssueData.getUpvotes() / 150f) + 1;
 
         if (scale > maxScale) scale = maxScale;
         if (scale < minScale) scale = minScale;
@@ -599,7 +599,7 @@ public class ViewBubble extends RelativeLayout {
         pulseScaleY.start();
 
         if (mPriority != null) {
-            mPriority.setText(String.valueOf(mIssueData.getPriority()));
+            mPriority.setText(String.valueOf(mIssueData.getUpvotes()));
         }
     }
 

@@ -3,6 +3,7 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="app_title">Pulse &#8482;</string>
 
     <string name="on_boarding_1">We are going to start sensing your surroundings</string>
     <string name="on_boarding_2">We have found some Issues around your area</string>
