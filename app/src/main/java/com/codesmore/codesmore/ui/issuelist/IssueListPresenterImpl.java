@@ -70,4 +70,14 @@ public class IssueListPresenterImpl implements IssueListPresenter {
     public void onNoCompleteItems() {
         mView.showNoItemsAvailableMessage();
     }
+
+    @Override
+    public void onIssueUpvoted(Issue issue) {
+        mDataWrapper.upvote(issue, null);
+    }
+
+    @Override
+    public void onIssueDownvoted(Issue issue) {
+        mDataWrapper.downvote(issue);
+    }
 }

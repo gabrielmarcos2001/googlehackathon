@@ -121,4 +121,14 @@ public class CompletedActivity extends BaseActivity implements CompletedView, Is
         toast.show();
 
     }
+
+    @Override
+    public void onIssueUpVoted(Issue issue) {
+
+    }
+
+    @Override
+    public void onIssueDownVoted(Issue issue) {
+
+    }
 }
