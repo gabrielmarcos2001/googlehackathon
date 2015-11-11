@@ -17,6 +17,7 @@ import com.codesmore.codesmore.model.pojo.Category;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.util.List;
 
@@ -29,36 +30,36 @@ public class ReportActivity extends BaseActivityWithImageSaving implements Repor
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private static final String TAG = "codes";
-    
-    @Bind(R.id.report_category)
-    Spinner mCategories;
+
+    //@Bind(R.id.report_category)
+    //Spinner mCategories;
 
     @Bind(R.id.report_title)
-    EditText mTitle;
+    MaterialEditText mTitle;
 
     @Bind(R.id.report_description)
-    EditText mDescription;
+    MaterialEditText mDescription;
 
-    @Bind(R.id.report_creator)
-    EditText mCreator;
+    //@Bind(R.id.report_creator)
+    //EditText mCreator;
 
-    @Bind(R.id.report_fixer)
-    EditText mFixer;
+    //@Bind(R.id.report_fixer)
+    //EditText mFixer;
 
-    @Bind(R.id.report_priority)
-    Spinner mPriority;
+    //@Bind(R.id.report_priority)
+    //Spinner mPriority;
 
-    @Bind(R.id.report_upvotes)
-    Button mUpvotes;
+    //@Bind(R.id.report_upvotes)
+    //Button mUpvotes;
 
-    @Bind(R.id.report_downvotes)
-    Button mDownvotes;
+    //@Bind(R.id.report_downvotes)
+    //Button mDownvotes;
 
-    @Bind(R.id.report_fixedInd)
-    Button mFixedInd;
+    //@Bind(R.id.report_fixedInd)
+    //Button mFixedInd;
 
-    @Bind(R.id.report_image)
-    ImageView mImage;
+    //@Bind(R.id.report_image)
+    //ImageView mImage;
 
     private GoogleApiClient mGoogleApiClient;
     private ReportPresenter mPresenter;
@@ -84,39 +85,72 @@ public class ReportActivity extends BaseActivityWithImageSaving implements Repor
         mGoogleApiClient.connect();
     }
 
+    @OnClick(R.id.attach_photo)
+    void onAttachPhotoClicked() {
+        startImageChooser();
+    }
+
+    @OnClick(R.id.camera)
+    void onCameraClicked() {
+        startImageChooser();
+    }
+
+    /*
     @SuppressWarnings("unused")
     @OnItemSelected(R.id.report_category)
     public void categorySelected(AdapterView<?> parent, int position) {
         Category category = (Category) parent.getItemAtPosition(position);
         mPresenter.onCategoryClicked(category);
+    }*/
+
+
+    @OnClick(R.id.save)
+    void onSaveClicked() {
+        performSave();
     }
 
-    @SuppressWarnings("unused")
-    @OnClick(R.id.report_image)
-    public void onImageClicked() {
-        startImageChooser();
+    @OnClick(R.id.save_button)
+    void onSaveButtonClicked() {
+        performSave();
     }
 
-    @SuppressWarnings("unused")
-    @OnClick(R.id.report_save_btn)
-    public void save() {
-        mPresenter.saveData(mDescription.getText().toString());
+    @OnClick(R.id.cancel_button)
+    void onCancelClicked() {
+        onBackPressed();
+    }
+
+    void performSave() {
+
+        boolean valid = true;
+        if (mTitle.getText().toString().isEmpty()) {
+            mTitle.setError(getString(R.string.error_enter_title));
+            valid = false;
+        }
+
+        if (mDescription.getText().toString().isEmpty()) {
+            mDescription.setError(getString(R.string.error_enter_description));
+            valid = false;
+        }
+
+        if (valid) {
+            mPresenter.saveData(mDescription.getText().toString());
+        }
     }
 
     @Override
     public void showCategoriesChooser(List<Category> categories) {
         ArrayAdapter<Category> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, categories);
-        mCategories.setAdapter(adapter);
+        // mCategories.setAdapter(adapter);
     }
 
     @Override
     public void onDataSaved() {
-        finish();
+        onBackPressed();
     }
 
     @Override
     public void onImageCaptured(Bitmap image) {
-        mImage.setImageBitmap(image);
+        //mImage.setImageBitmap(image);
         mPresenter.onImageCaptured(image);
     }
 
@@ -139,5 +173,12 @@ public class ReportActivity extends BaseActivityWithImageSaving implements Repor
     public void onConnectionFailed(ConnectionResult connectionResult) {
         // Oh well, bad things happen ...
         // Won't block a user from creating a report just because there's no location yet.
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.still_anim, R.anim.hide_to_bottom);
+
     }
 }
