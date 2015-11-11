@@ -10,4 +10,5 @@ public interface MainPresenter {
     void onIssueUpVoted(Issue issue);
     void onIssueDownVoted(Issue issue);
     void setView(MainView view);
+    void refreshIssues();
 }

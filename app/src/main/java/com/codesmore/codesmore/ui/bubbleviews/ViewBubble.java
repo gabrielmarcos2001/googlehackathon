@@ -308,6 +308,7 @@ public class ViewBubble extends RelativeLayout {
 
     public void showBubbleWithDelay(int delayOffset) {
 
+        setVisibility(VISIBLE);
         mVisible = true;
 
         Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.show_from_bottom);
@@ -556,17 +557,28 @@ public class ViewBubble extends RelativeLayout {
 
     public void dismissBubble() {
 
-        mGoBack = true;
-        startTime = System.currentTimeMillis();
-
-        mInitialPosX = mScrollX;
-        mInitialPosY = mScrollY;
-
-        elapsedTime = 0;
-
-        mDestPosY = UnitsConverter.convertDpToPixel(-600,getContext());
         mVisible = false;
-        invalidate();
+
+        Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.hide_to_bottom_smoother);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                setVisibility(INVISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        startAnimation(animation);
+
     }
 
     public void setmIssueData(Issue mIssueData) {
@@ -577,7 +589,7 @@ public class ViewBubble extends RelativeLayout {
         float maxScale = 2f;
         float minScale = 0.5f;
 
-        float scale = (mIssueData.getUpvotes() / 10f) + 1;
+        float scale = ((mIssueData.getUpvotes() - mIssueData.getDownvotes()) / 10f) + 1;
 
         if (scale > maxScale) scale = maxScale;
         if (scale < minScale) scale = minScale;

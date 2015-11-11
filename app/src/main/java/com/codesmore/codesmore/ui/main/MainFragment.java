@@ -246,12 +246,16 @@ public class MainFragment extends Fragment implements MainView {
     public void onIssueUpVoted(Issue issue) {
         mUpVoteLoader.setVisibility(View.INVISIBLE);
         hideVotingAreas();
+
+        mPresenter.refreshIssues();
     }
 
     @Override
     public void onIssueDownVoted(Issue issue) {
         mDownVoteLoader.setVisibility(View.INVISIBLE);
         hideVotingAreas();
+
+        mPresenter.refreshIssues();
     }
 
     @Override

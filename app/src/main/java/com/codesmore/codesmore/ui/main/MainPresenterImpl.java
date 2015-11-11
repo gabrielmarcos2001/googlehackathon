@@ -141,4 +141,32 @@ public class MainPresenterImpl implements MainPresenter {
         }
     }
 
+    @Override
+    public void refreshIssues() {
+
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                final List<Issue> issues = mWrapper.getUnresolvedIssues(0,0);
+
+                Handler mainHandler = new Handler(Looper.getMainLooper());
+
+                Runnable myRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+
+                        if (mView != null) {
+                            mView.showIssues(issues);
+                        }
+                    }
+                };
+
+                mainHandler.post(myRunnable);
+
+            }
+        });
+
+        t.start();
+    }
 }
