@@ -9,6 +9,8 @@ import com.codesmore.codesmore.model.pojo.Issue;
 import java.util.List;
 
 public class PulseDataWrapper implements DataWrapper {
+
+    private DataWrapper mWebService;
     private DataWrapper localDataWrapper;
 
     /**

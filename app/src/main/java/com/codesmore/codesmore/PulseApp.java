@@ -7,6 +7,7 @@ import com.codesmore.codesmore.integration.backend.pojo.ParseIssue;
 import com.codesmore.codesmore.utils.MainThreadBus;
 import com.parse.Parse;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 import com.squareup.otto.Bus;
 
 public class PulseApp extends Application {
@@ -33,6 +34,10 @@ public class PulseApp extends Application {
         ParseObject.registerSubclass(ParseCategory.class);
         ParseObject.registerSubclass(ParseIssue.class);
         Parse.initialize(this, getString(R.string.parse_application_id), getString(R.string.parse_client_id));
+
+        ParseUser.enableAutomaticUser();
+        ParseUser.getCurrentUser().increment("RunCount");
+        ParseUser.getCurrentUser().saveInBackground();
     }
 
     public Bus getBus() {

@@ -1,6 +1,6 @@
 package com.codesmore.codesmore.ui.completeddetails;
 
-import com.codesmore.codesmore.model.DataWrapper;
+import com.codesmore.codesmore.integration.backend.WebService;
 import com.codesmore.codesmore.model.pojo.Issue;
 
 /**
@@ -9,9 +9,9 @@ import com.codesmore.codesmore.model.pojo.Issue;
 public class CompletedDetailsPresenterImpl implements CompletedDetailsPresenter {
 
     private CompletedDetailsView mView;
-    private DataWrapper mDataWrapper;
+    private WebService mDataWrapper;
 
-    public CompletedDetailsPresenterImpl(CompletedDetailsView mainView, DataWrapper dataWrapper) {
+    public CompletedDetailsPresenterImpl(CompletedDetailsView mainView, WebService dataWrapper) {
         mDataWrapper = dataWrapper;
         mView = mainView;
     }

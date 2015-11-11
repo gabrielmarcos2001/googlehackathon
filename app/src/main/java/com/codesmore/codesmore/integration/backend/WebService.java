@@ -10,6 +10,7 @@ import com.codesmore.codesmore.model.pojo.Category;
 import com.codesmore.codesmore.model.pojo.Issue;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,6 +89,14 @@ public class WebService implements DataWrapper {
 
     @Override
     public Issue getIssue(String id) {
+        try {
+            ParseQuery<ParseIssue> query = ParseQuery.getQuery(TABLE_ISSUE);
+            ParseIssue parseIssue = query.get(id);
+            return new Issue(parseIssue);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            // TODO: 11/11/2015 notify user for problem
+        }
         return null;
     }
 
@@ -129,7 +138,23 @@ public class WebService implements DataWrapper {
 
     @Override
     public List<Issue> getCreatedOrUpvotedIssuesFor(Account owner) {
-        return null;
+        List<Issue> issues = new ArrayList<>();
+        ParseQuery<ParseIssue> query = ParseQuery.getQuery(TABLE_ISSUE);
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        query.whereEqualTo("createdBy", currentUser);
+        try {
+            List<ParseIssue> parseIssues = query.find();
+
+            // TODO: 11/10/2015 proper conversion between Parse -> DB models
+            issues = new ArrayList<>(parseIssues.size());
+            for (ParseIssue pi : parseIssues) {
+                issues.add(new Issue(pi));
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return issues;
     }
 
     @Override
