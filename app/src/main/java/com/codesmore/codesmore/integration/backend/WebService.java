@@ -20,6 +20,7 @@ public class WebService implements DataWrapper {
     public static final String TABLE_ISSUE = "Issue";
     public static final String COLUMN_FIXED_INDICATOR = "fixed_indicator";
     public static final String COLUMN_UPVOTES = "upvotes";
+    public static final String COLUMN_DOWNVOTES = "downvotes";
 
     @Override
     public List<Category> getCategories() {
@@ -118,8 +119,7 @@ public class WebService implements DataWrapper {
         try {
             ParseQuery<ParseIssue> query = ParseQuery.getQuery(TABLE_ISSUE);
             ParseIssue parseIssue = query.get(issue.getParseId());
-            int downVotes = parseIssue.getDownvotes();
-            parseIssue.setDownvotes(downVotes - 1);
+            parseIssue.increment(COLUMN_DOWNVOTES);
             parseIssue.save();
         } catch (ParseException e) {
             e.printStackTrace();
