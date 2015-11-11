@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="75dp">
+
+    <ImageView
+        android:id="@+id/item_issue_icon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/filled_circle"
+        android:scaleType="fitCenter"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:weightSum="100">
+
+        <TextView
+            android:id="@+id/item_issue_title"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="30"
+            android:text="TITLE"
+            android:gravity="center"
+            />
+
+        <LinearLayout
+            android:id="@+id/container_description"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="50"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/item_issue_description"
+                android:layout_width="0dp"
+                android:layout_weight="85"
+                android:layout_height="wrap_content"
+                android:text="Kinfolk health goth vegan quinoa hammock biodiesel. Marfa lo-fi vegan, freegan portland typewriter cliche scenester butcher kombucha fanny pack letterpress. Tilde direct trade keffiyeh, yuccie craft beer flannel hoodie plaid microdosing gluten-free retro cornhole beard readymade tote bag. Fixie heirloom gluten-free microdosing meh, put a bird on it typewriter mixtape hashtag banh mi you probably haven't heard of them cred. Disrupt skateboard mixtape, cray pour-over selfies slow-carb typewriter DIY listicle bespoke 90's. Pop-up williamsburg "
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:singleLine="false"/>
+
+            <LinearLayout
+                android:id="@+id/vote_buttons"
+                android:layout_width="0dp"
+                android:layout_weight="15"
+                android:layout_height="fill_parent"
+                android:orientation="vertical"
+                android:weightSum="100">
+
+
+                <Button
+                    android:id="@+id/item_button_upvote"
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="50"
+                    android:text="UpVote"/>
+
+                <Button
+                    android:id="@+id/item_button_downvote"
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="50"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <FrameLayout
+            android:id="@+id/container_rating"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="20"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center">
+
+                <TextView
+
+                    android:id="@+id/item_up_votes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+10"
+                    android:gravity="right"
+                    android:layout_gravity="center_vertical"
+                    android:paddingRight="10dp"/>
+
+                <ImageView
+                    android:id="@+id/item_icon_up_votes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:src="@drawable/icon_thumbs_up"
+                    android:scaleType="fitStart"
+                    android:adjustViewBounds="true"
+                    />
+
+                <FrameLayout
+                    android:layout_width="30dp"
+                    android:layout_height="fill_parent"></FrameLayout>
+
+                <TextView
+                    android:id="@+id/item_down_votes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:text="-5"
+                    android:gravity="right"
+                    android:layout_gravity="center_vertical"
+                    android:paddingRight="10dp"
+                    />
+
+                <ImageView
+                    android:id="@+id/item_icon_down_votes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:src="@drawable/icon_thumbs_down"
+                    android:scaleType="fitStart"
+                    android:adjustViewBounds="true"/>
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
