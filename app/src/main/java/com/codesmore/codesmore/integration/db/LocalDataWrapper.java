@@ -3,6 +3,7 @@ package com.codesmore.codesmore.integration.db;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.support.annotation.NonNull;
 
 import com.codesmore.codesmore.integration.converter.AccountConverter;
 import com.codesmore.codesmore.integration.converter.CategoryConverter;
@@ -153,14 +154,9 @@ public class LocalDataWrapper implements DataWrapper {
     }
 
     @Override
-    public Issue getIssue(String id) {
-        if (id == null){
-            return null;
-        }
-
-        /*
+    public Issue getIssue(@NonNull String parseId) {
         Cursor cursor = contentResolver.query(
-            PulseContract.Issue.Builders.buildForIssueId(id),
+            PulseContract.Issue.Builders.buildForParseIssueId(parseId),
             null,
             null,
             null,
@@ -175,8 +171,6 @@ public class LocalDataWrapper implements DataWrapper {
         ContentValues values = issueConverter.convert(cursor);
         Issue issue = issueConverter.convert(values);
         return issue;
-        */
-        return null;
     }
 
     @Override
@@ -186,11 +180,11 @@ public class LocalDataWrapper implements DataWrapper {
         }
 
         Cursor cursor = contentResolver.query(
-            PulseContract.Account.Builders.buildForAccountId(id),
-            null,
-            null,
-            null,
-            null
+                PulseContract.Account.Builders.buildForAccountId(id),
+                null,
+                null,
+                null,
+                null
         );
 
         if (cursor == null){
@@ -237,7 +231,7 @@ public class LocalDataWrapper implements DataWrapper {
         issue.setUpvotes(issue.getUpvotes() + 1);
         ContentValues issueValues = issueConverter.convert(issue);
         contentResolver.update(
-            PulseContract.Issue.Builders.buildForIssueId(issue.getId()),
+            PulseContract.Issue.Builders.buildForParseIssueId(issue.getId()),
             issueValues,
             null,
             null
@@ -264,7 +258,7 @@ public class LocalDataWrapper implements DataWrapper {
         ContentValues issueValues = issueConverter.convert(issue);
 
         contentResolver.update(
-            PulseContract.Issue.Builders.buildForIssueId(issue.getId()),
+            PulseContract.Issue.Builders.buildForParseIssueId(issue.getId()),
             issueValues,
             null,
             null
@@ -281,10 +275,10 @@ public class LocalDataWrapper implements DataWrapper {
         ContentValues values = issueConverter.convert(issue);
 
         contentResolver.update(
-            PulseContract.Issue.Builders.buildForIssueId(issue.getId()),
-            values,
-            null,
-            null
+                PulseContract.Issue.Builders.buildForParseIssueId(issue.getId()),
+                values,
+                null,
+                null
         );
     }
 
@@ -292,7 +286,7 @@ public class LocalDataWrapper implements DataWrapper {
     public void updateIssue(Issue issue) {
         ContentValues issueValues = issueConverter.convert(issue);
         contentResolver.update(
-            PulseContract.Issue.Builders.buildForIssueId(issue.getId()),
+            PulseContract.Issue.Builders.buildForParseIssueId(issue.getId()),
             issueValues,
             null,
             null

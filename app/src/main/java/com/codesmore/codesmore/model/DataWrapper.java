@@ -17,7 +17,7 @@ public interface DataWrapper {
 
     void insertIssue(Issue issue);
     void insertAccount(Account account);
-    Issue getIssue(String id);
+    Issue getIssue(String parseId);
     Account getAccount(Long id);
     Category getCategory(Long id);
     void upvote(Issue issue, Account upvoter);

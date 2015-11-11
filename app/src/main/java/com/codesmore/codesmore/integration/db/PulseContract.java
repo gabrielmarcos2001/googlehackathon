@@ -93,10 +93,10 @@ public class PulseContract {
 
         public static class Builders {
 
-            public static Uri buildForIssueId(long issueId){
+            public static Uri buildForParseIssueId(String parseId){
                 return Issue.CONTENT_URI
                     .buildUpon()
-                    .appendPath(Long.toString(issueId))
+                    .appendPath(parseId)
                     .build();
             }
 

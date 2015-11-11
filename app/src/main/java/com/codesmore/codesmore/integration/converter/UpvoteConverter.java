@@ -51,13 +51,12 @@ public class UpvoteConverter implements Converter<Upvote> {
 
     @Override
     public Upvote convert(ContentValues values) {
-        /*
         if (values == null){
             return new Upvote();
         }
 
-        Long upvotedIssueId = values.getAsLong(PulseContract.Upvote.Columns.UPVOTED_ISSUE_ID);
-        Issue upvotedIssue = wrapper.getIssue(upvotedIssueId);
+        String upvotedIssueParseId = values.getAsString(PulseContract.Upvote.Columns.UPVOTED_ISSUE_ID);
+        Issue upvotedIssue = wrapper.getIssue(upvotedIssueParseId);
 
         Long upvoterId = values.getAsLong(PulseContract.Upvote.Columns.UPVOTER_ID);
         Account upvoter = wrapper.getAccount(upvoterId);
@@ -65,9 +64,8 @@ public class UpvoteConverter implements Converter<Upvote> {
         Upvote upvote = new Upvote();
         upvote.setId(values.getAsLong(PulseContract.Upvote._ID));
         upvote.setUpvotedIssue(upvotedIssue);
-        upvote.setUpvoter(upvoter);ß
+        upvote.setUpvoter(upvoter);
         return upvote;
-        */
 
         return null;
     }
