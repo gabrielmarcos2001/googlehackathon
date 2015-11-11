@@ -33,7 +33,7 @@ public class MainPresenterImpl implements MainPresenter {
             @Override
             public void run() {
 
-                mWrapper.downVote(issue);
+                mWrapper.upVote(issue, null);
 
                 Handler mainHandler = new Handler(Looper.getMainLooper());
 
