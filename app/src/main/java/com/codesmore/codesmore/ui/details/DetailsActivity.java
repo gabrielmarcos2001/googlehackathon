@@ -30,6 +30,9 @@ public class DetailsActivity extends BaseActivity implements DetailsView, OnMapR
     private DetailsPresenter mPresenter;
     private GoogleMap mMap;
 
+    @Bind(R.id.no_image)
+    View mNoImage;
+
     @Bind(R.id.item_issue_title)
     TextView mIssueTitle;
 
@@ -130,17 +133,21 @@ public class DetailsActivity extends BaseActivity implements DetailsView, OnMapR
                 Log.v(LOG_TAG, e.toString());
             }
             mIssueDownVotes.setText(downVotes);
-            mIssuePicture.setImageBitmap(resolvedIssue.getImage());
+
+            if (resolvedIssue.getImage() != null) {
+                mIssuePicture.setImageBitmap(resolvedIssue.getImage());
+                mNoImage.setVisibility(View.INVISIBLE);
+            }
         }
     }
 
     @OnClick(R.id.downvote)
     void onDownVoteClicked() {
-
+        onBackPressed();
     }
 
     @OnClick(R.id.upvote)
     void onUpVoteClicked() {
-
+        onBackPressed();
     }
 }

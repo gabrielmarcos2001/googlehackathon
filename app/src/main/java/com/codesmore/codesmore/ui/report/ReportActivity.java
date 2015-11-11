@@ -98,12 +98,12 @@ public class ReportActivity extends BaseActivityWithImageSaving implements Repor
 
     @OnClick(R.id.attach_photo)
     void onAttachPhotoClicked() {
-        startImageChooser();
+        //startImageChooser();
     }
 
     @OnClick(R.id.camera)
     void onCameraClicked() {
-        startImageChooser();
+        //startImageChooser();
     }
 
     /*

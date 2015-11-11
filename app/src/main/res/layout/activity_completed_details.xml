@@ -213,4 +213,10 @@
 
     </ScrollView>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@drawable/shadow_270"
+        android:layout_above="@+id/data_container"/>
+
 </RelativeLayout>
