@@ -27,6 +27,31 @@ public class MainPresenterImpl implements MainPresenter {
 
     @Override
     public void onIssueUpVoted(final Issue issue) {
+
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                mWrapper.downvote(issue);
+
+                Handler mainHandler = new Handler(Looper.getMainLooper());
+
+                Runnable myRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+
+                        if (mView != null) {
+                            mView.onIssueUpVoted(issue);
+                        }
+                    }
+                };
+
+                mainHandler.post(myRunnable);
+
+            }
+        });
+
+        /*
         mWrapper.upvote(issue, null);
 
         final Handler fakeData = new Handler();
@@ -38,11 +63,38 @@ public class MainPresenterImpl implements MainPresenter {
                 }
 
             }
-        }, 2000);
+        }, 500);
+        */
     }
 
     @Override
     public void onIssueDownVoted(final Issue issue) {
+
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                mWrapper.downvote(issue);
+
+                Handler mainHandler = new Handler(Looper.getMainLooper());
+
+                Runnable myRunnable = new Runnable() {
+                    @Override
+                    public void run() {
+
+                        if (mView != null) {
+                            mView.onIssueDownVoted(issue);
+                        }
+                    }
+                };
+
+                mainHandler.post(myRunnable);
+
+            }
+        });
+
+        t.start();
+        /*
         mWrapper.downvote(issue);
 
         final Handler fakeData = new Handler();
@@ -54,7 +106,8 @@ public class MainPresenterImpl implements MainPresenter {
                 }
 
             }
-        }, 2000);
+        }, 500);
+        */
 
 
     }

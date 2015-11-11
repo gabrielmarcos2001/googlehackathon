@@ -54,26 +54,27 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@color/background_green"
-        android:id="@+id/upvote_area">
+        android:background="@color/flat_black"
+        android:id="@+id/upvote_area"
+        android:elevation="10dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/upvote"
-            android:textColor="@color/clouds"
-            android:textSize="22sp"
+            android:textColor="@color/background_green"
+            android:textSize="18sp"
             android:gravity="center"/>
 
         <com.pnikosis.materialishprogress.ProgressWheel
             android:id="@+id/upvote_loader"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
-            wheel:matProg_barColor="@color/clouds"
+            android:layout_marginRight="40dp"
+            wheel:matProg_barColor="@color/background_green"
             wheel:matProg_progressIndeterminate="true" />
 
     </RelativeLayout>
@@ -82,26 +83,27 @@
         android:id="@+id/downvote_area"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@color/alizarin"
-        android:layout_alignParentBottom="true">
+        android:background="@color/flat_black"
+        android:layout_alignParentBottom="true"
+        android:elevation="10dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/downvote"
-            android:textColor="@color/clouds"
-            android:textSize="22sp"
+            android:textColor="@color/background_red"
+            android:textSize="18sp"
             android:gravity="center"/>
 
         <com.pnikosis.materialishprogress.ProgressWheel
             android:id="@+id/downvote_loader"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
-            wheel:matProg_barColor="@color/clouds"
+            android:layout_marginRight="40dp"
+            wheel:matProg_barColor="@color/background_red"
             wheel:matProg_progressIndeterminate="true" />
 
     </RelativeLayout>
