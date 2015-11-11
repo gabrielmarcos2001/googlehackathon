@@ -112,7 +112,12 @@ public class LocalDataWrapper implements DataWrapper {
 
     @Override
     public void insertAccount(Account account) {
-        //  TODO
+        if (account == null){
+            throw new IllegalArgumentException("Account is required.");
+        }
+
+        ContentValues values = accountConverter.convert(account);
+        contentResolver.insert(PulseContract.Account.CONTENT_URI, values);
     }
 
     @Override
@@ -221,6 +226,7 @@ public class LocalDataWrapper implements DataWrapper {
 
         issue.setDownvotes(issue.getDownvotes() == null ? 0 : issue.getDownvotes() + 1);
         ContentValues issueValues = issueConverter.convert(issue);
+
         contentResolver.update(
             PulseContract.Issue.Builders.buildForIssueId(issue.getId()),
             issueValues,
