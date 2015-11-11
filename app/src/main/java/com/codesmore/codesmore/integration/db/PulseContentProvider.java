@@ -203,13 +203,16 @@ public class PulseContentProvider extends ContentProvider {
 
         switch(URI_MATCHER.match(uri)) {
             case MatchCodes.ISSUE:
-                long id = db.insert(PulseContract.Issue.TABLE_NAME, null, values);
-                if (id > 0) {
-                    return PulseContract.Issue.Builders.buildForIssueId(id);
+                long issueId = db.insert(PulseContract.Issue.TABLE_NAME, null, values);
+                if (issueId > 0) {
+                    return PulseContract.Issue.Builders.buildForIssueId(issueId);
                 }
 
             case MatchCodes.ACCOUNT:
-                //  TODO
+                long accountId = db.insert(PulseContract.Issue.TABLE_NAME, null, values);
+                if (accountId > 0) {
+                    return PulseContract.Account.Builders.buildForAccountId(accountId);
+                }
 
             default:
                 db.close();
