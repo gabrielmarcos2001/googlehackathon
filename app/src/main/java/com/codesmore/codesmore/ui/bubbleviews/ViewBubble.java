@@ -451,9 +451,9 @@ public class ViewBubble extends RelativeLayout {
 
         if (!fromTap) {
             mGoBack = true;
-            if (mVerticalSpeed < -10 && Math.abs(mVerticalSpeed) > 15) {
+            if (mVerticalSpeed < -10 && Math.abs(mVerticalSpeed) > 10) {
                 triggerUpVote();
-            } else if (mVerticalSpeed > 10 && Math.abs(mVerticalSpeed) > 15) {
+            } else if (mVerticalSpeed > 10 && Math.abs(mVerticalSpeed) > 10) {
                 triggerDownVote();
             } else {
                 if (mInterface != null) {
