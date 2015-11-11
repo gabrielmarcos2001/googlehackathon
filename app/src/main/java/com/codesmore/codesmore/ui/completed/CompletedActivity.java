@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.codesmore.codesmore.BaseActivity;
 import com.codesmore.codesmore.R;
-import com.codesmore.codesmore.integration.db.PulseDataWrapper;
+import com.codesmore.codesmore.integration.backend.WebService;
 import com.codesmore.codesmore.model.pojo.Issue;
 import com.codesmore.codesmore.ui.IssueAdapter;
 import com.codesmore.codesmore.ui.IssueSelectedListener;
@@ -41,7 +41,7 @@ public class CompletedActivity extends BaseActivity implements CompletedView, Is
 
         connectGoogleApiClient();
 
-        mPresenter = new CompletedPresenterImpl(this, new PulseDataWrapper(getContentResolver()));
+        mPresenter = new CompletedPresenterImpl(this, new WebService());
     }
 
     private void initViews(){
