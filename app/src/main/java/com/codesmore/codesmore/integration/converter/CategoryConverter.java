@@ -11,7 +11,7 @@ import static com.codesmore.codesmore.integration.db.PulseContract.getContentVal
 /**
  * Created by Darryl Staflund on 11/10/2015.
  */
-public class IssueCategoryConverter implements Converter<Category> {
+public class CategoryConverter implements Converter<Category> {
 
     @Override
     public ContentValues convert(Cursor cursor) {
@@ -28,6 +28,7 @@ public class IssueCategoryConverter implements Converter<Category> {
         values.put(IssueCategory._ID, category.getId());
         values.put(IssueCategory.Columns.ISSUE_CATEGORY_IMAGE, category.getImageUrl());
         values.put(IssueCategory.Columns.ISSUE_CATEGORY, category.getName());
+        values.put(IssueCategory.Columns.PARSE_ID, category.getParseId());
         return null;
     }
 
@@ -40,11 +41,13 @@ public class IssueCategoryConverter implements Converter<Category> {
         Long id = values.getAsLong(IssueCategory._ID);
         String name = values.getAsString(IssueCategory.Columns.ISSUE_CATEGORY);
         String imageUrl = values.getAsString(IssueCategory.Columns.ISSUE_CATEGORY_IMAGE);
+        String parseId = values.getAsString(IssueCategory.Columns.PARSE_ID);
 
         Category category = new Category();
         category.setId(id);
         category.setName(name);
         category.setImageUrl(imageUrl);
+        category.setParseId(parseId);
         return category;
     }
 }

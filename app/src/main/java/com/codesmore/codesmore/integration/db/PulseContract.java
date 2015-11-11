@@ -128,6 +128,7 @@ public class PulseContract {
         public static class Columns {
             public static final String ISSUE_CATEGORY = "issue_category";
             public static final String ISSUE_CATEGORY_IMAGE = "issue_category_image";
+            public static final String PARSE_ID = "parse_id";
         }
 
         public static class Constraints {

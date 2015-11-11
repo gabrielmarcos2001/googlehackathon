@@ -60,6 +60,7 @@ public class PulseHelper extends SQLiteOpenHelper {
             .append("    " + IssueCategory._ID + " INTEGER PRIMARY KEY")
             .append("  , " + IssueCategory.Columns.ISSUE_CATEGORY + " TEXT NOT NULL")
             .append("  , " + IssueCategory.Columns.ISSUE_CATEGORY_IMAGE + " BLOB NULL")
+            .append("  , " + IssueCategory.Columns.PARSE_ID + " TEXT NOT NULL")
             .append("  , UNIQUE (" + IssueCategory.Columns.ISSUE_CATEGORY + ")")
             .append(");")
             .toString();

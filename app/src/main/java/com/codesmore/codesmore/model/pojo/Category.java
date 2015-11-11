@@ -10,6 +10,7 @@ public class Category implements Parcelable{
     private Long id;
     private String name;
     private String imageUrl;
+    private String parseId;
 
     public Category(){
     }
@@ -41,6 +42,14 @@ public class Category implements Parcelable{
 
     public void setImageUrl(String value){
         imageUrl = value;
+    }
+
+    public String getParseId() {
+        return parseId;
+    }
+
+    public void setParseId(String parseId) {
+        this.parseId = parseId;
     }
 
     @Override

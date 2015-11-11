@@ -12,6 +12,7 @@ import com.codesmore.codesmore.model.pojo.Issue;
 import com.codesmore.codesmore.model.pojo.Upvote;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -87,6 +88,11 @@ public class LocalDataWrapper implements DataWrapper {
             }
         }
         return issues;
+    }
+
+    @Override
+    public List<Issue> getUnresolvedIssues(double lat, double lon) {
+        return Collections.emptyList();
     }
 
     @Override
