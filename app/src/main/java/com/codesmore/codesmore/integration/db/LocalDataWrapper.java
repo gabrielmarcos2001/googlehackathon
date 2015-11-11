@@ -4,7 +4,6 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.database.Cursor;
 
-import com.codesmore.codesmore.integration.converter.Converter;
 import com.codesmore.codesmore.integration.converter.AccountConverter;
 import com.codesmore.codesmore.integration.converter.CategoryConverter;
 import com.codesmore.codesmore.integration.converter.Converter;
