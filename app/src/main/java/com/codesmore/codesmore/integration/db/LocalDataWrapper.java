@@ -215,7 +215,21 @@ public class LocalDataWrapper implements DataWrapper {
 
     @Override
     public void downvote(Issue issue) {
-        //  TODO
+        if (issue == null){
+            return;
+        }
+
+        /**
+         * First, we need to increment the downvote count and save it to database.
+         */
+        issue.setDownvotes(issue.getDownvotes() == null ? 0 : issue.getDownvotes() + 1);
+        ContentValues issueValues = issueConverter.convert(issue);
+        contentResolver.update(
+            PulseContract.Issue.Builders.buildForIssueId(issue.getId()),
+            issueValues,
+            null,
+            null
+        );
     }
 
     @Override
