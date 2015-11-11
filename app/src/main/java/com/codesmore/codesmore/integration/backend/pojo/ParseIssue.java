@@ -22,6 +22,7 @@ public class ParseIssue extends BaseParseObject {
         parseIssue.setDescription(issue.getDescription());
         parseIssue.setUpvotes(issue.getUpvotes());
         parseIssue.setDownvotes(issue.getDownvotes());
+        parseIssue.setFixedIndicator(issue.getFixedInd());
 
         // TODO: 11/11/2015  parseIssue.setCategory();
 
@@ -58,7 +59,7 @@ public class ParseIssue extends BaseParseObject {
         put("upvotes", upvotes);
     }
 
-    public int getUpvotes() {
+    public int getUpvoteEs() {
         return getInt("upvotes");
     }
 
@@ -68,5 +69,9 @@ public class ParseIssue extends BaseParseObject {
 
     public int getDownvotes() {
         return getInt("downvotes");
+    }
+
+    public void setFixedIndicator(boolean fixedIndicator) {
+        put("fixed_indicator", fixedIndicator);
     }
 }
