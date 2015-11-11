@@ -5,7 +5,6 @@ import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.codesmore.codesmore.integration.converter.Converter;
-import com.codesmore.codesmore.model.DataFetchedListener;
 import com.codesmore.codesmore.model.DataWrapper;
 import com.codesmore.codesmore.model.pojo.Account;
 import com.codesmore.codesmore.model.pojo.Category;
@@ -70,7 +69,7 @@ public class LocalDataWrapper implements DataWrapper {
     }
 
     @Override
-    public void getResolvedIssues(double lat, double lon, DataFetchedListener listener) {
+    public List<Issue> getResolvedIssues(double lat, double lon) {
         Cursor cursor = contentResolver.query(
             PulseContract.Issue.CONTENT_URI,
             null,
@@ -87,8 +86,7 @@ public class LocalDataWrapper implements DataWrapper {
                 issues.add(issue);
             }
         }
-        listener.onCompletedIssuesLoaded(issues);
-        //return issues;
+        return issues;
     }
 
     @Override
@@ -211,7 +209,7 @@ public class LocalDataWrapper implements DataWrapper {
         /**
          * First, we need to increment the upvote count and save it to database.
          */
-        issue.setUpvotes(issue.getUpvotes() == null ? 0 : issue.getUpvotes() + 1);
+        issue.setUpvotes(issue.getUpvotes() + 1);
         ContentValues issueValues = issueConverter.convert(issue);
         contentResolver.update(
             PulseContract.Issue.Builders.buildForIssueId(issue.getId()),
@@ -237,7 +235,7 @@ public class LocalDataWrapper implements DataWrapper {
             return;
         }
 
-        issue.setDownvotes(issue.getDownvotes() == null ? 0 : issue.getDownvotes() + 1);
+        issue.setDownvotes(issue.getDownvotes() + 1);
         ContentValues issueValues = issueConverter.convert(issue);
 
         contentResolver.update(

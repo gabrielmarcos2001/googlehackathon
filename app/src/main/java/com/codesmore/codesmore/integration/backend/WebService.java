@@ -4,7 +4,6 @@ import android.support.annotation.NonNull;
 
 import com.codesmore.codesmore.integration.backend.pojo.ParseCategory;
 import com.codesmore.codesmore.integration.backend.pojo.ParseIssue;
-import com.codesmore.codesmore.model.DataFetchedListener;
 import com.codesmore.codesmore.model.DataWrapper;
 import com.codesmore.codesmore.model.pojo.Account;
 import com.codesmore.codesmore.model.pojo.Category;
@@ -42,14 +41,9 @@ public class WebService implements DataWrapper {
     }
 
     @Override
-    public void getResolvedIssues(double lat, double lon, DataFetchedListener listener) {
-
+    public List<Issue> getResolvedIssues(double lat, double lon) {
+        return getIssues(lat, lon, true);
     }
-
-//    @Override
-//    public void getResolvedIssues(double lat, double lon) {
-//        return getIssues(lat, lon, true);
-//    }
 
     @Override
     public List<Issue> getUnresolvedIssues(double lat, double lon) {

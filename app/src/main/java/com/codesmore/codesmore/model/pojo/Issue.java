@@ -17,7 +17,7 @@ public class Issue {
         this.title = parseIssue.getTitle();
         this.description = parseIssue.getDescription();
         this.image = parseIssue.getImage();
-//        this.parseId = parseIssue.getObjectId();
+        this.parseId = parseIssue.getObjectId();
         // TODO: 11/11/2015 vesko - proper object construction
     }
 
@@ -34,9 +34,9 @@ public class Issue {
     private Account creator;
     private Account fixer;
     private Integer priority;
-    private Integer upvotes;
-    private Integer downvotes;
-    private Boolean fixedInd;
+    private int upvotes;
+    private int downvotes;
+    private boolean fixedInd;
     private Date createDate;
     private Date fixedDate;
     private String parseId;
@@ -131,27 +131,27 @@ public class Issue {
         this.priority = priority;
     }
 
-    public Integer getUpvotes() {
+    public int getUpvotes() {
         return upvotes;
     }
 
-    public void setUpvotes(Integer upvotes) {
+    public void setUpvotes(int upvotes) {
         this.upvotes = upvotes;
     }
 
-    public Integer getDownvotes() {
+    public int getDownvotes() {
         return downvotes;
     }
 
-    public void setDownvotes(Integer downvotes) {
+    public void setDownvotes(int downvotes) {
         this.downvotes = downvotes;
     }
 
-    public Boolean getFixedInd() {
+    public boolean getFixedInd() {
         return fixedInd;
     }
 
-    public void setFixedInd(Boolean fixedInd) {
+    public void setFixedInd(boolean fixedInd) {
         this.fixedInd = fixedInd;
     }
 

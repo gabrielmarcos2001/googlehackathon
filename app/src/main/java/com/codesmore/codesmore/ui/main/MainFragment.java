@@ -91,6 +91,7 @@ public class MainFragment extends Fragment implements MainView {
             public void onReportClicked() {
                 Intent i = new Intent(getActivity(), ReportActivity.class);
                 startActivity(i);
+                getActivity().overridePendingTransition(R.anim.show_from_bottom, R.anim.still_anim);
             }
 
             @Override

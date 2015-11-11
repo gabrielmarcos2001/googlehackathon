@@ -34,7 +34,8 @@
             android:theme="@style/Theme.pulse.NoActionBar"/>
 
         <!-- Report an issue Activity -->
-        <activity android:name=".ui.report.ReportActivity" />
+        <activity android:name=".ui.report.ReportActivity"
+            android:theme="@style/Theme.pulse.NoActionBar"/>
 
         <!-- I don't think we will be using this baby -->
         <activity android:name=".ui.tutorial.TutorialActivity" />

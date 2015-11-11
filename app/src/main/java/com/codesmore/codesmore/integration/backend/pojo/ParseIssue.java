@@ -27,9 +27,11 @@ public class ParseIssue extends BaseParseObject {
 
         // Add the image. Bit ugly for now
         Bitmap image = issue.getImage();
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        image.compress(Bitmap.CompressFormat.PNG, 90, bytes);
-        parseIssue.setImageFile(new ParseFile("image.png", bytes.toByteArray()));
+        if (image != null) {
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            image.compress(Bitmap.CompressFormat.PNG, 90, bytes);
+            parseIssue.setImageFile(new ParseFile("image.png", bytes.toByteArray()));
+        }
 
         ParseGeoPoint geoPoint = new ParseGeoPoint(issue.getLatitude(), issue.getLongtitude());
         parseIssue.setLocation(geoPoint);

@@ -7,6 +7,9 @@ import com.codesmore.codesmore.integration.db.PulseDataWrapper;
 import com.codesmore.codesmore.model.DataWrapper;
 import com.codesmore.codesmore.model.pojo.Issue;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by gabrielmarcos on 11/10/15.
  */
@@ -60,7 +63,6 @@ public class MainPresenterImpl implements MainPresenter {
 
         if (mView != null) {
 
-            /*
             final Handler fakeData = new Handler();
             fakeData.postDelayed(new Runnable() {
                 @Override
@@ -105,7 +107,6 @@ public class MainPresenterImpl implements MainPresenter {
 
                 }
             }, 5000);
-            */
 
         }
     }
