@@ -140,8 +140,7 @@ public class WebService implements DataWrapper {
     public List<Issue> getCreatedOrUpvotedIssuesFor(Account owner) {
         List<Issue> issues = new ArrayList<>();
         ParseQuery<ParseIssue> query = ParseQuery.getQuery(TABLE_ISSUE);
-        ParseUser currentUser = ParseUser.getCurrentUser();
-        query.whereEqualTo("createdBy", currentUser);
+        query.whereEqualTo("test_created_by", "test");
         try {
             List<ParseIssue> parseIssues = query.find();
 
