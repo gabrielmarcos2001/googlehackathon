@@ -5,10 +5,7 @@ import android.graphics.Point;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 
 import com.codesmore.codesmore.R;
@@ -29,6 +26,7 @@ public class ViewBubblesAdapter extends RelativeLayout{
         void onBubbleUnselected();
         void upVoteIssue(ViewBubble bubble);
         void downVoteIssue(ViewBubble bubble);
+        void onBubleTap(ViewBubble bubble);
     }
 
     private List<Point> mBubblesPositions;
@@ -192,9 +190,15 @@ public class ViewBubblesAdapter extends RelativeLayout{
                     public void onUpVoted(ViewBubble bubble) {
                         mInterface.upVoteIssue(bubble);
                     }
+
+                    @Override
+                    public void onTap(ViewBubble bubble) {
+                        mInterface.onBubleTap(bubble);
+                    }
                 });
 
                 bubbleIndex++;
+
             }catch (IndexOutOfBoundsException e) {
 
             }

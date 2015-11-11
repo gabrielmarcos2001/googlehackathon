@@ -5,6 +5,8 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.os.Handler;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -38,8 +40,10 @@ public class ViewBubble extends RelativeLayout {
         void onSelected(ViewBubble bubble);
         void onDownVoted(ViewBubble bubble);
         void onUpVoted(ViewBubble bubble);
+        void onTap(ViewBubble bubble);
     }
 
+    private GestureDetector mGestureDetector;
     private Issue mIssueData;
 
     private static final int RIPPLE_DURATION_MS = 4000;
@@ -54,11 +58,11 @@ public class ViewBubble extends RelativeLayout {
     private long elapsedTime;
     private double mInitialPosX;
     private double mInitialPosY;
-
+    private float mVerticalSpeed;
+    private float mLastScrollYPos;
     private double mDestPosX;
     private double mDestPosY;
     private boolean mGoBack = false;
-
     private View mCircle1;
     private View mCircle2;
     private View mContainer;
@@ -68,10 +72,7 @@ public class ViewBubble extends RelativeLayout {
     private int mRandomOffset;
     private TextView mTitle;
     private TextView mPriority;
-
     private boolean mExpanded = false;
-    private boolean mReleased = false;
-
     private AnimationSet mCircle1Set;
     private AnimationSet mCircle2Set;
     private boolean mActive = true;
@@ -111,47 +112,65 @@ public class ViewBubble extends RelativeLayout {
             mPriority.setText(String.valueOf(mIssueData.getPriority()));
         }
 
+        mGestureDetector = new GestureDetector(getContext(), new SingleTapConfirm());
+
         mTitle.setVisibility(GONE);
         setVisibility(INVISIBLE);
 
         mButtonView.setOnTouchListener(new OnTouchListener() {
+
+
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-
-                    mScrollX = 0.d;
-                    mScrollY = 0.d;
-
-                    mScrollX = (double) (event.getX(0) - mButtonView.getWidth());
-                    mScrollY = (double) (event.getY(0) - mButtonView.getWidth());
-
-                    mDestPosX = 0;
-                    mDestPosY = 0;
-
-                    expand();
+                if (mGestureDetector.onTouchEvent(event)) {
+                    // single tap
                     return true;
 
-                } else if (event.getAction() == MotionEvent.ACTION_CANCEL
-                        || event.getAction() == MotionEvent.ACTION_UP
-                        || event.getAction() == MotionEvent.ACTION_POINTER_UP) {
+                } else {
+                    // your code for move and drag
+                    if (event.getAction() == MotionEvent.ACTION_DOWN) {
 
-                    compress();
+                        mScrollX = 0.d;
+                        mScrollY = 0.d;
+
+                        mScrollX = (double) (event.getX(0) - mButtonView.getWidth());
+                        mScrollY = (double) (event.getY(0) - mButtonView.getWidth());
+
+                        mLastScrollYPos = mScrollY.floatValue();
+                        mVerticalSpeed = 0;
+
+                        mDestPosX = 0;
+                        mDestPosY = 0;
+
+                        expand();
+                        return true;
+
+                    } else if (event.getAction() == MotionEvent.ACTION_CANCEL
+                            || event.getAction() == MotionEvent.ACTION_UP
+                            || event.getAction() == MotionEvent.ACTION_POINTER_UP) {
+
+                        compress(false);
+                        return true;
+
+                    } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
+
+                        // This looks to be a good hacky number for centering the touch
+                        mScrollX = ((double) event.getX(0) - 50);
+                        mScrollY = ((double) event.getY(0) - 50);
+
+                        mVerticalSpeed = mScrollY.floatValue() - mLastScrollYPos;
+                        mLastScrollYPos = mScrollY.floatValue();
+
+                        invalidate();
+
+                        return true;
+
+                    }
+
                     return true;
-
-                } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
-
-                    // This looks to be a good hacky number for centering the touch
-                    mScrollX = ((double) event.getX(0) - 50);
-                    mScrollY = ((double) event.getY(0) - 50);
-
-                    invalidate();
-
-                    return true;
-
                 }
 
-                return true;
             }
         });
 
@@ -181,6 +200,27 @@ public class ViewBubble extends RelativeLayout {
         Random r = new Random();
         mRandomOffset = r.nextInt(1500);
 
+    }
+
+    private class SingleTapConfirm extends GestureDetector.SimpleOnGestureListener {
+
+        @Override
+        public boolean onSingleTapUp(MotionEvent e) {
+            if (mInterface != null) {
+                mInterface.onTap(ViewBubble.this);
+
+                mScrollY = 0.d;
+                mScrollY = 0.d;
+                compress(true);
+                Log.d("TAG","BUBBLE CLCIKED");
+            }
+            return true;
+        }
+
+        @Override
+        public boolean onSingleTapConfirmed(MotionEvent event) {
+            return true;
+        }
     }
 
     private void initAnimations() {
@@ -391,13 +431,12 @@ public class ViewBubble extends RelativeLayout {
     /**
      * Triggers the Compress animation for going back to normal
      */
-    public void compress() {
+    public void compress(boolean fromTap) {
 
         if (!mExpanded) return;
 
         mExpanded = false;
 
-        mGoBack = true;
         startTime = System.currentTimeMillis();
 
         mInitialPosX = mScrollX;
@@ -410,10 +449,17 @@ public class ViewBubble extends RelativeLayout {
 
         elapsedTime = 0;
 
-        if (y < 200 || mScrollY < -500) {
-            triggerUpVote();
-        }else if (y > 1700 || mScrollY > 500) {
-            triggerDownVote();
+        if (!fromTap) {
+            mGoBack = true;
+            if (mVerticalSpeed < -10 && Math.abs(mVerticalSpeed) > 15) {
+                triggerUpVote();
+            } else if (mVerticalSpeed > 10 && Math.abs(mVerticalSpeed) > 15) {
+                triggerDownVote();
+            } else {
+                if (mInterface != null) {
+                    mInterface.onReleased(this);
+                }
+            }
         }else {
             if (mInterface != null) {
                 mInterface.onReleased(this);
@@ -466,9 +512,17 @@ public class ViewBubble extends RelativeLayout {
      */
     private void triggerUpVote() {
 
-        mDestPosY = UnitsConverter.convertDpToPixel(-600,getContext());
-        mInterface.onUpVoted(this);
+        mDestPosY = UnitsConverter.convertDpToPixel(-500,getContext());
+
         mVisible = false;
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mInterface.onUpVoted(ViewBubble.this);
+            }
+        }, 500);
     }
 
     /**
@@ -476,9 +530,17 @@ public class ViewBubble extends RelativeLayout {
      */
     private void triggerDownVote() {
 
-        mDestPosY = UnitsConverter.convertDpToPixel(600,getContext());
-        mInterface.onDownVoted(this);
+        mDestPosY = UnitsConverter.convertDpToPixel(500,getContext());
+
         mVisible = false;
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mInterface.onDownVoted(ViewBubble.this);
+            }
+        }, 500);
     }
 
 

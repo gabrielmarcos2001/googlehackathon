@@ -55,7 +55,8 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:background="@color/background_green"
-        android:id="@+id/upvote_area">
+        android:id="@+id/upvote_area"
+        android:elevation="10dp">
 
         <TextView
             android:layout_width="match_parent"
@@ -83,7 +84,8 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:background="@color/alizarin"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:elevation="10dp">
 
         <TextView
             android:layout_width="match_parent"

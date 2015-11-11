@@ -22,6 +22,7 @@ import com.codesmore.codesmore.ui.bubbleviews.ViewAnimatedBackground;
 import com.codesmore.codesmore.ui.bubbleviews.ViewBubble;
 import com.codesmore.codesmore.ui.bubbleviews.ViewBubblesAdapter;
 import com.codesmore.codesmore.ui.bubbleviews.ViewPulseButton;
+import com.codesmore.codesmore.ui.details.DetailsActivity;
 import com.codesmore.codesmore.ui.report.ReportActivity;
 import com.codesmore.codesmore.utils.UnitsConverter;
 
@@ -123,6 +124,15 @@ public class MainFragment extends Fragment implements MainView {
                 mDownVoteLoader.setVisibility(View.VISIBLE);
                 mPresenter.onIssueDownVoted(bubble.getmIssueData());
             }
+
+            @Override
+            public void onBubleTap(ViewBubble bubble) {
+
+                Issue issue = bubble.getmIssueData();
+
+                Intent i = new Intent(getActivity(), DetailsActivity.class);
+                startActivity(i);
+            }
         });
 
         startOnBoardingFlow();
@@ -181,6 +191,8 @@ public class MainFragment extends Fragment implements MainView {
     @Override
     public void showVotingAreas() {
 
+        if (mUpVoteArea.getVisibility() == View.VISIBLE) return;
+
         mUpVoteArea.setVisibility(View.VISIBLE);
         mDownVoteArea.setVisibility(View.VISIBLE);
 
@@ -193,6 +205,9 @@ public class MainFragment extends Fragment implements MainView {
 
     @Override
     public void hideVotingAreas() {
+
+        if (mUpVoteArea.getVisibility() == View.INVISIBLE) return;
+
         Animation showDownVote = AnimationUtils.loadAnimation(getContext(), R.anim.hide_to_bottom);
         mDownVoteArea.startAnimation(showDownVote);
 
