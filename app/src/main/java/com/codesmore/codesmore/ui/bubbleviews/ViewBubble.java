@@ -561,7 +561,7 @@ public class ViewBubble extends RelativeLayout {
 
         mInitialPosX = mScrollX;
         mInitialPosY = mScrollY;
-        
+
         elapsedTime = 0;
 
         mDestPosY = UnitsConverter.convertDpToPixel(-600,getContext());
