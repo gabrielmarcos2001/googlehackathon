@@ -108,13 +108,13 @@ public class ViewBubblesAdapter extends RelativeLayout{
                 @Override
                 public void run() {
 
+                    mContainer.removeAllViews();
                     mItems = items;
                     generateBubbles();
                     showBubbles();
 
                 }
-            }, 500);
-
+            }, 1000);
 
         } else {
 
@@ -127,6 +127,7 @@ public class ViewBubblesAdapter extends RelativeLayout{
     }
 
     public void dismissVisibleBubbles() {
+
         for (ViewBubble bubble : mBubbles) {
             if (bubble.isVisible()) {
                 bubble.dismissBubble();
