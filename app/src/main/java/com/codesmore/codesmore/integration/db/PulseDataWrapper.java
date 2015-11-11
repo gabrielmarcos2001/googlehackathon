@@ -105,13 +105,18 @@ public class PulseDataWrapper implements DataWrapper {
     }
 
     @Override
-    public List<Issue> getCreatedOrUpvotedIssuesFor(Account owner) {
-        return localDataWrapper.getCreatedOrUpvotedIssuesFor(owner);
+    public Observable<List<Issue>> getCreatedOrUpvotedIssuesFor(final Account owner) {
+        return Observable.create(new Observable.OnSubscribe<List<Issue>>() {
+            @Override
+            public void call(Subscriber<? super List<Issue>> subscriber) {
+                subscriber.onNext(mWebService.getCreatedOrUpvotedIssuesFor(owner));
+            }
+        });
     }
 
     @Override
     public void resolveIssue(Issue issue, Account resolver) {
-        localDataWrapper.resolveIssue(issue, resolver);
+        mWebService.resolveIssue(issue, resolver);
     }
 
     @Override

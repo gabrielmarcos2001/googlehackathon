@@ -23,7 +23,7 @@ public interface DataWrapper {
     Category getCategory(Long id);
     void upVote(Issue issue, Account upvoter);
     void downVote(Issue issue);
-    List<Issue> getCreatedOrUpvotedIssuesFor(Account owner);
+    Observable<List<Issue>> getCreatedOrUpvotedIssuesFor(Account owner);
     void resolveIssue(Issue issue, Account resolver);
 
     /*  The following two methods are needed in order to update category and issue objects with

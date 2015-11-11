@@ -63,14 +63,25 @@ public class IssueListPresenterImpl implements IssueListPresenter {
                         }
                     });
         } else if (issueType == 1) {
-            //TODO: fix account user
-            try{
-                issues = mDataWrapper.getCreatedOrUpvotedIssuesFor(null);
-                this.onCompletedIssuesLoaded(issues);
-            }catch (Exception e){
+            mDataWrapper.getCreatedOrUpvotedIssuesFor(null)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<List<Issue>>() {
+                        @Override
+                        public void onCompleted() {
 
-            }
+                        }
 
+                        @Override
+                        public void onError(Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onNext(List<Issue> issues) {
+                            onCompletedIssuesLoaded(issues);
+                        }
+                    });
         }
     }
 
