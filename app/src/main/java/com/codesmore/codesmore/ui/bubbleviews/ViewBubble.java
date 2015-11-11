@@ -59,7 +59,6 @@ public class ViewBubble extends RelativeLayout {
     private long elapsedTime;
     private double mInitialPosX;
     private double mInitialPosY;
-    private boolean mReadyToBeSelected = true;
 
     private double mDestPosX;
     private double mDestPosY;
@@ -81,6 +80,7 @@ public class ViewBubble extends RelativeLayout {
     private AnimationSet mCircle1Set;
     private AnimationSet mCircle2Set;
     private boolean mActive = true;
+    private boolean mVisible = false;
     private boolean mAnimationsInitialized = false;
     private ImageView mImageIcon;
 
@@ -133,8 +133,6 @@ public class ViewBubble extends RelativeLayout {
 
                     mDestPosX = 0;
                     mDestPosY = 0;
-
-                    mReadyToBeSelected = false;
 
                     expand();
                     return true;
@@ -310,6 +308,8 @@ public class ViewBubble extends RelativeLayout {
 
     public void showBubbleWithDelay(int delayOffset) {
 
+        mVisible = true;
+
         Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.show_from_bottom);
         animation.setStartOffset(delayOffset);
         animation.setAnimationListener(new Animation.AnimationListener() {
@@ -469,17 +469,20 @@ public class ViewBubble extends RelativeLayout {
      * Triggers the UpVote Event
      */
     private void triggerUpVote() {
-        mDestPosY = UnitsConverter.convertDpToPixel(-600,getContext());
 
+        mDestPosY = UnitsConverter.convertDpToPixel(-600,getContext());
         mInterface.onUpVoted(this);
+        mVisible = false;
     }
 
     /**
      * Triggers the DownVote Event
      */
     private void triggerDownVote() {
+
         mDestPosY = UnitsConverter.convertDpToPixel(600,getContext());
         mInterface.onDownVoted(this);
+        mVisible = false;
     }
 
 
@@ -541,7 +544,6 @@ public class ViewBubble extends RelativeLayout {
                     Math.abs(mScrollY - mDestPosY) < 0.5f) {
 
                 mGoBack = false;
-                mReadyToBeSelected = true;
 
             }
 
@@ -552,7 +554,24 @@ public class ViewBubble extends RelativeLayout {
         super.onDraw(canvas);
     }
 
+    public void dismissBubble() {
+
+        mGoBack = true;
+        startTime = System.currentTimeMillis();
+
+        mInitialPosX = mScrollX;
+        mInitialPosY = mScrollY;
+        
+        elapsedTime = 0;
+
+        mDestPosY = UnitsConverter.convertDpToPixel(-600,getContext());
+        mVisible = false;
+        invalidate();
+    }
+
     public void setmIssueData(Issue mIssueData) {
+
+        this.mVisible = true;
         this.mIssueData = mIssueData;
 
         float maxScale = 2f;
@@ -590,5 +609,9 @@ public class ViewBubble extends RelativeLayout {
 
     public void setmInterface(BubbleInterface mInterface) {
         this.mInterface = mInterface;
+    }
+
+    public boolean isVisible() {
+        return mVisible;
     }
 }
