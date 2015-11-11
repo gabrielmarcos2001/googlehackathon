@@ -25,12 +25,18 @@ import java.util.TimerTask;
  */
 public class ViewPulseButton extends RelativeLayout {
 
+    public interface PulseButtonActions {
+        void onReportClicked();
+        void onContextualIssueClicked();
+    }
+
     protected static final int RIPPLE_DURATION_MS = 3000;
     protected static final int RIPPLE_INTERVAL_MS = 5000;
     protected static final int CONTEXTUAL_STATUS_MS = 5000;
     protected static final int RIPPLE_INTERVAL_1_MS = 1000;
     protected static final int RIPPLE_INTERVAL_2_MS = 2000;
 
+    private View mButton;
     private View mCircle1;
     private View mCircle2;
     private View mCircle3;
@@ -41,6 +47,7 @@ public class ViewPulseButton extends RelativeLayout {
     private boolean mActive = true;
     private boolean mAnimationsInitialized = false;
     private ImageView mImageIcon;
+    private PulseButtonActions mInterface;
 
     public ViewPulseButton(Context context) {
         super(context);
@@ -66,6 +73,7 @@ public class ViewPulseButton extends RelativeLayout {
         mCircle1 = findViewById(R.id.circle_1);
         mCircle2 = findViewById(R.id.circle_2);
         mCircle3 = findViewById(R.id.circle_3);
+        mButton = findViewById(R.id.button);
         mImageIcon = (ImageView)findViewById(R.id.icon);
         mContextualBackground = findViewById(R.id.contextual_background);
 
@@ -73,6 +81,15 @@ public class ViewPulseButton extends RelativeLayout {
         mCircle1.setVisibility(View.GONE);
         mCircle2.setVisibility(View.GONE);
         mCircle3.setVisibility(View.GONE);
+
+        mButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mInterface != null) {
+                    mInterface.onReportClicked();
+                }
+            }
+        });
 
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -284,4 +301,7 @@ public class ViewPulseButton extends RelativeLayout {
         });
     }
 
+    public void setmInterface(PulseButtonActions mInterface) {
+        this.mInterface = mInterface;
+    }
 }
