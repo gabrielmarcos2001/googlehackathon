@@ -44,7 +44,6 @@ public class CompletedActivity extends BaseActivity implements CompletedView, Is
         mPresenter = new CompletedPresenterImpl(this, new PulseDataWrapper(getContentResolver()));
     }
 
-
     private void initViews(){
         mCompletedItems = (RecyclerView) findViewById(R.id.completed_items_recycler);
         mAdapter = new IssueAdapter(this);
@@ -73,6 +72,7 @@ public class CompletedActivity extends BaseActivity implements CompletedView, Is
     @Override
     public void onProblemsLoaded(List<Issue> issues) {
         mAdapter.setData(issues);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -93,7 +93,6 @@ public class CompletedActivity extends BaseActivity implements CompletedView, Is
     public void onConnected(Bundle bundle) {
         Location location =
                 LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-
 
         if (location != null) {
             mPresenter.onLocationAvailable(location);
