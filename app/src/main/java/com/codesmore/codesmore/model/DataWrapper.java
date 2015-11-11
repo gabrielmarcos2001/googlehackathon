@@ -18,4 +18,8 @@ public interface DataWrapper {
     Issue getIssue(Long id);
     Account getAccount(Long id);
     Category getCategory(Long id);
+    void upvote(Issue issue, Account upvoter);
+    void downvote(Issue issue);
+    List<Issue> getCreatedOrUpvotedIssuesFor(Account owner);            // created or upvoted
+    void resolveIssue(Issue issue, Account resolver);
 }

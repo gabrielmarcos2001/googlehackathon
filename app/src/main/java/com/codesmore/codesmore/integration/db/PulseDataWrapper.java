@@ -69,4 +69,24 @@ public class PulseDataWrapper implements DataWrapper {
     public Category getCategory(Long id) {
         return localDataWrapper.getCategory(id);
     }
+
+    @Override
+    public void upvote(Issue issue, Account upvoter) {
+        localDataWrapper.upvote(issue, upvoter);
+    }
+
+    @Override
+    public void downvote(Issue issue) {
+        localDataWrapper.downvote(issue);
+    }
+
+    @Override
+    public List<Issue> getCreatedOrUpvotedIssuesFor(Account owner) {
+        return localDataWrapper.getCreatedOrUpvotedIssuesFor(owner);
+    }
+
+    @Override
+    public void resolveIssue(Issue issue, Account resolver) {
+        localDataWrapper.resolveIssue(issue, resolver);
+    }
 }
