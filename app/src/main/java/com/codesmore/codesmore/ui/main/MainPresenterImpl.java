@@ -2,15 +2,10 @@ package com.codesmore.codesmore.ui.main;
 
 import android.content.ContentResolver;
 import android.os.Handler;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 
-import com.codesmore.codesmore.R;
 import com.codesmore.codesmore.integration.db.PulseDataWrapper;
 import com.codesmore.codesmore.model.DataWrapper;
 import com.codesmore.codesmore.model.pojo.Issue;
-import com.codesmore.codesmore.ui.login.LoginView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +26,7 @@ public class MainPresenterImpl implements MainPresenter {
 
     @Override
     public void onIssueUpVoted(final Issue issue) {
+        mWrapper.upvote(issue, null);
 
         final Handler fakeData = new Handler();
         fakeData.postDelayed(new Runnable() {
@@ -46,6 +42,7 @@ public class MainPresenterImpl implements MainPresenter {
 
     @Override
     public void onIssueDownVoted(final Issue issue) {
+        mWrapper.downvote(issue);
 
         final Handler fakeData = new Handler();
         fakeData.postDelayed(new Runnable() {

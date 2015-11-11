@@ -39,6 +39,7 @@
     <string name="message_no_resolved_items">Uh Oh!\nIt doesn\'t appear any issues have been resolved in your area. Please submit any issues you see and check back later!</string>
     <string name="upvote">UPVOTE</string>
     <string name="downvote">DOWNVOTE</string>
+
     <string name="hint_report_title">Title</string>
     <string name="hint_report_description">Description</string>
     <string name="hint_report_category">Category</string>
@@ -48,4 +49,6 @@
     <string name="error_enter_description">Please enter a Description</string>
     <string name="select_image">SELECT AN IMAGE</string>
 
+    <string name="parse_application_id" translatable="false">lX4BdYdc3BBclPisuzcCdtDxpFr2K5d0Z5y9O2FM</string>
+    <string name="parse_client_id" translatable="false">WadGfNQSXAKqV8GbZ0LNYNxejHIgqC40r5XxeLoh</string>
 </resources>

@@ -2,6 +2,7 @@ package com.codesmore.codesmore.integration.converter;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.support.annotation.NonNull;
 
 import com.codesmore.codesmore.integration.db.PulseContract.IssueCategory;
 import com.codesmore.codesmore.model.pojo.Category;
@@ -33,10 +34,7 @@ public class CategoryConverter implements Converter<Category> {
     }
 
     @Override
-    public Category convert(ContentValues values) {
-        if (values == null) {
-            return  new Category(null, null);
-        }
+    public Category convert(@NonNull ContentValues values) {
 
         Long id = values.getAsLong(IssueCategory._ID);
         String name = values.getAsString(IssueCategory.Columns.ISSUE_CATEGORY);

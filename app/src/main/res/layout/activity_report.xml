@@ -163,77 +163,94 @@
     <!--
     <Spinner
         android:id="@+id/report_category"
+>>>>>>> master
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/issue_category"/>
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/report_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/issue_title" />
+        <Spinner
+            android:id="@+id/report_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/issue_category" />
 
-    <EditText
-        android:id="@+id/report_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/description" />
+        <EditText
+            android:id="@+id/report_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/issue_title" />
 
-    <EditText
-        android:id="@+id/report_creator"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/issue_creator" />
+        <EditText
+            android:id="@+id/report_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/description" />
 
-    <EditText
-        android:id="@+id/report_fixer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/issue_fixer" />
+        <EditText
+            android:id="@+id/report_creator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/issue_creator" />
 
-    <Spinner
-        android:id="@+id/report_priority"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/issue_priority" />
+        <EditText
+            android:id="@+id/report_fixer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/issue_fixer" />
 
-    <Button
-        android:id="@+id/report_upvotes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/issue_upvotes" />
+        <Spinner
+            android:id="@+id/report_priority"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/issue_priority" />
 
-    <Button
-        android:id="@+id/report_downvotes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/issue_downvotes" />
+        <Button
+            android:id="@+id/report_upvotes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/issue_upvotes" />
 
-    <Switch
-        android:id="@+id/report_fixedInd"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/issue_fixedInd" />
+        <Button
+            android:id="@+id/report_downvotes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/issue_downvotes" />
 
-    <EditText
-        android:id="@+id/report_createDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/issue_createDate" />
+        <Switch
+            android:id="@+id/report_fixedInd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/issue_fixedInd" />
 
-    <EditText
-        android:id="@+id/report_fixedDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/issue_fixedDate" />
+        <EditText
+            android:id="@+id/report_createDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/issue_createDate" />
 
-    <ImageView
-        android:id="@+id/report_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/cd_issue_image"
-        android:src="@mipmap/ic_launcher" />
+        <EditText
+            android:id="@+id/report_fixedDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/issue_fixedDate" />
 
+<<<<<<< HEAD
+        <ImageView
+            android:id="@+id/report_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/cd_issue_image"
+            android:src="@mipmap/ic_launcher" />
+
+        <Button
+            android:id="@+id/report_save_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/save" />
+    </LinearLayout>
+
+</ScrollView>
+=======
     <Button
         android:id="@+id/report_save_btn"
         android:layout_width="match_parent"

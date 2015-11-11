@@ -4,6 +4,7 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.database.Cursor;
 
+import com.codesmore.codesmore.integration.converter.Converter;
 import com.codesmore.codesmore.integration.converter.AccountConverter;
 import com.codesmore.codesmore.integration.converter.CategoryConverter;
 import com.codesmore.codesmore.integration.converter.Converter;
@@ -226,7 +227,7 @@ public class LocalDataWrapper implements DataWrapper {
         /**
          * First, we need to increment the upvote count and save it to database.
          */
-        issue.setUpvotes(issue.getUpvotes() == null ? 0 : issue.getUpvotes() + 1);
+        issue.setUpvotes(issue.getUpvotes() + 1);
         ContentValues issueValues = issueConverter.convert(issue);
         contentResolver.update(
             PulseContract.Issue.Builders.buildForIssueId(issue.getId()),
@@ -252,7 +253,7 @@ public class LocalDataWrapper implements DataWrapper {
             return;
         }
 
-        issue.setDownvotes(issue.getDownvotes() == null ? 0 : issue.getDownvotes() + 1);
+        issue.setDownvotes(issue.getDownvotes() + 1);
         ContentValues issueValues = issueConverter.convert(issue);
 
         contentResolver.update(

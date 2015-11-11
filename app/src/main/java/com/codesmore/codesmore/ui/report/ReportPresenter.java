@@ -8,7 +8,7 @@ import com.codesmore.codesmore.model.pojo.Category;
 public interface ReportPresenter {
     void requestCategoriesChooser();
     void onCategoryClicked(Category category);
-    void saveData(String description);
+    void saveData(String description, String title);
     void onImageCaptured(Bitmap image);
 
     void onLocationAvailable(Location location);

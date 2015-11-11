@@ -12,7 +12,7 @@ import android.widget.Spinner;
 
 import com.codesmore.codesmore.BaseActivityWithImageSaving;
 import com.codesmore.codesmore.R;
-import com.codesmore.codesmore.integration.db.PulseDataWrapper;
+import com.codesmore.codesmore.integration.backend.WebService;
 import com.codesmore.codesmore.model.pojo.Category;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -72,7 +72,8 @@ public class ReportActivity extends BaseActivityWithImageSaving implements Repor
 
         connectGoogleApiClient();
 
-        mPresenter = new ReportPresenterImpl(this, new PulseDataWrapper(getContentResolver()));
+//        mPresenter = new ReportPresenterImpl(this, new PulseDataWrapper(getContentResolver()));
+        mPresenter = new ReportPresenterImpl(this, new WebService());
         mPresenter.requestCategoriesChooser();
     }
 
@@ -133,7 +134,7 @@ public class ReportActivity extends BaseActivityWithImageSaving implements Repor
         }
 
         if (valid) {
-            mPresenter.saveData(mDescription.getText().toString());
+            mPresenter.saveData(mDescription.getText().toString(), mTitle.getText().toString());
         }
     }
 
