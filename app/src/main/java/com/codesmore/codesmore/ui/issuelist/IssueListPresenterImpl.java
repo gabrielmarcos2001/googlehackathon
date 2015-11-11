@@ -93,11 +93,11 @@ public class IssueListPresenterImpl implements IssueListPresenter {
 
     @Override
     public void onIssueUpvoted(Issue issue) {
-        mDataWrapper.upvote(issue, null);
+        mDataWrapper.upVote(issue, null);
     }
 
     @Override
     public void onIssueDownvoted(Issue issue) {
-        mDataWrapper.downvote(issue);
+        mDataWrapper.downVote(issue);
     }
 }
