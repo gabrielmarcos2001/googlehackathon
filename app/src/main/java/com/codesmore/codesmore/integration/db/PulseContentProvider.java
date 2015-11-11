@@ -221,12 +221,48 @@ public class PulseContentProvider extends ContentProvider {
     }
 
     @Override
-    public int delete(Uri uri, String selection, String[] selectionArgs){
-        throw new UnsupportedOperationException("Feature not yet implemented.");
+    public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs){
+        final SQLiteDatabase db = helper.getWritableDatabase();
+        int recordsUpdated;
+
+        switch(URI_MATCHER.match(uri)) {
+            case MatchCodes.ISSUE_CATEGORY:
+                recordsUpdated = db.update(
+                    PulseContract.IssueCategory.TABLE_NAME,
+                    values,
+                    selection,
+                    selectionArgs
+                );
+                break;
+
+            case MatchCodes.ISSUE:
+                recordsUpdated = db.update(
+                    PulseContract.Issue.TABLE_NAME,
+                    values,
+                    selection,
+                    selectionArgs
+                );
+                break;
+
+            case MatchCodes.ACCOUNT:
+                recordsUpdated = db.update(
+                    PulseContract.Account.TABLE_NAME,
+                    values,
+                    selection,
+                    selectionArgs
+                );
+                break;
+
+            default:
+                db.close();
+                throw new UnsupportedOperationException("Unknown uri:  " + uri);
+        }
+
+        return recordsUpdated;
     }
 
     @Override
-    public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs){
+    public int delete(Uri uri, String selection, String[] selectionArgs){
         throw new UnsupportedOperationException("Feature not yet implemented.");
     }
 }
