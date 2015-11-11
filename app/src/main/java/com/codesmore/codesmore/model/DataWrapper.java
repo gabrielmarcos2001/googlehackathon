@@ -18,7 +18,7 @@ public interface DataWrapper {
 
     void insertIssue(Issue issue);
     void insertAccount(Account account);
-    Issue getIssue(String parseId);
+    Observable<Issue> getIssue(String parseId);
     Account getAccount(Long id);
     Category getCategory(Long id);
     void upVote(Issue issue, Account upvoter);

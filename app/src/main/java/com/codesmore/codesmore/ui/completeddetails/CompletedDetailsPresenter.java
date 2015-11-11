@@ -5,5 +5,5 @@ package com.codesmore.codesmore.ui.completeddetails;
  */
 public interface CompletedDetailsPresenter {
 
-    void loadIssueById(String issueParseId);
+    void loadIssueByParseId(String issueParseId);
 }

@@ -77,7 +77,7 @@ public class CompletedDetailsActivity extends BaseActivity implements CompletedD
     }
 
     public void loadIssue(String issueParseId) {
-        mPresenter.loadIssueById(issueParseId);
+        mPresenter.loadIssueByParseId(issueParseId);
     }
 
     /**
