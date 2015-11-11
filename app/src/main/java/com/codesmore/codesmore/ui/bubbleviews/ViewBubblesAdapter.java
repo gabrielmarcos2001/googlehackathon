@@ -195,7 +195,7 @@ public class ViewBubblesAdapter extends RelativeLayout{
 
                 bubbleIndex++;
             }catch (IndexOutOfBoundsException e) {
-                
+
             }
 
         }

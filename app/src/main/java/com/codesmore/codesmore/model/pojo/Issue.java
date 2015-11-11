@@ -18,6 +18,8 @@ public class Issue {
         this.description = parseIssue.getDescription();
         this.image = parseIssue.getImage();
         this.parseId = parseIssue.getObjectId();
+        this.downvotes = parseIssue.getDownvotes();
+        this.upvotes = parseIssue.getUpvoteEs();
         // TODO: 11/11/2015 vesko - proper object construction
     }
 

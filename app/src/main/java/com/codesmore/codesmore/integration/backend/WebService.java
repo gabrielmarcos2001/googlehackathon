@@ -144,4 +144,14 @@ public class WebService implements DataWrapper {
             // TODO: 11/11/2015 notify user for problem
         }
     }
+
+    @Override
+    public void updateIssue(Issue issue) {
+
+    }
+
+    @Override
+    public void updateCategory(Category category) {
+
+    }
 }
