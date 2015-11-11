@@ -30,6 +30,7 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="report_issue_text">Help to improve your community by reporting what is wrong!</string>
 
     <string name="menu_my_account">My Account</string>
     <string name="menu_upvoted_issues">My UpVoted Issues</string>
@@ -37,4 +38,13 @@
     <string name="menu_sign_out">Sign Out</string>
     <string name="upvote">UPVOTE</string>
     <string name="downvote">DOWNVOTE</string>
+    <string name="hint_report_title">Title</string>
+    <string name="hint_report_description">Description</string>
+    <string name="hint_report_category">Category</string>
+    <string name="upload_picture">Upload Photo</string>
+
+    <string name="error_enter_title">Please enter a Title</string>
+    <string name="error_enter_description">Please enter a Description</string>
+    <string name="select_image">SELECT AN IMAGE</string>
+
 </resources>
