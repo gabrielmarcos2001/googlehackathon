@@ -55,6 +55,11 @@ public class ParseIssue extends BaseParseObject {
         put("category", category);
     }
 
+    public String getCategoryName() {
+        // TODO: 11/11/2015 don't ask about the stupid name, keep it as it is!!
+        return getString("categoryParseId");
+    }
+
     public void setUpvotes(int upvotes) {
         put("upvotes", upvotes);
     }

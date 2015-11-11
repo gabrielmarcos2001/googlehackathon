@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,7 +13,6 @@ import com.codesmore.codesmore.R;
 import com.codesmore.codesmore.model.pojo.Issue;
 import com.codesmore.codesmore.utils.ImageUtils;
 
-import java.security.spec.ECField;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,7 +92,7 @@ public class GenericIssueAdapter extends RecyclerView.Adapter<GenericIssueAdapte
 
         }
         try {
-            holder.issueIcon.setImageResource(ImageUtils.getDrawableId(issue.getCategory()));
+            holder.issueIcon.setImageResource(ImageUtils.getDrawableId(issue.getCategoryName()));
         } catch (Exception e) {
             // holder.issueDescription.setText("NULL");
             e.printStackTrace();

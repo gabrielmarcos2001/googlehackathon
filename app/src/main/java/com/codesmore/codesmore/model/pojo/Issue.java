@@ -26,18 +26,24 @@ public class Issue {
         this.upvotes = parseIssue.getUpvoteEs();
         this.latitude = parseIssue.getLatitude();
         this.longitude = parseIssue.getLongitude();
-        
+
+        this.categoryName = parseIssue.getCategoryName();
         // TODO: 11/11/2015 vesko - proper object construction
     }
 
     public Issue() {
     }
 
+
+    public String getCategoryName() {
+        return categoryName;
+    }
     private Long id;
     private Bitmap image;
     private double latitude;
     private double longitude;
     private String title;
+    private String categoryName;
     private Category category;
     private String description;
     private Account creator;
