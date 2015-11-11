@@ -29,6 +29,7 @@ public class AccountConverter implements Converter<Account> {
         values.put(_ID, object.getId());
         values.put(Columns.USERNAME, object.getUsername());
         values.put(Columns.PASSWORD, object.getPassword());
+        values.put(Columns.PARSE_ID, object.getParseId());
         return values;
     }
 
@@ -42,6 +43,7 @@ public class AccountConverter implements Converter<Account> {
         account.setId(values.getAsLong(_ID));
         account.setUser(values.getAsString(Columns.USERNAME));
         account.setPassword(values.getAsString(Columns.PASSWORD));
+        account.setParseId(values.getAsString(Columns.PARSE_ID));
         return account;
     }
 }

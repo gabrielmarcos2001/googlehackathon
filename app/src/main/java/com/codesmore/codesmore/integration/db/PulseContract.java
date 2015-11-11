@@ -29,6 +29,7 @@ public class PulseContract {
         public static class Columns {
             public static final String USERNAME = "username";
             public static final String PASSWORD = "password";
+            public static final String PARSE_ID = "parse_id";
         }
 
         public static class Builders {
