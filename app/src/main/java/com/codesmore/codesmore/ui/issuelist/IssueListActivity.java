@@ -166,4 +166,14 @@ public class IssueListActivity extends BaseActivity implements IssueListView, Is
         super.onBackPressed();
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_horizontal);
     }
+
+    @Override
+    public void onIssueUpVoted(Issue issue) {
+
+    }
+
+    @Override
+    public void onIssueDownVoted(Issue issue) {
+
+    }
 }
