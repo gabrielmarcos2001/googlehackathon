@@ -5,4 +5,5 @@ package com.codesmore.codesmore.ui.completeddetails;
  */
 public interface CompletedDetailsPresenter {
     // Add methods here
+    void loadIssueById(Long issueId);
 }

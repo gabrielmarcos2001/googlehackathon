@@ -1,13 +1,14 @@
 package com.codesmore.codesmore.ui.completeddetails;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codesmore.codesmore.BaseActivity;
 import com.codesmore.codesmore.R;
 import com.codesmore.codesmore.integration.db.PulseDataWrapper;
+import com.codesmore.codesmore.model.pojo.Issue;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -15,31 +16,67 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class CompletedDetailsActivity extends BaseActivity implements
-        View.OnClickListener, CompletedDetailsView, OnMapReadyCallback {
+        CompletedDetailsView, OnMapReadyCallback {
 
     private CompletedDetailsPresenter mPresenter;
     private GoogleMap mMap;
 
-    private TextView mIssueTitle;
-    private TextView mIssueDescription;
-    private TextView mIssueLocation;
-    private TextView mIssueTime;
-    private TextView mIssueUpVotes;
-    private TextView mIssueDownVotes;
-    private TextView mIssueResolvedDate;
-    private ImageView mIssuePicture;
+    @Bind(R.id.item_issue_title)
+    TextView mIssueTitle;
+
+    @Bind(R.id.item_issue_description)
+    TextView mIssueDescription;
+
+    @Bind(R.id.item_issue_latitude)
+    TextView mIssueLatitude;
+
+    @Bind(R.id.item_issue_longitude)
+    TextView mIssueLongitude;
+
+    @Bind(R.id.item_issue_create_date)
+    TextView mIssueCreateDate;
+
+    @Bind(R.id.item_issue_fixed_date)
+    TextView mIssueFixedDate;
+
+    @Bind(R.id.item_issue_up_votes)
+    TextView mIssueUpVotes;
+
+    @Bind(R.id.item_issue_down_votes)
+    TextView mIssueDownVotes;
+
+    @Bind(R.id.item_issue_image)
+    ImageView mIssuePicture;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_completed_details);
+        ButterKnife.bind(this);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        Intent intent = getIntent();
+        Long issueId = null;
+
+        intent.getLongExtra("PASSEDISSUE", issueId);
         mPresenter = new CompletedDetailsPresenterImpl(this, new PulseDataWrapper(getContentResolver()));
+
+        if (issueId != null) {
+            loadIssue(issueId);
+        }
+    }
+
+    public void loadIssue(Long issueId) {
+        mPresenter.loadIssueById(issueId);
     }
 
     /**
@@ -63,7 +100,15 @@ public class CompletedDetailsActivity extends BaseActivity implements
     }
 
     @Override
-    public void onClick(View v) {
-
+    public void onIssueLoaded(Issue resolvedIssue) {
+        mIssueTitle.setText(resolvedIssue.getTitle());
+        mIssueDescription.setText(resolvedIssue.getDescription());
+        mIssueLatitude.setText(Double.toString(resolvedIssue.getLatitude()));
+        mIssueLongitude.setText(Double.toString(resolvedIssue.getLongtitude()));
+        mIssueCreateDate.setText(resolvedIssue.getCreateDate().toString());
+        mIssueFixedDate.setText(resolvedIssue.getFixedDate().toString());
+        mIssueUpVotes.setText(resolvedIssue.getUpvotes());
+        mIssueDownVotes.setText(resolvedIssue.getDownvotes());
+        mIssuePicture.setImageBitmap(resolvedIssue.getImage());
     }
 }
