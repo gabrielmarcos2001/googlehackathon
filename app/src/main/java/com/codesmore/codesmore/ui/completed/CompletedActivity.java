@@ -130,7 +130,7 @@ public class CompletedActivity extends BaseActivity implements CompletedView, Is
 
     @Override
     public void onIssueUpVoted(Issue issue) {
-        
+
     }
 
     @Override
