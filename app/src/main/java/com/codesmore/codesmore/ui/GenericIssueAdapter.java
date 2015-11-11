@@ -39,7 +39,7 @@ public class GenericIssueAdapter extends RecyclerView.Adapter<GenericIssueAdapte
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_resolved_issue, parent, false);
             return new IssueHolder(view);
         }else if(mIssueType ==1){
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_unresolved_issue, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_resolved_issue, parent, false);
             return new IssueHolder(view);
         }
         return null;
@@ -133,12 +133,14 @@ public class GenericIssueAdapter extends RecyclerView.Adapter<GenericIssueAdapte
             view.setOnClickListener(this);
 
             if (mIssueType == 0){
-                issueResolvedDate = (TextView) view.findViewById(R.id.item_issue_resolved_date);
+
+                //issueResolvedDate = (TextView) view.findViewById(R.id.item_issue_resolved_date);
+
             }else if (mIssueType == 1){
-                upVoteIcon = (ImageView) view.findViewById(R.id.item_icon_up_votes);
-                upVoteIcon.setOnClickListener(this);
-                downVoteIcon = (ImageView) view.findViewById(R.id.item_icon_down_votes);
-                downVoteIcon.setOnClickListener(this);
+                //upVoteIcon = (ImageView) view.findViewById(R.id.item_icon_up_votes);
+                //upVoteIcon.setOnClickListener(this);
+                //downVoteIcon = (ImageView) view.findViewById(R.id.item_icon_down_votes);
+                //downVoteIcon.setOnClickListener(this);
             }
         }
 
