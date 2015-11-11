@@ -32,6 +32,12 @@ public class PulseContract {
             public static final String PARSE_ID = "parse_id";
         }
 
+        public static class Constraints {
+
+            public static String BY_ACCOUNT_ID_CONSTRAINT =
+                Issue.TABLE_NAME + "." + Account._ID + " = ?";
+        }
+
         public static class Builders {
 
             public static Uri buildForAccountId(long accountId){

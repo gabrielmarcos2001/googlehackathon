@@ -22,7 +22,8 @@ public class PulseContentProvider extends ContentProvider {
         public static final int ISSUE = 2;
         public static final int ISSUES = 3;
         public static final int ACCOUNT = 4;
-        public static final int ISSUES_BY_UPVOTER = 5;
+        public static final int ACCOUNTS = 5;
+        public static final int ISSUES_BY_UPVOTER = 6;
     }
 
     /**
@@ -34,6 +35,7 @@ public class PulseContentProvider extends ContentProvider {
         public static final String ISSUE = PulseContract.Issue.TABLE_NAME;
         public static final String ISSUES = PulseContract.Issue.TABLE_NAME;
         public static final String ACCOUNT = PulseContract.Account.TABLE_NAME + "/#";
+        public static final String ACCOUNTS = PulseContract.Account.TABLE_NAME;
         public static final String ISSUES_BY_UPVOTER = PulseContract.Issue.TABLE_NAME + "/upvoter/#";
     }
 
@@ -47,6 +49,7 @@ public class PulseContentProvider extends ContentProvider {
             addURI(PulseContract.CONTENT_AUTHORITY, MatchPaths.ISSUE, MatchCodes.ISSUE);
             addURI(PulseContract.CONTENT_AUTHORITY, MatchPaths.ISSUES, MatchCodes.ISSUES);
             addURI(PulseContract.CONTENT_AUTHORITY, MatchPaths.ACCOUNT, MatchCodes.ACCOUNT);
+            addURI(PulseContract.CONTENT_AUTHORITY, MatchPaths.ACCOUNTS, MatchCodes.ACCOUNTS);
             addURI(PulseContract.CONTENT_AUTHORITY, MatchPaths.ISSUES_BY_UPVOTER, MatchCodes.ISSUES_BY_UPVOTER);
         }
     };
@@ -61,6 +64,7 @@ public class PulseContentProvider extends ContentProvider {
             put(MatchCodes.ISSUE, PulseContract.Issue.CONTENT_ITEM_TYPE);
             put(MatchCodes.ISSUES, PulseContract.Issue.CONTENT_TYPE);
             put(MatchCodes.ACCOUNT, PulseContract.Account.CONTENT_ITEM_TYPE);
+            put(MatchCodes.ACCOUNTS, PulseContract.Account.CONTENT_TYPE);
             put(MatchCodes.ISSUES_BY_UPVOTER, PulseContract.Issue.CONTENT_TYPE);
         }
     };
@@ -134,6 +138,17 @@ public class PulseContentProvider extends ContentProvider {
                     null
                 );
 
+            case MatchCodes.ISSUES:
+                return db.query(
+                    PulseContract.Issue.TABLE_NAME,
+                    projection,
+                    selection,
+                    selectionArgs,
+                    null,
+                    null,
+                    sortOrder
+                );
+
             case MatchCodes.ISSUE:
                 return db.query(
                     PulseContract.Issue.TABLE_NAME,
@@ -145,13 +160,30 @@ public class PulseContentProvider extends ContentProvider {
                     null
                 );
 
-            case MatchCodes.ISSUES:
-                return null;
-            //  TODO
+            case MatchCodes.ACCOUNTS:
+                return db.query(
+                    PulseContract.Account.TABLE_NAME,
+                    projection,
+                    selection,
+                    selectionArgs,
+                    null,
+                    null,
+                    sortOrder
+                );
 
             case MatchCodes.ACCOUNT:
-                return null;
-            //  TODO
+                return db.query(
+                    PulseContract.Account.TABLE_NAME,
+                    projection,
+                    PulseContract.Account.Constraints.BY_ACCOUNT_ID_CONSTRAINT,
+                    new String[] {uri.getLastPathSegment()},
+                    null,
+                    null,
+                    null
+                );
+
+            case MatchCodes.ISSUES_BY_UPVOTER:
+                //  TODO
 
             default:
                 db.close();
