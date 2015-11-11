@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.codesmore.codesmore.integration.backend.pojo.ParseCategory;
 import com.codesmore.codesmore.integration.backend.pojo.ParseIssue;
+import com.codesmore.codesmore.model.DataFetchedListener;
 import com.codesmore.codesmore.model.DataWrapper;
 import com.codesmore.codesmore.model.pojo.Account;
 import com.codesmore.codesmore.model.pojo.Category;
@@ -16,10 +17,15 @@ import java.util.List;
 
 public class WebService implements DataWrapper {
 
+    public static final String TABLE_CATEGORY = "Category";
+    public static final String TABLE_ISSUE = "Issue";
+    public static final String COLUMN_FIXED_INDICATOR = "fixed_indicator";
+    public static final String COLUMN_UPVOTES = "upvotes";
+
     @Override
     public List<Category> getCategories() {
         List<Category> categories = new ArrayList<>();
-        ParseQuery<ParseCategory> query = ParseQuery.getQuery("Category");
+        ParseQuery<ParseCategory> query = ParseQuery.getQuery(TABLE_CATEGORY);
         try {
             List<ParseCategory> parseCategories = query.find();
 
@@ -36,9 +42,14 @@ public class WebService implements DataWrapper {
     }
 
     @Override
-    public List<Issue> getResolvedIssues(double lat, double lon) {
-        return getIssues(lat, lon, true);
+    public void getResolvedIssues(double lat, double lon, DataFetchedListener listener) {
+
     }
+
+//    @Override
+//    public void getResolvedIssues(double lat, double lon) {
+//        return getIssues(lat, lon, true);
+//    }
 
     @Override
     public List<Issue> getUnresolvedIssues(double lat, double lon) {
@@ -47,8 +58,8 @@ public class WebService implements DataWrapper {
 
     private List<Issue> getIssues(double lat, double lon, boolean resolved) {
         List<Issue> issues = new ArrayList<>();
-        ParseQuery<ParseIssue> query = ParseQuery.getQuery("Issue");
-        query.whereEqualTo("fixed_indicator", resolved);
+        ParseQuery<ParseIssue> query = ParseQuery.getQuery(TABLE_ISSUE);
+        query.whereEqualTo(COLUMN_FIXED_INDICATOR, resolved);
         try {
             List<ParseIssue> parseIssues = query.find();
 
@@ -97,12 +108,29 @@ public class WebService implements DataWrapper {
 
     @Override
     public void upvote(Issue issue, Account upvoter) {
-
+        try {
+            ParseQuery<ParseIssue> query = ParseQuery.getQuery(TABLE_ISSUE);
+            ParseIssue parseIssue = query.get(issue.getParseId());
+            parseIssue.increment(COLUMN_UPVOTES);
+            parseIssue.save();
+        } catch (ParseException e) {
+            e.printStackTrace();
+            // TODO: 11/11/2015 notify user for problem
+        }
     }
 
     @Override
     public void downvote(Issue issue) {
-
+        try {
+            ParseQuery<ParseIssue> query = ParseQuery.getQuery(TABLE_ISSUE);
+            ParseIssue parseIssue = query.get(issue.getParseId());
+            int downVotes = parseIssue.getDownvotes();
+            parseIssue.setDownvotes(downVotes - 1);
+            parseIssue.save();
+        } catch (ParseException e) {
+            e.printStackTrace();
+            // TODO: 11/11/2015 notify user for problem
+        }
     }
 
     @Override

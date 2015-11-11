@@ -56,7 +56,15 @@ public class ParseIssue extends BaseParseObject {
         put("upvotes", upvotes);
     }
 
+    public int getUpvotes() {
+        return getInt("upvotes");
+    }
+
     public void setDownvotes(int downvotes) {
         put("downvotes", downvotes);
+    }
+
+    public int getDownvotes() {
+        return getInt("downvotes");
     }
 }
