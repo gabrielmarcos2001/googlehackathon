@@ -32,7 +32,7 @@ public final class ImageUtils {
             case PulseContract.IssueCategory.Values.SAFETY:
                 return R.drawable.ambulance;
             default:
-                return R.drawable.ic_help_outline_black_48dp;
+                return -1;
         }
     }
 
