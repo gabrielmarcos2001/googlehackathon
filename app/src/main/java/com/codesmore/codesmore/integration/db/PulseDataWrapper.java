@@ -1,6 +1,8 @@
 package com.codesmore.codesmore.integration.db;
 
 import android.content.ContentResolver;
+
+import com.codesmore.codesmore.integration.backend.WebService;
 import com.codesmore.codesmore.model.DataWrapper;
 import com.codesmore.codesmore.model.pojo.Account;
 import com.codesmore.codesmore.model.pojo.Category;
@@ -8,10 +10,17 @@ import com.codesmore.codesmore.model.pojo.Issue;
 
 import java.util.List;
 
+import rx.Observable;
+import rx.Subscriber;
+
 public class PulseDataWrapper implements DataWrapper {
 
-    private DataWrapper mWebService;
-    private DataWrapper localDataWrapper;
+    private WebService mWebService;
+    private LocalDataWrapper localDataWrapper;
+
+    public PulseDataWrapper() {
+        mWebService = new WebService();
+    }
 
     /**
      * One-argument constructor.
@@ -25,25 +34,39 @@ public class PulseDataWrapper implements DataWrapper {
      * Two-argument constructor.
      * @param localDataWrapper to place calls to local
      */
-    public PulseDataWrapper(DataWrapper localDataWrapper){
-        super();
+    public PulseDataWrapper(LocalDataWrapper localDataWrapper){
         this.localDataWrapper = localDataWrapper;
+        this.mWebService = new WebService();
     }
 
     @Override
-    public List<Category> getCategories() {
-        return localDataWrapper.getCategories();
+    public Observable<List<Category>> getCategories() {
+        return Observable.create(new Observable.OnSubscribe<List<Category>>() {
+            @Override
+            public void call(Subscriber<? super List<Category>> subscriber) {
+                subscriber.onNext(mWebService.getCategories());
+            }
+        });
     }
 
-
     @Override
-    public List<Issue> getResolvedIssues(double lat, double lon) {
-        return localDataWrapper.getResolvedIssues(lat, lon);
+    public Observable<List<Issue>> getResolvedIssues(final double lat, final double lon) {
+        return Observable.create(new Observable.OnSubscribe<List<Issue>>() {
+            @Override
+            public void call(Subscriber<? super List<Issue>> subscriber) {
+                subscriber.onNext(mWebService.getResolvedIssues(lat, lon));
+            }
+        });
     }
 
     @Override
-    public List<Issue> getUnresolvedIssues(double lat, double lon) {
-        return localDataWrapper.getUnresolvedIssues(lat, lon);
+    public Observable<List<Issue>> getUnresolvedIssues(final double lat, final double lon) {
+        return Observable.create(new Observable.OnSubscribe<List<Issue>>() {
+            @Override
+            public void call(Subscriber<? super List<Issue>> subscriber) {
+                subscriber.onNext(mWebService.getUnresolvedIssues(lat, lon));
+            }
+        });
     }
 
     @Override
@@ -72,13 +95,13 @@ public class PulseDataWrapper implements DataWrapper {
     }
 
     @Override
-    public void upvote(Issue issue, Account upvoter) {
-        localDataWrapper.upvote(issue, upvoter);
+    public void upVote(Issue issue, Account upvoter) {
+        mWebService.upVote(issue, upvoter);
     }
 
     @Override
-    public void downvote(Issue issue) {
-        localDataWrapper.downvote(issue);
+    public void downVote(Issue issue) {
+        mWebService.downVote(issue);
     }
 
     @Override

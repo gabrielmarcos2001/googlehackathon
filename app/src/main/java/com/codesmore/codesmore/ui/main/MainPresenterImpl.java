@@ -1,15 +1,16 @@
 package com.codesmore.codesmore.ui.main;
 
-import android.content.ContentResolver;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.codesmore.codesmore.integration.db.PulseDataWrapper;
 import com.codesmore.codesmore.model.DataWrapper;
 import com.codesmore.codesmore.model.pojo.Issue;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by gabrielmarcos on 11/10/15.
@@ -32,7 +33,7 @@ public class MainPresenterImpl implements MainPresenter {
             @Override
             public void run() {
 
-                mWrapper.downvote(issue);
+                mWrapper.downVote(issue);
 
                 Handler mainHandler = new Handler(Looper.getMainLooper());
 
@@ -50,21 +51,6 @@ public class MainPresenterImpl implements MainPresenter {
 
             }
         });
-
-        /*
-        mWrapper.upvote(issue, null);
-
-        final Handler fakeData = new Handler();
-        fakeData.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (mView != null) {
-                    mView.onIssueUpVoted(issue);
-                }
-
-            }
-        }, 500);
-        */
     }
 
     @Override
@@ -74,7 +60,7 @@ public class MainPresenterImpl implements MainPresenter {
             @Override
             public void run() {
 
-                mWrapper.downvote(issue);
+                mWrapper.downVote(issue);
 
                 Handler mainHandler = new Handler(Looper.getMainLooper());
 
@@ -95,7 +81,7 @@ public class MainPresenterImpl implements MainPresenter {
 
         t.start();
         /*
-        mWrapper.downvote(issue);
+        mWrapper.downVote(issue);
 
         final Handler fakeData = new Handler();
         fakeData.postDelayed(new Runnable() {
@@ -118,108 +104,28 @@ public class MainPresenterImpl implements MainPresenter {
         this.mView = view;
 
         if (mView != null) {
-
-            Thread t = new Thread(new Runnable() {
-                @Override
-                public void run() {
-
-                    final List<Issue> issues = mWrapper.getUnresolvedIssues(0,0);
-
-                    Handler mainHandler = new Handler(Looper.getMainLooper());
-
-                    Runnable myRunnable = new Runnable() {
-                        @Override
-                        public void run() {
-
-                            if (mView != null) {
-                                mView.showIssues(issues);
-                            }
-                        }
-                    };
-
-                    mainHandler.post(myRunnable);
-
-                }
-            });
-
-            t.start();
-
-            /*
-            final Handler fakeData = new Handler();
-            fakeData.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-
-                    List<Issue> mItems = new ArrayList<>();
-
-                    Issue i1 = new Issue(null,"Description 1");
-                    i1.setTitle("Issue 1");
-                    i1.setPriority(90);
-
-                    Issue i2 = new Issue(null,"Description 2");
-                    i2.setTitle("Issue 2");
-                    i2.setPriority(20);
-
-                    Issue i3 = new Issue(null,"Description 3");
-                    i3.setTitle("Issue 3");
-                    i3.setPriority(60);
-
-                    Issue i4 = new Issue(null,"Description 4");
-                    i4.setTitle("Issue 4");
-                    i4.setPriority(120);
-
-                    Issue i5 = new Issue(null,"Description 5");
-                    i5.setTitle("Issue 5");
-                    i5.setPriority(170);
-
-                    Issue i6 = new Issue(null,"Description 6");
-                    i6.setTitle("Issue 6");
-                    i6.setPriority(15);
-
-                    mItems.add(i1);
-                    mItems.add(i2);
-                    mItems.add(i3);
-                    mItems.add(i4);
-                    mItems.add(i5);
-                    mItems.add(i6);
-
-                    if (mView != null) {
-                        mView.showIssues(mItems);
-                    }
-
-                }
-            }, 5000);
-            */
-
+            refreshIssues();
         }
     }
 
     @Override
     public void refreshIssues() {
-
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-                final List<Issue> issues = mWrapper.getUnresolvedIssues(0,0);
-
-                Handler mainHandler = new Handler(Looper.getMainLooper());
-
-                Runnable myRunnable = new Runnable() {
+        mWrapper.getUnresolvedIssues(0, 0)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<List<Issue>>() {
                     @Override
-                    public void run() {
-
-                        if (mView != null) {
-                            mView.showIssues(issues);
-                        }
+                    public void onCompleted() {
                     }
-                };
 
-                mainHandler.post(myRunnable);
+                    @Override
+                    public void onError(Throwable e) {
+                    }
 
-            }
-        });
-
-        t.start();
+                    @Override
+                    public void onNext(List<Issue> issues) {
+                        mView.showIssues(issues);
+                    }
+                });
     }
 }
