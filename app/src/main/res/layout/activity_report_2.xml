@@ -88,7 +88,8 @@
                            android:layout_width="fill_parent"
                            android:layout_height="wrap_content"
                            android:src="@drawable/water"
-                           android:scaleType="fitCenter"/>
+                           android:scaleType="fitCenter"
+                           android:background="@drawable/filled_circle"/>
 
                        <TextView
                            android:layout_width="wrap_content"
