@@ -166,19 +166,19 @@ public class ReportActivity extends BaseActivityWithImageSaving implements Repor
         resetCategoryBackgrounds();
         switch (i){
             case 1:
-                mCategory1.setBackgroundColor(Color.RED);
+                mCategory1.setBackgroundResource(R.drawable.filled_circle);
                 break;
 
             case 2:
-                mCategory2.setBackgroundColor(Color.RED);
+                mCategory2.setBackgroundResource(R.drawable.filled_circle);
                 break;
 
             case 3:
-                mCategory3.setBackgroundColor(Color.RED);
+                mCategory3.setBackgroundResource(R.drawable.filled_circle);
                 break;
 
             case 4:
-                mCategory4.setBackgroundColor(Color.RED);
+                mCategory4.setBackgroundResource(R.drawable.filled_circle);
                 break;
 
         }

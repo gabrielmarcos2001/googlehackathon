@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.codesmore.codesmore.R;
 import com.codesmore.codesmore.model.pojo.Issue;
+import com.codesmore.codesmore.utils.ImageUtils;
 
 import java.security.spec.ECField;
 import java.util.ArrayList;
@@ -91,6 +92,12 @@ public class GenericIssueAdapter extends RecyclerView.Adapter<GenericIssueAdapte
             holder.issue = issue;
         }catch (Exception e){
 
+        }
+        try {
+            holder.issueIcon.setImageResource(ImageUtils.getDrawableId(issue.getCategory()));
+        } catch (Exception e) {
+            // holder.issueDescription.setText("NULL");
+            e.printStackTrace();
         }
     }
 
