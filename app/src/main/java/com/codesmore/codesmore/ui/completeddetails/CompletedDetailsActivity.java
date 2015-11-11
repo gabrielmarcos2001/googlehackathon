@@ -2,12 +2,13 @@ package com.codesmore.codesmore.ui.completeddetails;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codesmore.codesmore.BaseActivity;
 import com.codesmore.codesmore.R;
-import com.codesmore.codesmore.integration.db.PulseDataWrapper;
+import com.codesmore.codesmore.integration.backend.WebService;
 import com.codesmore.codesmore.model.pojo.Issue;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -19,9 +20,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class CompletedDetailsActivity extends BaseActivity implements
-        CompletedDetailsView, OnMapReadyCallback {
+public class CompletedDetailsActivity extends BaseActivity implements CompletedDetailsView, OnMapReadyCallback {
 
+    private static final String LOG_TAG = CompletedDetailsActivity.class.getSimpleName();
     private CompletedDetailsPresenter mPresenter;
     private GoogleMap mMap;
 
@@ -68,7 +69,7 @@ public class CompletedDetailsActivity extends BaseActivity implements
         String issueParseId = null;
 
         issueParseId = intent.getStringExtra("PASSEDISSUE");
-        mPresenter = new CompletedDetailsPresenterImpl(this, new PulseDataWrapper(getContentResolver()));
+        mPresenter = new CompletedDetailsPresenterImpl(this, new WebService());
 
         if (issueParseId != null) {
             loadIssue(issueParseId);
@@ -96,19 +97,45 @@ public class CompletedDetailsActivity extends BaseActivity implements
         LatLng mtnView = new LatLng(37.3861111, -122.0827778);
         mMap.addMarker(new MarkerOptions().position(mtnView).title("Marker in Mountain View"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(mtnView));
-        mMap.moveCamera(CameraUpdateFactory.zoomTo(12));
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(14));
     }
 
     @Override
     public void onIssueLoaded(Issue resolvedIssue) {
-        mIssueTitle.setText(resolvedIssue.getTitle());
-        mIssueDescription.setText(resolvedIssue.getDescription());
-        mIssueLatitude.setText(Double.toString(resolvedIssue.getLatitude()));
-        mIssueLongitude.setText(Double.toString(resolvedIssue.getLongtitude()));
-        mIssueCreateDate.setText(resolvedIssue.getCreateDate().toString());
-        mIssueFixedDate.setText(resolvedIssue.getFixedDate().toString());
-        mIssueUpVotes.setText(resolvedIssue.getUpvotes());
-        mIssueDownVotes.setText(resolvedIssue.getDownvotes());
-        mIssuePicture.setImageBitmap(resolvedIssue.getImage());
+        if (resolvedIssue != null) {
+            mIssueTitle.setText(resolvedIssue.getTitle());
+            mIssueDescription.setText(resolvedIssue.getDescription());
+            mIssueLatitude.setText(Double.toString(resolvedIssue.getLatitude()));
+            mIssueLongitude.setText(Double.toString(resolvedIssue.getLongtitude()));
+
+            String createDate = "";
+            if (resolvedIssue.getCreateDate() != null) {
+                createDate = resolvedIssue.getCreateDate().toString();
+            }
+            mIssueCreateDate.setText(createDate);
+
+            String fixedDate = "";
+            if (resolvedIssue.getFixedDate() != null) {
+                fixedDate = resolvedIssue.getFixedDate().toString();
+            }
+            mIssueFixedDate.setText(fixedDate);
+
+            String upVotes = "";
+            try {
+                upVotes = Integer.toString(resolvedIssue.getUpvotes());
+            } catch (Exception e) {
+                Log.v(LOG_TAG, e.toString());
+            }
+            mIssueUpVotes.setText(upVotes);
+
+            String downVotes = "";
+            try {
+                downVotes = Integer.toString(resolvedIssue.getDownvotes());
+            } catch (Exception e) {
+                Log.v(LOG_TAG, e.toString());
+            }
+            mIssueDownVotes.setText(downVotes);
+            mIssuePicture.setImageBitmap(resolvedIssue.getImage());
+        }
     }
 }
