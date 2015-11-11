@@ -107,6 +107,13 @@ public class PulseContract {
                     .appendPath(Long.toString(upvoterId))
                     .build();
             }
+
+            public static Uri buildForIssueId(long issueId) {
+                return Issue.CONTENT_URI
+                        .buildUpon()
+                        .appendPath(String.valueOf(issueId))
+                        .build();
+            }
         }
     }
 

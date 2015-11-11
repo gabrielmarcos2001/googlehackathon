@@ -244,7 +244,7 @@ public class PulseContentProvider extends ContentProvider {
             case MatchCodes.ISSUE:
                 long issueId = db.insert(PulseContract.Issue.TABLE_NAME, null, values);
                 if (issueId > 0) {
-                    return PulseContract.Issue.Builders.buildForParseIssueId(issueId);
+                    return PulseContract.Issue.Builders.buildForIssueId(issueId);
                 }
 
             case MatchCodes.ACCOUNT:

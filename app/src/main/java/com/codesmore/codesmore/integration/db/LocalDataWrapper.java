@@ -231,7 +231,7 @@ public class LocalDataWrapper implements DataWrapper {
         issue.setUpvotes(issue.getUpvotes() + 1);
         ContentValues issueValues = issueConverter.convert(issue);
         contentResolver.update(
-            PulseContract.Issue.Builders.buildForParseIssueId(issue.getId()),
+            PulseContract.Issue.Builders.buildForParseIssueId(issue.getParseId()),
             issueValues,
             null,
             null
@@ -258,7 +258,7 @@ public class LocalDataWrapper implements DataWrapper {
         ContentValues issueValues = issueConverter.convert(issue);
 
         contentResolver.update(
-            PulseContract.Issue.Builders.buildForParseIssueId(issue.getId()),
+            PulseContract.Issue.Builders.buildForParseIssueId(issue.getParseId()),
             issueValues,
             null,
             null
@@ -275,7 +275,7 @@ public class LocalDataWrapper implements DataWrapper {
         ContentValues values = issueConverter.convert(issue);
 
         contentResolver.update(
-                PulseContract.Issue.Builders.buildForParseIssueId(issue.getId()),
+                PulseContract.Issue.Builders.buildForParseIssueId(issue.getParseId()),
                 values,
                 null,
                 null
@@ -286,7 +286,7 @@ public class LocalDataWrapper implements DataWrapper {
     public void updateIssue(Issue issue) {
         ContentValues issueValues = issueConverter.convert(issue);
         contentResolver.update(
-            PulseContract.Issue.Builders.buildForParseIssueId(issue.getId()),
+            PulseContract.Issue.Builders.buildForParseIssueId(issue.getParseId()),
             issueValues,
             null,
             null
