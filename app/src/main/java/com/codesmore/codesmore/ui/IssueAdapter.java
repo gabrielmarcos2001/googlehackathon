@@ -44,12 +44,38 @@ public class IssueAdapter extends RecyclerView.Adapter<IssueAdapter.IssueHolder>
         Issue issue = mData.get(position);
 
         //TODO: holder.issueIcon.setImageDrawable();
-        holder.issueDescription.setText(issue.getDescription());
-        holder.issueResolvedDate.setText("Resolved: " + issue.getFixedDate().toString());
-        holder.issueTitle.setText(issue.getTitle());
-        holder.downVotes.setText(issue.getDownvotes());
-        holder.upVotes.setText(issue.getUpvotes());
-        holder.productId = issue.getId();
+
+        try {
+            holder.issueDescription.setText(issue.getDescription());
+        } catch (Exception e) {
+            holder.issueDescription.setText("NULL");
+            e.printStackTrace();
+        }
+        //holder.issueResolvedDate.setText("Resolved: " + issue.getFixedDate().toString());
+        try {
+            holder.issueTitle.setText(issue.getTitle());
+        } catch (Exception e) {
+            holder.issueTitle.setText("NULL");
+            e.printStackTrace();
+        }
+        try {
+            holder.downVotes.setText(issue.getDownvotes());
+        } catch (Exception e) {
+            holder.downVotes.setText("NULL");
+            e.printStackTrace();
+        }
+        try {
+            holder.upVotes.setText(issue.getUpvotes());
+        } catch (Exception e) {
+            holder.upVotes.setText("NULL");
+            e.printStackTrace();
+        }
+        try {
+            holder.productId = issue.getId();
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
     }
 
     @Override
