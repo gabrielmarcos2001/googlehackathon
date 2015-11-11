@@ -77,6 +77,9 @@ public class PulseContract {
 
             public static String BY_RESOLVED_STATUS =
                 Issue.TABLE_NAME + "." + Columns.FIXED_IND + " = ?";
+
+            public static String BY_UNRESOLVED_STATUS =
+                Issue.TABLE_NAME + "." + Columns.FIXED_IND + " = ?";
         }
 
         public static class Builders {

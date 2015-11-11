@@ -4,11 +4,8 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.database.Cursor;
 
-
-import com.codesmore.codesmore.model.DataFetchedListener;
-
 import com.codesmore.codesmore.integration.converter.Converter;
-
+import com.codesmore.codesmore.model.DataFetchedListener;
 import com.codesmore.codesmore.model.DataWrapper;
 import com.codesmore.codesmore.model.pojo.Account;
 import com.codesmore.codesmore.model.pojo.Category;
@@ -16,7 +13,6 @@ import com.codesmore.codesmore.model.pojo.Issue;
 import com.codesmore.codesmore.model.pojo.Upvote;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -97,7 +93,24 @@ public class LocalDataWrapper implements DataWrapper {
 
     @Override
     public List<Issue> getUnresolvedIssues(double lat, double lon) {
-        return Collections.emptyList();
+        Cursor cursor = contentResolver.query(
+            PulseContract.Issue.CONTENT_URI,
+            null,
+            PulseContract.Issue.Constraints.BY_UNRESOLVED_STATUS,
+            new String[] { Integer.toString(0) },
+            PulseContract.Issue.TABLE_NAME + "." + PulseContract.Issue.Columns.UPVOTES + " DESC"
+        );
+
+        List<Issue> issues = new ArrayList<>();
+        if (cursor != null){
+            while(cursor.moveToNext()){
+                ContentValues values = issueConverter.convert(cursor);
+                Issue issue = issueConverter.convert(values);
+                issues.add(issue);
+            }
+        }
+
+        return issues;
     }
 
     @Override
