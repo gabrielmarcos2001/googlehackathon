@@ -82,4 +82,6 @@
     <color name = "clouds_dark">#eaeaea</color>
     <color name = "clouds_darker">#d4d4d4</color>
 
+    <color name="trans">#00000000 </color>
+
 </resources>

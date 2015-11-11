@@ -50,6 +50,9 @@ public class Issue {
     private Date fixedDate;
     private String parseId;
 
+    private boolean isInteractedWith;
+
+
     public Long getId(){
         return id;
     }
@@ -186,5 +189,13 @@ public class Issue {
 
     public void setParseId(String parseId) {
         this.parseId = parseId;
+    }
+
+    public boolean isInteractedWith() {
+        return isInteractedWith;
+    }
+
+    public void setIsInteractedWith(boolean isInteractedWith) {
+        this.isInteractedWith = isInteractedWith;
     }
 }
