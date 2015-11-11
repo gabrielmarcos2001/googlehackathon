@@ -89,6 +89,14 @@ public class WebService implements DataWrapper {
 
     @Override
     public Issue getIssue(String id) {
+        try {
+            ParseQuery<ParseIssue> query = ParseQuery.getQuery(TABLE_ISSUE);
+            ParseIssue parseIssue = query.get(id);
+            return new Issue(parseIssue);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            // TODO: 11/11/2015 notify user for problem
+        }
         return null;
     }
 
