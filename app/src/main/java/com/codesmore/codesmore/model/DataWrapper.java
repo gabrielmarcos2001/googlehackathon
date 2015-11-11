@@ -22,6 +22,12 @@ public interface DataWrapper {
     Category getCategory(Long id);
     void upvote(Issue issue, Account upvoter);
     void downvote(Issue issue);
-    List<Issue> getCreatedOrUpvotedIssuesFor(Account owner);            // created or upvoted
+    List<Issue> getCreatedOrUpvotedIssuesFor(Account owner);
     void resolveIssue(Issue issue, Account resolver);
+
+    /*  The following two methods are needed in order to update category and issue objects with
+     * their parse ids.
+     */
+    void updateIssue(Issue issue);
+    void updateCategory(Category category);
 }

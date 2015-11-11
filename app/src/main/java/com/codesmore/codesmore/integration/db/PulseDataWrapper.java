@@ -88,4 +88,14 @@ public class PulseDataWrapper implements DataWrapper {
     public void resolveIssue(Issue issue, Account resolver) {
         localDataWrapper.resolveIssue(issue, resolver);
     }
+
+    @Override
+    public void updateIssue(Issue issue) {
+        localDataWrapper.updateIssue(issue);
+    }
+
+    @Override
+    public void updateCategory(Category category) {
+        localDataWrapper.updateCategory(category);
+    }
 }
